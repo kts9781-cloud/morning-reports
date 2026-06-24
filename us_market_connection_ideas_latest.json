@@ -1,0 +1,27 @@
+{
+  "date": "2026-06-25",
+  "report_file": "us_market_korea_impact_20260625.html",
+  "ideas": [
+    {
+      "name": "SK하이닉스",
+      "ticker": "000660.KS",
+      "theme": "Micron 실적/AI 메모리/HBM",
+      "reason": "Micron 실적과 메모리 가격 강세, AI 서버용 HBM 수요 기대가 직접 비교 대상입니다.",
+      "checkpoint": "외국인 순매수, HBM 가격/공급 뉴스, 원/달러 방향"
+    },
+    {
+      "name": "삼성전자",
+      "ticker": "005930.KS",
+      "theme": "메모리 업황 회복/대형 반도체",
+      "reason": "메모리 업황 회복 기대와 대형주 수급의 대표 프록시입니다.",
+      "checkpoint": "엔비디아/고객사 인증 뉴스, DRAM·NAND 가격 지표, 기관 수급"
+    },
+    {
+      "name": "삼성바이오로직스",
+      "ticker": "207940.KS",
+      "theme": "미국 바이오 ETF 강세/방어적 성장주",
+      "reason": "미국 바이오 ETF 강세와 방어적 성장주 선호가 국내 대형 바이오에 우호적으로 작용할 수 있습니다.",
+      "checkpoint": "CDMO 수주 뉴스, 환율 효과, 코스피 대형 성장주 로테이션"
+    }
+  ]
+}
