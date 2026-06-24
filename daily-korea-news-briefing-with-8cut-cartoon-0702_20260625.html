@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>아침 국내 뉴스 브리핑 — 2026-06-25</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --ink: #182230;
+      --muted: #667085;
+      --line: #e4e7ec;
+      --blue: #175cd3;
+      --blue-dark: #124aa8;
+      --soft-blue: #eff6ff;
+      --green: #067647;
+      --amber: #b54708;
+      --shadow: 0 8px 24px rgba(16, 24, 40, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 38%, #ffffff 100%);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 22px 14px 42px;
+    }
+    header {
+      background: linear-gradient(135deg, #0b3b8f, #1d70f5);
+      color: #fff;
+      border-radius: 24px;
+      padding: 26px 22px;
+      box-shadow: var(--shadow);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.16);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(27px, 6vw, 40px);
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+    }
+    .meta { margin: 0; color: rgba(255,255,255,0.86); font-size: 14px; }
+    section { margin-top: 18px; }
+    .box, .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+    .box { padding: 18px; }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 21px;
+      letter-spacing: -0.03em;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .summary-grid li {
+      padding: 12px 13px;
+      background: var(--soft-blue);
+      border-radius: 14px;
+      color: #12305f;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .card {
+      padding: 18px;
+      margin-top: 13px;
+    }
+    .rank {
+      display: inline-block;
+      min-width: 30px;
+      height: 30px;
+      padding-top: 4px;
+      text-align: center;
+      border-radius: 10px;
+      background: #101828;
+      color: #fff;
+      font-weight: 800;
+      margin-right: 8px;
+    }
+    .headline {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+    .headline h3 {
+      margin: 2px 0 0;
+      font-size: 19px;
+      line-height: 1.32;
+      letter-spacing: -0.03em;
+    }
+    .row {
+      margin: 8px 0;
+      padding: 11px 12px;
+      border-radius: 14px;
+      background: #f9fafb;
+    }
+    .label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+    .impact .label { color: var(--amber); }
+    .summary .label { color: var(--green); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      margin-top: 12px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .btn:hover { background: var(--blue-dark); }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f2f4f7; color: #344054; font-weight: 800; }
+    tr:last-child td { border-bottom: 0; }
+    .cartoon {
+      width: 100%;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      display: block;
+      background: #fff;
+    }
+    .note {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 10px 0 0;
+    }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 22px;
+    }
+    @media (max-width: 520px) {
+      .wrap { padding: 14px 10px 32px; }
+      header { border-radius: 20px; padding: 22px 18px; }
+      .box, .card { border-radius: 18px; padding: 15px; }
+      .headline h3 { font-size: 18px; }
+      th, td { padding: 10px 8px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="eyebrow">🇰🇷 국내 주요 뉴스</div>
+      <h1>아침 국내 뉴스 브리핑</h1>
+      <p class="meta">2026-06-25 · 오전 7시 2분 기준 · 국내 뉴스 5개와 8컷 만평</p>
+    </header>
+
+    <section class="box">
+      <h2>핵심 요약</h2>
+      <ul class="summary-grid">
+        <li>정치·사법 쟁점은 종교단체 당원 가입 의혹, 여당 지도부 경쟁, 선거관리 수사로 모였습니다.</li>
+        <li>국방 현장에서는 연평부대 장병 이동비와 병역 제도 개편 논의가 부각됐습니다.</li>
+        <li>금융범죄 대응은 대포통장 공급망 차단 방식이 주요 비교 지점으로 떠올랐습니다.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>국내 주요 뉴스 5개</h2>
+
+      <article class="card">
+        <div class="headline"><span class="rank">1</span><h3>신천지 이만희 구속</h3></div>
+        <div class="row summary"><span class="label">📝 내용요약</span>교인들에게 특정 정당 입당을 강요했다는 혐의로 이만희 총회장이 구속됐고, 법원은 증거인멸 우려를 언급했습니다.</div>
+        <div class="row impact"><span class="label">🔮 예상여파</span>종교단체의 정치 관여 의혹 수사가 확대될 가능성이 있고, 정치권 공방도 이어질 전망입니다.</div>
+        <a class="btn" href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTFAxbmhCbkw2UGNmTmZCWEVkYkhXelRHakZWWXpiZFNOalo4THJ1djE1YW9XWWlQeXRxQTNEU3VJcGFVQ2VUNTMxOE5Rd2wtRGhzczM4bFJ5cklpZG13MnRoYjUzb2trWUk?oc=5" target="_blank" rel="noopener noreferrer">기사보기</a>
+      </article>
+
+      <article class="card">
+        <div class="headline"><span class="rank">2</span><h3>정청래 연임 도전 논란</h3></div>
+        <div class="row summary"><span class="label">📝 내용요약</span>정청래 의원이 당내 대표직 연임 도전 수순에 들어가며 친명계와 당내 주도권 경쟁이 쟁점이 됐습니다.</div>
+        <div class="row impact"><span class="label">🔮 예상여파</span>지도부 선거 구도가 흔들리며 여권 내부 노선과 인적 재편 논의가 빨라질 수 있습니다.</div>
+        <a class="btn" href="https://news.google.com/rss/articles/CBMidEFVX3lxTE1fb0pKY0VaTmtOa0wwUUs2Q2tpMEphd2hYbWZnY081cW5nX2h3Tmh6ZzJvXzc0Y3hPWFBDWDZSTXpZLUlucXFTSHYyYWVNcUpnV1FuSWpBblZkZHJpYVpnajQ5ZUNYMXFLNmNpVlFfZEZIM1Bn?oc=5" target="_blank" rel="noopener noreferrer">기사보기</a>
+      </article>
+
+      <article class="card">
+        <div class="headline"><span class="rank">3</span><h3>연평부대 장병 뱃삯 문제</h3></div>
+        <div class="row summary"><span class="label">📝 내용요약</span>대통령이 연평부대 장병들의 높은 뱃삯 부담을 언급하며 해결을 요청했고, 군 복무 여건 개선도 거론했습니다.</div>
+        <div class="row impact"><span class="label">🔮 예상여파</span>접경·도서 지역 장병 지원책과 선택적 모병제 논의가 국방 의제로 더 부상할 가능성이 있습니다.</div>
+        <a class="btn" href="https://news.google.com/rss/articles/CBMiWkFVX3lxTE9qX2xEWXlVZEFkUnRBX2xpOFFRWmdJWW1nU1N5Uk4xQksxTWN0bnV1dktkcmF2b2dRXzJKYkJKVHlMYXNQMFV6VGpXaW5BOFNEWjVuU3hZTDhCZ9IBX0FVX3lxTE85REJvX3pUbjUtRkxOMWZzRG1keDd0N0FOQkp3cGVXclVhR2dWcTVUaldHS1BQYzQyRzhrUmgtMElwd1EzMXlkZ0FLUVdPX0Q3OTB5QUd3aEM4ZXpRRFVz?oc=5" target="_blank" rel="noopener noreferrer">기사보기</a>
+      </article>
+
+      <article class="card">
+        <div class="headline"><span class="rank">4</span><h3>대포통장 대응 방식 논쟁</h3></div>
+        <div class="row summary"><span class="label">📝 내용요약</span>영국의 대포통장 공급망 차단 사례와 한국의 사후 대응 방식이 비교되며 금융범죄 대응 문제가 제기됐습니다.</div>
+        <div class="row impact"><span class="label">🔮 예상여파</span>계좌 개설·유통 단계의 예방 규제와 수사 공조 강화 요구가 커질 수 있습니다.</div>
+        <a class="btn" href="https://news.google.com/rss/articles/CBMidkFVX3lxTFA2SlFqMDBRUFpXNkEyU2FGcXlZWkc0VzZWcm9hMS1xYU5LcFV5WEJUWW9Uenc1SmxFX1JNWTVuTHE1Q3p6VEVUdzc2QzhJdmFDb2RENHlvbnpTREExakYwQTFYLWtKR2RnMFFaSV9yOWttX09EUlHSAWZBVV95cUxPNEZSUk1qREZNeU04RUxYWEVMaTlpcDRYeTlLdXpkTjZ3ZXQ3blRHVEVpYmcxUEp2RWhpU25DYlZnbXlVSC1SblJqb2JwNER5OE5zZVJHUldpREpOUnFZU0RBN3hEdUE?oc=5" target="_blank" rel="noopener noreferrer">기사보기</a>
+      </article>
+
+      <article class="card">
+        <div class="headline"><span class="rank">5</span><h3>선관위 관계자 압수수색</h3></div>
+        <div class="row summary"><span class="label">📝 내용요약</span>투표용지 관련 합동수사본부가 선거관리위원회 관계자 12명에 대해 압수수색을 진행했습니다.</div>
+        <div class="row impact"><span class="label">🔮 예상여파</span>선거관리 절차와 현장 대응의 적정성을 둘러싼 조사와 정치적 논쟁이 계속될 전망입니다.</div>
+        <a class="btn" href="https://news.google.com/rss/articles/CBMihwFBVV95cUxNR1QxcGNGR3RuVEV4MS11dUdyWFlLdzNGbGxSQXc2Q2NjNndRdktMaHVsUFM1NEkxTXhUbjR0V1BDSnJ4VlR0MDVicHdobFlWckhYV2VyRzhFTmh4WFcwa1lONUJfRDFiNHZLSV9wRHVWcjdtUzFBQWdIaTBPYmNTRzBYOFdqZDg?oc=5" target="_blank" rel="noopener noreferrer">기사보기</a>
+      </article>
+    </section>
+
+    <section class="box">
+      <h2>오늘의 체크 포인트</h2>
+      <table>
+        <thead><tr><th>분야</th><th>볼 포인트</th></tr></thead>
+        <tbody>
+          <tr><td>정치·사법</td><td>당원 가입 의혹 수사 범위와 여당 지도부 경쟁의 확산 여부</td></tr>
+          <tr><td>국방</td><td>도서 지역 장병 이동비 지원과 병역 제도 개선 논의</td></tr>
+          <tr><td>사회·금융</td><td>대포통장 예방 규제와 선거관리 절차 점검 강화 가능성</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="box">
+      <h2>국내 뉴스 8컷 만평</h2>
+      <img class="cartoon" src="korea-cartoon-20260625.png" alt="국내 뉴스 8컷 만평">
+      <p class="note">실제 인물·정당 로고·언론사명 없이 오늘의 국내 이슈를 상징적으로 구성했습니다.</p>
+    </section>
+
+    <footer>이 보고서는 제공된 국내 뉴스 JSON을 바탕으로 자동 작성되었습니다.</footer>
+  </main>
+</body>
+</html>

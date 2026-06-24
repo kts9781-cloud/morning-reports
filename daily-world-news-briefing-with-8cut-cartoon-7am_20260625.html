@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>아침 세계 뉴스 브리핑 · 2026-06-25</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --ink: #172033;
+      --muted: #687386;
+      --line: #e5eaf2;
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --soft-blue: #eaf1ff;
+      --amber: #fff7df;
+      --shadow: 0 10px 30px rgba(15, 23, 42, .08);
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top left, #eaf1ff 0, #f5f7fb 42%, #f8fafc 100%);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+      line-height: 1.62;
+      word-break: keep-all;
+    }
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 22px 14px 36px;
+    }
+    .hero {
+      background: linear-gradient(135deg, #15377c 0%, #2563eb 58%, #60a5fa 100%);
+      color: white;
+      border-radius: 28px;
+      padding: 28px 22px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+    .hero:after {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      right: -70px;
+      top: -50px;
+      background: rgba(255,255,255,.13);
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: 13px;
+      letter-spacing: .08em;
+      opacity: .9;
+      font-weight: 700;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 8vw, 42px);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+    }
+    .date {
+      margin: 14px 0 0;
+      font-size: 15px;
+      opacity: .92;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 26px 4px 12px;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+    .summary {
+      background: var(--amber);
+      border: 1px solid #fde68a;
+      border-radius: var(--radius);
+      padding: 17px 18px;
+      margin-top: 16px;
+      box-shadow: 0 8px 20px rgba(146, 64, 14, .06);
+    }
+    .summary strong { display: block; margin-bottom: 6px; }
+    .summary ul { margin: 8px 0 0; padding-left: 20px; }
+    .summary li { margin: 4px 0; }
+    .grid { display: grid; gap: 14px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .card-head {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+    .num {
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      border-radius: 11px;
+      background: var(--soft-blue);
+      color: var(--blue-dark);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+    }
+    h2 {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.32;
+      letter-spacing: -0.03em;
+    }
+    .meta {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 3px;
+    }
+    .label {
+      font-weight: 800;
+      color: #334155;
+    }
+    .body-row { margin: 8px 0; }
+    .btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 11px 15px;
+      border-radius: 999px;
+      background: var(--blue);
+      color: white;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14px;
+      min-width: 104px;
+      text-align: center;
+    }
+    .btn:active, .btn:hover { background: var(--blue-dark); }
+    .checklist {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+      background: white;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+    }
+    .checklist th, .checklist td {
+      padding: 12px 11px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+    .checklist th {
+      background: #eff6ff;
+      color: #1e3a8a;
+      font-size: 13px;
+    }
+    .checklist tr:last-child td { border-bottom: 0; }
+    .cartoon {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
+    .cartoon img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 18px;
+    }
+    .note {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 10px 2px 0;
+    }
+    @media (max-width: 520px) {
+      .wrap { padding: 14px 10px 28px; }
+      .hero { padding: 24px 18px; border-radius: 24px; }
+      .card { padding: 16px; border-radius: 20px; }
+      h2 { font-size: 18px; }
+      .checklist th, .checklist td { font-size: 13px; padding: 10px 8px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">MORNING WORLD BRIEFING</p>
+      <h1>아침 세계 뉴스 브리핑</h1>
+      <p class="date">2026-06-25 · 오전 7시 기준</p>
+    </section>
+
+    <section class="summary" aria-label="핵심 요약">
+      <strong>핵심 요약</strong>
+      <ul>
+        <li>이란 핵사찰·호르무즈 해협 이슈가 협상 변수로 이어지고 있습니다.</li>
+        <li>유럽은 오메가형 열돔으로 6월 폭염 기록을 잇따라 경신했습니다.</li>
+        <li>중국 항모 활동과 일본 관광 보조 논란도 지역 긴장을 키우는 흐름입니다.</li>
+      </ul>
+    </section>
+
+    <h2 class="section-title">🌍 세계 주요 뉴스</h2>
+    <section class="grid" aria-label="세계 주요 뉴스 5개">
+      <article class="card">
+        <div class="card-head">
+          <div class="num">1</div>
+          <div>
+            <h2>이란 핵사찰에 미국 조사관 동행 쟁점</h2>
+            <div class="meta">핵협상 · 사찰 범위</div>
+          </div>
+        </div>
+        <p class="body-row"><span class="label">📝 내용요약:</span> 미국 측은 이란 핵사찰에 미국인 조사관도 포함될 것이라고 밝혔지만, 이란은 최종 합의 전 접근 논의에 선을 긋고 있습니다.</p>
+        <p class="body-row"><span class="label">🔮 예상여파:</span> 사찰 방식과 권한을 둘러싼 이견이 남아 협상 속도와 합의 가능성의 핵심 변수가 될 전망입니다.</p>
+        <a class="btn" href="https://news.google.com/rss/articles/CBMib0FVX3lxTE5Xa2hoWVU4N2hkQXdiZ0F4MThOSVFZRmVQRjVMZkxNRTAwVE5KNFU5VkVDOXcwRURXMk9fSFJFcG1SS1g0NEFFdGR6MFBhcDhBU0ZXQTBjUldXdFNIQ0VNeE54dVNBTVlod05IWUR2RQ?oc=5" target="_blank" rel="noopener noreferrer">기사보기</a>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <div class="num">2</div>
+          <div>
+            <h2>유럽, 오메가 열돔에 6월 폭염 신기록</h2>
+            <div class="meta">기후 · 보건</div>
+          </div>
+        </div>
+        <p class="body-row"><span class="label">📝 내용요약:</span> 유럽 곳곳이 오메가형 열돔에 갇히며 40도를 넘는 폭염과 6월 최고기온 기록이 이어졌습니다.</p>
+        <p class="body-row"><span class="label">🔮 예상여파:</span> 냉방·전력·노동 안전 대책과 도시 폭염 대응을 둘러싼 정책 논의가 더 빨라질 가능성이 큽니다.</p>
+        <a class="btn" href="https://news.google.com/rss/articles/CBMiW0FVX3lxTE92eHFpYkEtWUhaYVdMaDhzNnpxQnhJcXE4OWdnc01najlrZWtXODJ0bk54MldMN0ZNMGRKbkhBbkQtS1NrWnAweXVQS25xd3lCampuUVhzRURhWDTSAWBBVV95cUxQWnNObmI3cHQybWtUTmF6N0xjdUM4bnZmbHJNdGphWFNkcFhVRFc2TFhqSGs2WDQ2RVNXb2hHekNNcm9uWXRpQUdWUzhUeW5YS3F3M0oyX2lfUWM0bkM0cGs?oc=5" target="_blank" rel="noopener noreferrer">기사보기</a>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <div class="num">3</div>
+          <div>
+            <h2>호르무즈 통행료 부인, 협상 변수 부상</h2>
+            <div class="meta">에너지 · 중동</div>
+          </div>
+        </div>
+        <p class="body-row"><span class="label">📝 내용요약:</span> 미국 측은 이란이 호르무즈 해협 통행료 부과 의사가 없다고 확인했다고 밝히며, 사실과 다르면 협상 종료 가능성을 언급했습니다.</p>
+        <p class="body-row"><span class="label">🔮 예상여파:</span> 원유 수송 안전과 유가 안정 기대가 커졌지만, 발언 진위와 실무회담 결과에 따라 변동성이 남아 있습니다.</p>
+        <a class="btn" href="https://news.google.com/rss/articles/CBMiWkFVX3lxTE1hcVVPQ2ZQZTNaVTlsRTlXNS1xVlZsZFltX002ZTdFc3ZDNDE4WDdSN205SW1WNnRiNEcxcUlxX1Q4UDItREEtM25vYW50UFVlZmJLU1NkaFJjQdIBX0FVX3lxTE5HOGExc1pDaldwZ3ZrQVVSSGJKRHRnZWtmYlBsYUtFOHhYUGFxcVBnLXIwUENIUTZlcURHYkc3NERBa1RnMVhWWWxlT1ItYVVtLXJTQUh0eW1oOFcxNWZn?oc=5" target="_blank" rel="noopener noreferrer">기사보기</a>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <div class="num">4</div>
+          <div>
+            <h2>중국 항모, 대만해협서 무력시위</h2>
+            <div class="meta">안보 · 대만해협</div>
+          </div>
+        </div>
+        <p class="body-row"><span class="label">📝 내용요약:</span> 중국 항공모함 전단이 대만해협 통과와 합동훈련 공개로 군사적 존재감을 확대했습니다.</p>
+        <p class="body-row"><span class="label">🔮 예상여파:</span> 대만과 주변국의 경계 수위가 높아지고, 해상·공중 우발 충돌 관리가 더 중요해질 전망입니다.</p>
+        <a class="btn" href="https://news.google.com/rss/articles/CBMiRkFVX3lxTE8tcndreERkTVZHMkV1Tk54Vl9qekZ3Mlg4SVVyckQ4MW5yVm8xNHJ1UXNWRjVRUlc1Ym5fLUNpUzgzMTZPckE?oc=5" target="_blank" rel="noopener noreferrer">기사보기</a>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <div class="num">5</div>
+          <div>
+            <h2>일본, 외국인 신칸센 지원 논란</h2>
+            <div class="meta">관광 · 재정</div>
+          </div>
+        </div>
+        <p class="body-row"><span class="label">📝 내용요약:</span> 일본에서 외국인 관광객의 신칸센 비용을 지원하는 방안을 두고 형평성과 관광 수익 논란이 제기됐습니다.</p>
+        <p class="body-row"><span class="label">🔮 예상여파:</span> 관광 활성화와 주민 부담 사이의 균형을 둘러싼 지방·중앙 정책 논쟁이 이어질 수 있습니다.</p>
+        <a class="btn" href="https://news.google.com/rss/articles/CBMicEFVX3lxTE9aM29HMmJiQi1xUFpHWFF4Vjl0MTFIVlotR0I0dTZLMjNXTVo4Q1pJdnY4Z09TcFp4eVFrNko2N0lyeXRXaXFkNGI1VVJtZV81R0NFc2ZueDBRZmhWX3Y3QU9OVDl6bEVMN1RTbG1od0E?oc=5" target="_blank" rel="noopener noreferrer">기사보기</a>
+      </article>
+    </section>
+
+    <h2 class="section-title">✅ 오늘의 관찰 포인트</h2>
+    <table class="checklist" aria-label="오늘의 관찰 포인트">
+      <thead>
+        <tr><th>분야</th><th>볼 점</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>외교</td><td>이란 핵사찰 범위와 미국·이란 실무회담 일정</td></tr>
+        <tr><td>시장</td><td>호르무즈 변수에 따른 국제유가와 해상 운송 리스크</td></tr>
+        <tr><td>기후</td><td>유럽 폭염 대응 정책과 전력 수요 관리</td></tr>
+        <tr><td>안보</td><td>대만해협 항모 활동과 주변국 대응</td></tr>
+        <tr><td>관광</td><td>일본 외국인 교통비 지원 논란의 정책화 여부</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-title">🌍 세계 뉴스 8컷 만평</h2>
+    <section class="cartoon">
+      <img src="world-cartoon-20260625.png" alt="세계 뉴스 8컷 만평">
+    </section>
+    <p class="note">※ 만평은 실제 인물·정당 로고 없이 주요 이슈를 상징적으로 재구성했습니다.</p>
+  </main>
+</body>
+</html>
