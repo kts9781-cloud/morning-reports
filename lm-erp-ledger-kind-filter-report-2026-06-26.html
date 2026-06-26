@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LM-ERP 거래선별 원장 매입/매출 필터 수정 리포트 · 2026-06-26</title>
+  <style>
+    :root{--bg:#f5f7fb;--card:#fff;--ink:#172033;--muted:#64748b;--line:#e2e8f0;--blue:#2563eb;--green:#059669;--orange:#b45309;--red:#dc2626}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif;line-height:1.62}.wrap{max-width:960px;margin:0 auto;padding:28px 18px 60px}.hero{border-radius:28px;padding:30px 26px;color:#fff;background:radial-gradient(circle at 0 0,#77a7ff 0,#2563eb 38%,#172033 100%);box-shadow:0 18px 46px rgba(30,55,120,.22)}.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.84}.hero h1{margin:8px 0 10px;font-size:34px;line-height:1.16;letter-spacing:-.04em}.hero p{margin:6px 0;opacity:.93}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.pill{border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.14);border-radius:999px;padding:7px 11px;font-size:13px;font-weight:800}.section{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:0 8px 26px rgba(15,23,42,.06)}h2{margin:0 0 14px;font-size:23px;letter-spacing:-.03em}h3{margin:18px 0 8px;font-size:18px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{border:1px solid var(--line);border-radius:18px;padding:16px;background:#fbfdff}.card b{display:block;margin-bottom:6px;font-size:16px}.card p{margin:0;color:#334155}.status{display:inline-block;border-radius:999px;padding:3px 8px;font-size:12px;font-weight:900}.ok{background:#dcfce7;color:#166534}.info{background:#dbeafe;color:#1e40af}.warn{background:#fef3c7;color:#92400e}.note{border-left:5px solid var(--blue);background:#f8fafc;border-radius:14px;padding:13px 15px;color:#26334d}ul{padding-left:20px;margin:8px 0}li{margin:5px 0}.cmd{background:#0f172a;color:#e2e8f0;border-radius:16px;padding:14px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;white-space:pre-wrap}.files{columns:2;column-gap:22px}.files li{break-inside:avoid;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:#334155}.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:18px}@media(max-width:760px){.grid{grid-template-columns:1fr}.files{columns:1}.hero h1{font-size:28px}.section{padding:18px}.wrap{padding:16px 12px 44px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <div class="kicker">LM-ERP Completion Report</div>
+    <h1>거래선별 원장 매입/매출 필터 수정</h1>
+    <p>2026-06-26 · 거래선원장에서 매입만 선택하면 매입 내역만, 매출만 선택하면 매출 내역만 조회되도록 수정했습니다.</p>
+    <div class="meta">
+      <span class="pill">화면: 거래선별 원장</span>
+      <span class="pill">Vitest: 22 passed</span>
+      <span class="pill">TypeScript: 통과</span>
+      <span class="pill">Lint: 오류 0</span>
+    </div>
+  </header>
+
+  <section class="section">
+    <h2>문제</h2>
+    <div class="note">기존의 “매입 표시 / 매출 표시” 체크박스는 데이터 필터가 아니라 컬럼 표시 토글이었습니다. 그래서 매입만 체크해도 매출 행이 남고, 매입 컬럼 기준으로 0원/형번/잔액이 표시되어 상계하지 않는 업체에서 혼동이 생겼습니다.</div>
+  </section>
+
+  <section class="section">
+    <h2>수정 결과</h2>
+    <div class="grid">
+      <div class="card"><span class="status ok">완료</span><b>매입만 보기</b><p>매입 체크만 켜면 URL이 <code>kind=purchase</code>로 바뀌고, 서버에서 매입 행만 다시 조회합니다. 잔액은 매입처 미지급 기준입니다.</p></div>
+      <div class="card"><span class="status ok">완료</span><b>매출만 보기</b><p>매출 체크만 켜면 URL이 <code>kind=sale</code>로 바뀌고, 서버에서 매출 행만 다시 조회합니다. 잔액은 매출처 미수 기준입니다.</p></div>
+      <div class="card"><span class="status ok">완료</span><b>둘 다 보기</b><p>매입/매출을 둘 다 켜면 전체 원장으로 돌아가며, 기존처럼 매출·매입을 함께 보는 순잔액 기준으로 표시합니다.</p></div>
+      <div class="card"><span class="status ok">완료</span><b>P/F 표시 유지</b><p>P/F 토글은 매출이 포함된 화면에서만 표시되도록 유지했습니다.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>구현 방식</h2>
+    <ul>
+      <li><code>LegacyTradeLedgerTable</code>의 매입/매출 체크 상태를 클라이언트 <code>useState</code>가 아니라 서버의 <code>kind</code> 쿼리 상태에서 파생하도록 변경했습니다.</li>
+      <li>체크박스 변경 시 <code>from</code>, <code>to</code>, <code>partner</code>, <code>q</code> 검색 조건은 그대로 유지하고 <code>kind</code>만 바꿔 재조회합니다.</li>
+      <li><code>kind=purchase</code>에서는 매입 행만, <code>kind=sale</code>에서는 매출 행만 나오도록 기존 서버 필터와 연결했습니다.</li>
+      <li>둘 다 꺼지는 애매한 상태는 전체 보기로 폴백하게 했습니다.</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>검증</h2>
+    <div class="cmd">npm run lint -- src/app/reports/legacy-trades/LegacyTradeLedgerTable.tsx src/app/reports/legacy-trades/page.tsx src/lib/legacyPromotedCurrentSource.test.ts
+결과: 오류 없음
+
+npx vitest run src/lib/legacyPromotedCurrentSource.test.ts
+결과: 22 tests passed
+
+npx tsc --noEmit --pretty false
+결과: TSC_CLEAN
+
+로컬 /reports/legacy-trades 응답 확인
+결과: dev 서버 응답 정상, 단 실제 데이터 클릭 검증은 로그인 리다이렉트로 제한</div>
+  </section>
+
+  <section class="section">
+    <h2>변경 파일</h2>
+    <ul class="files">
+      <li>src/app/reports/legacy-trades/LegacyTradeLedgerTable.tsx</li>
+      <li>src/app/reports/legacy-trades/page.tsx</li>
+      <li>src/lib/legacyPromotedCurrentSource.test.ts</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>운영 메모</h2>
+    <ul>
+      <li>상계하지 않는 업체는 매입/매출 원장을 분리해서 보는 것이 안전합니다.</li>
+      <li>전체 원장은 여전히 순잔액 관점이라 매출·매입·수금·지급을 함께 반영합니다.</li>
+      <li>이번 리포트는 새 파일로 생성했으며, 기존 보고서는 덮어쓰지 않았습니다.</li>
+    </ul>
+  </section>
+
+  <p class="footer">Generated by Hermes Agent · 2026-06-26 23:05 KST</p>
+</main>
+</body>
+</html>
