@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LM-ERP 거래선별 원장 체크 해제 즉시 필터 수정 · 2026-06-26</title>
+  <style>
+    :root{--bg:#f6f8fb;--card:#fff;--ink:#111827;--muted:#64748b;--line:#e2e8f0;--blue:#2563eb;--green:#059669;--red:#dc2626;--amber:#b45309}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif;line-height:1.62}.wrap{max-width:980px;margin:0 auto;padding:28px 18px 64px}.hero{border-radius:28px;padding:30px 28px;color:#fff;background:linear-gradient(135deg,#0f766e,#2563eb 55%,#111827);box-shadow:0 18px 46px rgba(15,23,42,.22)}.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85}.hero h1{margin:8px 0 10px;font-size:34px;line-height:1.16;letter-spacing:-.04em}.hero p{margin:6px 0;opacity:.94}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.pill{border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.15);border-radius:999px;padding:7px 11px;font-size:13px;font-weight:800}.section{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:0 8px 26px rgba(15,23,42,.06)}h2{margin:0 0 14px;font-size:23px;letter-spacing:-.03em}h3{margin:18px 0 8px;font-size:18px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{border:1px solid var(--line);border-radius:18px;padding:16px;background:#fbfdff}.card b{display:block;margin-bottom:6px;font-size:16px}.card p{margin:0;color:#334155}.status{display:inline-block;border-radius:999px;padding:3px 8px;font-size:12px;font-weight:900}.ok{background:#dcfce7;color:#166534}.bad{background:#fee2e2;color:#991b1b}.info{background:#dbeafe;color:#1e40af}.warn{background:#fef3c7;color:#92400e}.note{border-left:5px solid var(--blue);background:#f8fafc;border-radius:14px;padding:13px 15px;color:#26334d}.time{width:100%;border-collapse:collapse;font-size:14px}.time th,.time td{border-bottom:1px solid var(--line);padding:10px;text-align:left}.time th{background:#f8fafc;color:#334155}.cmd{background:#0f172a;color:#e2e8f0;border-radius:16px;padding:14px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;white-space:pre-wrap}.files{columns:2;column-gap:22px}.files li{break-inside:avoid;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:#334155}code{background:#eef2ff;color:#3730a3;border-radius:6px;padding:1px 5px}.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:18px}@media(max-width:760px){.grid{grid-template-columns:1fr}.files{columns:1}.hero h1{font-size:28px}.section{padding:18px}.wrap{padding:16px 12px 44px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <div class="kicker">LM-ERP Hotfix Report</div>
+    <h1>거래선별 원장 체크 해제 즉시 필터 수정</h1>
+    <p>매입 체크를 해제했는데도 매입 행이 계속 보이던 문제를 재수정했습니다. 이제 체크 해제 즉시 해당 종류의 행을 화면에서 바로 숨깁니다.</p>
+    <div class="meta">
+      <span class="pill">작업일: 2026-06-26</span>
+      <span class="pill">대상: 거래선별 원장</span>
+      <span class="pill">Vitest: 25 passed</span>
+      <span class="pill">Lint: 통과</span>
+      <span class="pill">TypeScript: 통과</span>
+    </div>
+  </header>
+
+  <section class="section">
+    <h2>문제 재확인</h2>
+    <div class="note">이전 수정은 체크박스 클릭 시 <code>kind=sale</code> / <code>kind=purchase</code> URL로 이동하게 만들었지만, 서버 재조회가 끝나기 전 기존 <code>rows</code>가 화면에 남았습니다. 그래서 매입 표시가 꺼진 상태에서도 매입 행이 그대로 보이는 현상이 발생했습니다.</div>
+  </section>
+
+  <section class="section">
+    <h2>이번 재수정 핵심</h2>
+    <div class="grid">
+      <div class="card"><span class="status ok">완료</span><b>체크 즉시 화면 필터</b><p>서버 재조회 완료를 기다리지 않고, 클라이언트 테이블에서 현재 체크 상태 기준으로 <code>visibleRows</code>를 만들어 렌더링합니다.</p></div>
+      <div class="card"><span class="status ok">완료</span><b>매입 행 즉시 숨김</b><p>매입 체크가 꺼지면 <code>direction='purchase'</code>, 현재 매입 전표, 매입 VAT, 지급 행을 즉시 숨깁니다.</p></div>
+      <div class="card"><span class="status ok">완료</span><b>매출 행 즉시 숨김</b><p>매출 체크가 꺼지면 <code>direction='sale'</code>, 수금, 매출 VAT 행을 즉시 숨깁니다.</p></div>
+      <div class="card"><span class="status ok">완료</span><b>URL 필터 유지</b><p>화면 즉시 필터와 별개로 기존처럼 <code>kind=sale</code> / <code>kind=purchase</code> URL 이동도 유지해 서버 데이터도 동기화됩니다.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>시간 보고</h2>
+    <table class="time">
+      <thead><tr><th>단계</th><th>시각(KST)</th><th>소요</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td>문제 제보 확인</td><td>2026-06-26 23:14경</td><td>-</td><td>스크린샷 기준 매입 체크 OFF / 매출 ON 상태에서 매입 행이 남는 현상 확인</td></tr>
+        <tr><td>원인 분석</td><td>23:15~23:17</td><td>약 2분</td><td>서버 kind 재조회 전 기존 rows가 렌더링되는 비동기/낙관 상태 문제 확인</td></tr>
+        <tr><td>수정 적용</td><td>23:17~23:19</td><td>약 2분</td><td><code>displayKind</code>, <code>isRowVisibleForKind</code>, <code>visibleRows</code> 추가</td></tr>
+        <tr><td>검증</td><td>23:19</td><td>약 1분</td><td>lint, Vitest, TypeScript 실행</td></tr>
+        <tr><td>HTML 보고서</td><td>23:20~23:24</td><td>약 4분</td><td>새 HTML 생성, GitHub Pages 업로드 및 URL 검증</td></tr>
+        <tr><td><b>총 소요</b></td><td>23:14~23:24</td><td><b>약 10분</b></td><td>재현 원인 분석부터 보고서 배포까지</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>변경 파일</h2>
+    <ul class="files">
+      <li>src/app/reports/legacy-trades/LegacyTradeLedgerTable.tsx</li>
+      <li>src/lib/legacyPromotedCurrentSource.test.ts</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>검증 결과</h2>
+    <div class="cmd">npm run lint -- src/app/reports/legacy-trades/LegacyTradeLedgerTable.tsx src/lib/legacyPromotedCurrentSource.test.ts
+결과: 오류 없음
+
+npx vitest run src/lib/legacyPromotedCurrentSource.test.ts
+결과: 25 tests passed
+
+npx tsc --noEmit --pretty false
+결과: exit 0, TypeScript 오류 없음</div>
+  </section>
+
+  <section class="section">
+    <h2>주의/남은 확인</h2>
+    <ul>
+      <li>로컬 코드 검증은 통과했습니다.</li>
+      <li>브라우저 실제 클릭 데이터 검증은 로그인 세션이 필요합니다.</li>
+      <li>이제 매입 체크 OFF 상태에서는 매입 방향 행이 화면 DOM 렌더링 대상인 <code>visibleRows</code>에서 제외됩니다.</li>
+    </ul>
+  </section>
+
+  <p class="footer">Generated by Hermes Agent · 2026-06-26 23:24 KST</p>
+</main>
+</body>
+</html>
