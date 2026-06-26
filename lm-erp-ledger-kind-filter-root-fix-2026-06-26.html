@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LM-ERP 거래선별 원장 매입/매출 필터 근본 수정 · 2026-06-26</title>
+  <style>
+    :root{--bg:#f6f8fb;--card:#fff;--ink:#111827;--muted:#64748b;--line:#e2e8f0;--blue:#2563eb;--green:#059669;--red:#dc2626;--amber:#b45309}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif;line-height:1.62}.wrap{max-width:980px;margin:0 auto;padding:28px 18px 64px}.hero{border-radius:28px;padding:30px 28px;color:#fff;background:linear-gradient(135deg,#1d4ed8,#0f766e 58%,#111827);box-shadow:0 18px 46px rgba(15,23,42,.22)}.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85}.hero h1{margin:8px 0 10px;font-size:34px;line-height:1.16;letter-spacing:-.04em}.hero p{margin:6px 0;opacity:.94}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.pill{border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.15);border-radius:999px;padding:7px 11px;font-size:13px;font-weight:800}.section{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:0 8px 26px rgba(15,23,42,.06)}h2{margin:0 0 14px;font-size:23px;letter-spacing:-.03em}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{border:1px solid var(--line);border-radius:18px;padding:16px;background:#fbfdff}.card b{display:block;margin-bottom:6px;font-size:16px}.card p{margin:0;color:#334155}.status{display:inline-block;border-radius:999px;padding:3px 8px;font-size:12px;font-weight:900}.ok{background:#dcfce7;color:#166534}.warn{background:#fef3c7;color:#92400e}.note{border-left:5px solid var(--blue);background:#f8fafc;border-radius:14px;padding:13px 15px;color:#26334d}.cmd{background:#0f172a;color:#e2e8f0;border-radius:16px;padding:14px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;white-space:pre-wrap}.files{columns:2;column-gap:22px}.files li{break-inside:avoid;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:#334155}code{background:#eef2ff;color:#3730a3;border-radius:6px;padding:1px 5px}.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:18px}@media(max-width:760px){.grid{grid-template-columns:1fr}.files{columns:1}.hero h1{font-size:28px}.section{padding:18px}.wrap{padding:16px 12px 44px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <div class="kicker">LM-ERP Fix Report</div>
+    <h1>거래선별 원장 매입/매출 필터 근본 수정</h1>
+    <p>매입만 켰는데 매출 행이 남는 문제를 서버 쿼리와 클라이언트 렌더링 양쪽에서 수정했습니다.</p>
+    <div class="meta">
+      <span class="pill">대상: 거래선별 원장</span>
+      <span class="pill">DOM 테스트: 통과</span>
+      <span class="pill">서버 필터 테스트: 통과</span>
+      <span class="pill">Build: 통과</span>
+    </div>
+  </header>
+
+  <section class="section">
+    <h2>최종 원인</h2>
+    <div class="note">기존 서버 필터가 “매입 행”을 <code>purchase_amount != 0</code>으로 판단했습니다. 이관 매출 행에도 원가/매입금액 성격의 값이 들어갈 수 있어, 매입 원장에 매출 행이 섞일 수 있었습니다. 따라서 금액 컬럼 기준이 아니라 <code>direction='purchase'</code> / <code>direction='sale'</code> 기준으로 필터해야 했습니다.</div>
+  </section>
+
+  <section class="section">
+    <h2>수정 내용</h2>
+    <div class="grid">
+      <div class="card"><span class="status ok">완료</span><b>서버 쿼리 필터 변경</b><p>매입 전용은 <code>direction='purchase'</code>, 매출 전용은 <code>direction='sale'</code> 조건을 추가했습니다.</p></div>
+      <div class="card"><span class="status ok">완료</span><b>잔액 계산용 legacy query 보정</b><p>미수/미지급 러닝 밸런스에서도 반대 방향 legacy row가 섞이지 않도록 direction 조건을 추가했습니다.</p></div>
+      <div class="card"><span class="status ok">완료</span><b>클라이언트 즉시 필터 유지</b><p>체크박스 클릭 직후에도 서버 재조회 전 기존 row가 남지 않도록 <code>visibleRows</code> 렌더링을 유지했습니다.</p></div>
+      <div class="card"><span class="status ok">완료</span><b>실제 DOM 테스트 추가</b><p>정적 문자열 검사가 아니라 React 컴포넌트를 jsdom에 렌더링해 매입/매출 row가 실제 DOM에서 숨겨지는지 검증했습니다.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>변경 파일</h2>
+    <ul class="files">
+      <li>src/app/reports/legacy-trades/page.tsx</li>
+      <li>src/app/reports/legacy-trades/LegacyTradeLedgerTable.tsx</li>
+      <li>src/app/reports/legacy-trades/LegacyTradeLedgerTable.test.tsx</li>
+      <li>src/lib/legacyPartnerLedgerWiring.test.ts</li>
+      <li>src/lib/legacyPromotedCurrentSource.test.ts</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>검증 결과</h2>
+    <div class="cmd">npx vitest run src/app/reports/legacy-trades/LegacyTradeLedgerTable.test.tsx src/lib/legacyPartnerLedgerWiring.test.ts src/lib/legacyPromotedCurrentSource.test.ts
+결과: 3 files passed, 37 tests passed
+
+npm run lint -- src/app/reports/legacy-trades/LegacyTradeLedgerTable.tsx src/app/reports/legacy-trades/LegacyTradeLedgerTable.test.tsx src/app/reports/legacy-trades/page.tsx src/lib/legacyPartnerLedgerWiring.test.ts src/lib/legacyPromotedCurrentSource.test.ts
+결과: 오류 없음
+
+npx tsc --noEmit --pretty false
+결과: 오류 없음
+
+npm run build
+결과: Compiled successfully, static pages 17/17 generated</div>
+  </section>
+
+  <section class="section">
+    <h2>브라우저 검증 제한</h2>
+    <ul>
+      <li>로컬 dev 서버는 새 코드로 3000 포트에서 응답했습니다.</li>
+      <li>다만 실제 거래선 원장 데이터 화면은 로그인 리다이렉트로 막혀 브라우저에서 직접 클릭 검증은 하지 못했습니다.</li>
+      <li>대신 실제 React DOM 렌더 테스트로 <code>kind='purchase'</code>일 때 매출 row가 DOM에 없는 것, <code>kind='sale'</code>일 때 매입 row가 DOM에 없는 것을 검증했습니다.</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>적용 안내</h2>
+    <ul>
+      <li>현재 수정은 로컬 소스와 production build 기준으로 검증 완료되었습니다.</li>
+      <li>김대표님이 보고 계신 화면이 배포 서버라면, 해당 서버에 이번 변경을 배포/재시작해야 반영됩니다.</li>
+      <li>기존 브라우저 탭은 강력 새로고침 또는 새 탭으로 다시 확인하는 것이 좋습니다.</li>
+    </ul>
+  </section>
+
+  <p class="footer">Generated by Hermes Agent · 2026-06-26</p>
+</main>
+</body>
+</html>
