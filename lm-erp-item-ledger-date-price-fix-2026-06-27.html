@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LM-ERP 제품 수불장 일자·단가 표시 수정 · 2026-06-27</title>
+  <style>
+    :root { color-scheme: light; --bg:#f7f8fb; --card:#ffffff; --text:#172033; --muted:#667085; --line:#e6eaf2; --green:#087f5b; --blue:#2563eb; --red:#c92a2a; --amber:#b7791f; }
+    * { box-sizing: border-box; }
+    body { margin:0; padding:32px 20px; background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif; }
+    main { max-width:1040px; margin:0 auto; }
+    header { margin-bottom:20px; }
+    h1 { margin:0 0 8px; font-size:28px; line-height:1.25; }
+    h2 { margin:28px 0 12px; font-size:20px; }
+    h3 { margin:18px 0 8px; font-size:16px; }
+    p { line-height:1.7; }
+    .muted { color:var(--muted); }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px; margin:14px 0; box-shadow:0 4px 16px rgba(15,23,42,.04); }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+    .pill { display:inline-block; padding:5px 10px; border-radius:999px; font-size:12px; font-weight:700; background:#e7f5ff; color:#1c7ed6; margin-right:6px; }
+    .ok { background:#ebfbee; color:var(--green); }
+    .warn { background:#fff9db; color:var(--amber); }
+    .bad { background:#fff5f5; color:var(--red); }
+    ul { line-height:1.8; padding-left:22px; }
+    code { background:#f1f3f5; padding:2px 5px; border-radius:6px; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.92em; }
+    pre { overflow:auto; background:#101828; color:#f8fafc; padding:14px; border-radius:12px; font-size:13px; line-height:1.55; }
+    table { width:100%; border-collapse:collapse; margin-top:10px; font-size:14px; }
+    th, td { border:1px solid var(--line); padding:10px; text-align:left; vertical-align:top; }
+    th { background:#f8fafc; }
+    .em { font-weight:800; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <span class="pill ok">LM-ERP</span>
+    <span class="pill">제품 수불장</span>
+    <span class="pill warn">버그 수정</span>
+    <h1>제품 수불장 일자·단가 표시 수정 보고</h1>
+    <p class="muted">매입전표 <code>PS-2026-0056</code>가 제품 수불장에서 전표일이 아닌 재고기록 생성일로 보이고, 입고 단가/금액이 비는 문제를 확인해 수정했습니다.</p>
+  </header>
+
+  <section class="card">
+    <h2>1. 확인된 현상</h2>
+    <ul>
+      <li>전표 <code>PS-2026-0056</code>의 실제 전표일은 <span class="em">2026-06-02</span>입니다.</li>
+      <li>하지만 제품 수불장 첫 일자 컬럼에는 재고 트랜잭션 생성시각 <span class="em">2026-06-15 11:00</span> 기준으로 표시됐습니다.</li>
+      <li>입고 단가/금액도 매입전표 라인 매칭 실패로 <code>-</code>처럼 비어 보일 수 있었습니다.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>2. 원인</h2>
+    <h3>일자 표시</h3>
+    <p>현재 제품 수불장은 현재 전표 행의 표시 일자와 정렬 기준으로 <code>inventory_transactions.created_at</code>를 사용하고 있었습니다. 이 값은 업무상 거래일이 아니라 재고 기록이 생성된 시각입니다.</p>
+    <h3>단가/금액 표시</h3>
+    <p><code>purchase_slip_lines</code> 실제 DB 테이블에는 <code>stock_lot_id</code> 컬럼이 없는데, 수불장 코드가 이 컬럼을 select하고 있었습니다. 이 때문에 매입전표 라인 조회가 실패하여 <code>unit_price_krw</code>, <code>amount_krw</code>를 수불장 행에 연결하지 못할 수 있었습니다.</p>
+  </section>
+
+  <section class="card">
+    <h2>3. 수정 내용</h2>
+    <ul>
+      <li>현재 전표 행은 연결된 전표일을 우선 사용하도록 변경했습니다.</li>
+      <li>전표일이 있는 경우 수불장 표시 일자, 일계/월계 그룹, 정렬 기준 모두 전표일 기준이 됩니다.</li>
+      <li><code>created_at</code>은 전표일이 없는 경우의 fallback 및 같은 전표일 안에서의 보조 정렬로만 사용합니다.</li>
+      <li><code>inventory_transactions.ref_id</code>가 전표 id 또는 전표 라인 id 어느 쪽이어도 라인 단가/금액을 찾도록 인덱스를 보강했습니다.</li>
+      <li><code>purchase_slip_lines</code> select에서 존재하지 않는 <code>stock_lot_id</code>를 제거했습니다.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>4. 실제 데이터 확인</h2>
+    <table>
+      <thead><tr><th>항목</th><th>확인값</th></tr></thead>
+      <tbody>
+        <tr><td>전표번호</td><td><code>PS-2026-0056</code></td></tr>
+        <tr><td>전표일</td><td><code>2026-06-02</code></td></tr>
+        <tr><td>재고 트랜잭션 생성시각</td><td><code>2026-06-15T02:00:00.883694+00:00</code></td></tr>
+        <tr><td>품목</td><td><code>DW-1101-1-05L(볼플렌져)</code></td></tr>
+        <tr><td>수량</td><td><code>1,000</code></td></tr>
+        <tr><td>단가</td><td><code>1,000</code></td></tr>
+        <tr><td>금액</td><td><code>1,000,000</code></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>5. 변경 파일</h2>
+    <ul>
+      <li><code>src/app/items/[id]/ledger/page.tsx</code></li>
+      <li><code>src/lib/itemLedger.ts</code></li>
+      <li><code>src/lib/itemLedger.test.ts</code></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>6. 검증 결과</h2>
+    <pre>npx vitest run src/lib/itemLedger.test.ts src/app/reports/legacy-trades/LegacyTradeLedgerTable.test.tsx src/lib/legacyPartnerLedgerWiring.test.ts src/lib/legacyPromotedCurrentSource.test.ts
+→ 4 files passed, 43 tests passed
+
+npm run lint -- [관련 파일]
+→ 통과
+
+npx tsc --noEmit --pretty false
+→ 통과
+
+npm run build
+→ Compiled successfully, static pages 17/17 generated</pre>
+  </section>
+
+  <section class="card">
+    <h2>7. 반영 후 기대 화면</h2>
+    <ul>
+      <li><code>PS-2026-0056</code> 입고 행의 수불장 일자는 <span class="em">2026. 06. 02.</span> 기준으로 표시됩니다.</li>
+      <li>입고 단가는 <span class="em">1,000</span>, 입고 금액은 <span class="em">1,000,000</span>으로 표시됩니다.</li>
+      <li>6월 15일은 더 이상 해당 전표의 주 표시 일자로 쓰이지 않습니다.</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>
