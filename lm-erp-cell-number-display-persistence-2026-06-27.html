@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LM-ERP CELL 번호 표시·저장 흐름 수정 · 2026-06-27</title>
+  <style>
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f8fafc; color: #0f172a; }
+    main { max-width: 980px; margin: 0 auto; padding: 40px 20px 64px; }
+    .card { background: white; border: 1px solid #e2e8f0; border-radius: 18px; padding: 28px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06); }
+    h1 { margin: 0 0 8px; font-size: 30px; letter-spacing: -0.03em; }
+    h2 { margin: 28px 0 10px; font-size: 20px; }
+    p, li { line-height: 1.7; }
+    code { background: #f1f5f9; border-radius: 6px; padding: 2px 6px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    pre { white-space: pre-wrap; background: #0f172a; color: #e2e8f0; padding: 16px; border-radius: 12px; overflow-x: auto; }
+    .ok { color: #047857; font-weight: 700; }
+    .warn { color: #b45309; font-weight: 700; }
+    .muted { color: #64748b; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border-bottom: 1px solid #e2e8f0; padding: 10px 8px; text-align: left; vertical-align: top; }
+    th { background: #f8fafc; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card">
+      <p class="muted">LM-ERP · 제품 수불장 / 매입전표 CELL 번호</p>
+      <h1>CELL 번호 표시·저장 흐름 수정</h1>
+      <p>
+        제품 수불장 <code>CELL</code> 컬럼에 <code>마이너스재고</code> 같은 상태/위치 라벨이 표시되던 문제를 수정하고,
+        매입전표의 CELL 입력값이 실제 재고 LOT의 <code>stock_lots.cell_no</code>로 저장되도록 보강했습니다.
+      </p>
+
+      <h2>확인된 문제</h2>
+      <ul>
+        <li>DB에는 이미 <code>stock_lots.cell_no</code>가 있었지만, 일부 화면/흐름이 과거 필드인 <code>location</code> 또는 <code>stock_location</code>과 섞여 있었습니다.</li>
+        <li>수불장 CELL 컬럼이 <code>cell_no ?? location</code> 형태로 표시되어, 음수 재고 LOT의 <code>location='마이너스재고'</code>가 CELL처럼 보였습니다.</li>
+        <li>매입전표 입력칸은 실질적으로 CELL 번호였지만 UI 라벨은 “위치”였고, RPC 생성 직후 LOT의 <code>cell_no</code> 동기화가 누락되어 있었습니다.</li>
+      </ul>
+
+      <h2>수정 내용</h2>
+      <table>
+        <thead><tr><th>영역</th><th>수정</th></tr></thead>
+        <tbody>
+          <tr><td>제품 수불장</td><td><code>CELL</code>은 <code>stock_lots.cell_no</code>만 표시합니다. <code>location</code> fallback을 제거했습니다.</td></tr>
+          <tr><td>매입전표 입력</td><td>라인 입력 표의 “위치” 헤더를 <code>CELL</code>로 변경했습니다.</td></tr>
+          <tr><td>매입전표 저장/수정</td><td>저장/수정 후 <code>purchase_slip_lines.stock_location</code> 값을 연결된 <code>stock_lots.cell_no</code>로 동기화합니다.</td></tr>
+          <tr><td>legacy location 정리</td><td>LOT의 <code>location</code>이 동일한 CELL 값이면 <code>null</code>로 비워 중복 저장을 줄입니다.</td></tr>
+          <tr><td>매입 LOT 연결</td><td><code>purchase_slip_lines.created_stock_lot_id</code>를 사용해 현재 매입 행의 LOT/CELL을 정확히 찾습니다.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>변경 파일</h2>
+      <ul>
+        <li><code>src/app/items/[id]/ledger/page.tsx</code></li>
+        <li><code>src/app/purchase-slips/new/PurchaseSlipEditor.tsx</code></li>
+        <li><code>src/lib/itemLedger.ts</code></li>
+        <li><code>src/lib/itemLedger.test.ts</code></li>
+        <li><code>src/lib/purchaseSlipCell.ts</code></li>
+        <li><code>src/lib/purchaseSlipCell.test.ts</code></li>
+        <li><code>src/server/actions/slips.ts</code></li>
+      </ul>
+
+      <h2>검증</h2>
+      <pre>npx vitest run src/lib/purchaseSlipCell.test.ts src/lib/itemLedger.test.ts
+→ 2 files passed, 11 tests passed
+
+npm run lint -- [관련 파일]
+→ 통과
+
+npx tsc --noEmit --pretty false
+→ 통과
+
+npm run build
+→ Compiled successfully, static pages 17/17 generated</pre>
+
+      <h2>기존 데이터 처리</h2>
+      <p class="warn">
+        기존 매입전표 라인 중 <code>stock_location</code>에는 CELL 값이 있지만, 연결된 <code>stock_lots.cell_no</code>에는 아직 반영되지 않은 데이터가 확인되었습니다.
+      </p>
+      <p>
+        이 보고서 작업에서는 안전을 위해 기존 DB 일괄 백필은 실행하지 않았습니다. 앞으로 새로 저장/수정되는 매입전표는 자동 동기화됩니다.
+        기존 데이터까지 즉시 보이게 하려면 별도 백필을 승인 후 실행하면 됩니다.
+      </p>
+
+      <h2>결론</h2>
+      <p class="ok">
+        이제 CELL 컬럼은 실제 CELL 번호만 표시하며, 매입전표에서 CELL 번호를 입력하면 해당 재고 LOT의 <code>cell_no</code>로 저장되는 흐름이 준비되었습니다.
+      </p>
+    </section>
+  </main>
+</body>
+</html>
