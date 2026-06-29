@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>LM-ERP 한화 매입+매출 원장 잔액 수정 보고</title><style>body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8fafc;color:#111827;margin:0}main{max-width:900px;margin:0 auto;padding:32px 20px}.card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:20px;margin:16px 0}h1{font-size:26px}h2{font-size:19px;border-left:4px solid #2563eb;padding-left:10px}.ok{color:#047857;font-weight:700}code{background:#f1f5f9;padding:2px 5px;border-radius:5px}</style></head><body><main>
+<h1>LM-ERP 한화 매입+매출 원장 잔액 수정 보고</h1>
+<section class="card"><h2>문제</h2><p>(주)한화 매입 원장에서 매입만 표시할 때는 맞지만, 매출 표시를 함께 켜면 이관잔액이 중복 반영되어 잔액이 잘못 표시되는 문제가 있었습니다.</p></section>
+<section class="card"><h2>원인</h2><p>(주)한화는 고객과 공급자 양쪽에 존재하고, 하나의 이관잔액 행이 이미 순액 음수 미지급으로 들어가 있었습니다. 매입+매출 동시 표시 계산에서 이 같은 행이 매출 쪽과 매입 쪽에 각각 한 번씩 잡혀 이관잔액이 중복 차감됐습니다.</p></section>
+<section class="card"><h2>수정</h2><ul><li>공통 이관잔액 행은 매입+매출 동시 표시에서 한 번만 순액으로 반영하도록 수정했습니다.</li><li>매입-only 원장의 이관잔액 72,347,847원과 2026-05-31 미지급잔액 95,524,407원은 유지됩니다.</li><li>독립적인 매입/매출 별도 기초 등록 케이스는 기존 순액 계산을 유지합니다.</li></ul></section>
+<section class="card"><h2>검증</h2><ul><li><span class="ok">통과</span> combinedLedgerOpening / openingBalanceAdjustment / legacyPromotedCurrentSource 테스트 64개</li><li><span class="ok">통과</span> <code>npx tsc --noEmit --pretty false</code></li><li><span class="ok">통과</span> <code>vercel build --prod</code></li><li><span class="ok">완료</span> 운영 prebuilt 배포</li></ul></section>
+<section class="card"><h2>배포</h2><ul><li>운영: <a href="https://s-erp.kr">https://s-erp.kr</a></li><li>Deployment ID: <code>dpl_9ekC7KF5hqDCLWq6G41CHEz8aQLs</code></li><li>상태: <span class="ok">Ready</span></li></ul></section>
+</main></body></html>
