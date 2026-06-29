@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LM-ERP 2026년 4월말 이전 부가세 등록 누락 조사</title>
+  <style>
+    body{margin:0;background:#f8fafc;color:#0f172a;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+    main{max-width:1120px;margin:0 auto;padding:40px 20px 72px;}
+    .card{background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:28px;box-shadow:0 10px 30px rgba(15,23,42,.06);}
+    h1{margin:0 0 8px;font-size:30px;letter-spacing:-.03em;} h2{margin:30px 0 12px;font-size:20px;} h3{margin:22px 0 10px;font-size:16px;}
+    p,li{line-height:1.7}.muted{color:#64748b}.danger{color:#b91c1c;font-weight:800}.warn{color:#b45309;font-weight:800}.ok{color:#047857;font-weight:800}
+    code{background:#f1f5f9;border-radius:6px;padding:2px 6px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
+    table{width:100%;border-collapse:collapse;margin:10px 0 18px;font-size:14px;} th,td{border-bottom:1px solid #e2e8f0;padding:9px 8px;text-align:right;vertical-align:top;} th:first-child,td:first-child{text-align:left;} th{background:#f8fafc;color:#334155;} .left{text-align:left}.num{font-variant-numeric:tabular-nums;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:18px 0}.metric{border:1px solid #e2e8f0;border-radius:14px;padding:16px;background:#f8fafc}.metric .v{font-size:24px;font-weight:800;margin-top:6px}.metric .l{color:#64748b;font-size:13px}
+    .note{border-left:4px solid #f59e0b;background:#fffbeb;padding:12px 14px;border-radius:10px;margin:14px 0}.bad{border-left-color:#ef4444;background:#fef2f2}.good{border-left-color:#10b981;background:#ecfdf5}
+  </style>
+</head>
+<body><main><section class="card">
+  <p class="muted">LM-ERP · VAT audit · 기준 기간 2026-01-01 ~ 2026-04-30</p>
+  <h1>2026년 4월말 이전 부가세 등록 누락 조사</h1>
+  <p>4월말 기준 잔액으로 미수/미지급 기준을 잡는다는 전제에서, 2026년 1~4월 거래의 부가세가 전표 또는 세금계산서 테이블에 정상 반영되어 있는지 조사했습니다. 5월 이후 직접 부가세 입력 대상은 제외했습니다.</p>
+
+  <div class="grid">
+    <div class="metric"><div class="l">매출 전표 수</div><div class="v">815</div></div>
+    <div class="metric"><div class="l">매출 전표 VAT 0건</div><div class="v danger">808</div></div>
+    <div class="metric"><div class="l">활성 매출 세금계산서</div><div class="v danger">1</div></div>
+    <div class="metric"><div class="l">취소된 매출 세금계산서</div><div class="v warn">238</div></div>
+    <div class="metric"><div class="l">매입 전표 수</div><div class="v">15</div></div>
+    <div class="metric"><div class="l">매입 전표 VAT 0건</div><div class="v warn">4</div></div>
+    <div class="metric"><div class="l">활성 매입 세금계산서</div><div class="v danger">2</div></div>
+    <div class="metric"><div class="l">이관 원본 거래행</div><div class="v">19,535</div></div>
+  </div>
+
+  <h2>결론</h2>
+  <div class="note bad">
+    <p><strong>4월말 이전 부가세 등록은 완전하지 않습니다.</strong> 특히 매출 쪽은 활성 세금계산서가 사실상 1건뿐이고, 이관 승격 매출 전표 808건이 VAT 0으로 남아 있습니다.</p>
+  </div>
+  <ul>
+    <li><code>legacy_trade_history</code>에는 VAT 컬럼이 없습니다. 따라서 이관 원본 거래는 별도 세금계산서/전표 VAT로 보정되어야 합니다.</li>
+    <li>매출 세금계산서 테이블에는 2026년 1~4월 기간 기준 <code>CANCELLED</code> 238건, <code>DRAFT</code> 1건만 확인됩니다. 취소건은 잔액 기준에 반영하면 안 됩니다.</li>
+    <li>매입 세금계산서 활성 등록은 2건뿐이며, 4월 매입 거래의 세금계산서 연결은 대부분 없습니다.</li>
+    <li>매입 VAT 0 전표 4건은 관세/통관 계열이며 라인이 모두 <code>is_tax_free=true</code>입니다. 특히 인천세관장 건은 품목명 자체가 “부가세”인데 VAT 컬럼이 아니라 공급가 라인으로 들어가 있습니다.</li>
+  </ul>
+
+  <h2>월별 요약</h2>
+  <table>
+    <thead><tr><th>월</th><th>매출전표 공급가</th><th>매출전표 VAT</th><th>예상 VAT(10%)</th><th>활성 매출세금계산서 VAT</th><th>매입전표 공급가</th><th>매입전표 VAT</th><th>예상 VAT(10%)</th><th>활성 매입세금계산서 VAT</th></tr></thead>
+    <tbody>
+      <tr><td>2026-01</td><td>463,707,138</td><td>13,592</td><td>46,370,714</td><td>13,592</td><td>165,000</td><td>16,500</td><td>16,500</td><td>16,500</td></tr>
+      <tr><td>2026-02</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>780,000</td></tr>
+      <tr><td>2026-03</td><td>233,178,021</td><td>0</td><td>23,317,802</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr><td>2026-04</td><td>-4,452,820</td><td>-445,282</td><td>-445,282</td><td>0</td><td>55,786,362</td><td>4,902,774</td><td>5,578,636</td><td>0</td></tr>
+    </tbody>
+  </table>
+
+  <h2>이관 원본 거래 기준 예상 VAT</h2>
+  <p class="muted">이관 원본 <code>legacy_trade_history</code>는 VAT 컬럼이 없으므로 공급가 × 10% 단순 예상액입니다. 실제 면세/영세/비과세가 있으면 조정 필요합니다.</p>
+  <table>
+    <thead><tr><th>월</th><th>이관 매출 공급가</th><th>예상 매출 VAT</th><th>이관 매입 공급가</th><th>예상 매입 VAT</th></tr></thead>
+    <tbody>
+      <tr><td>2026-01</td><td>1,076,667,448</td><td>107,666,745</td><td>543,095,933</td><td>54,309,593</td></tr>
+      <tr><td>2026-02</td><td>780,090,301</td><td>78,009,030</td><td>662,107,364</td><td>66,210,736</td></tr>
+      <tr><td>2026-03</td><td>833,940,980</td><td>83,394,098</td><td>592,839,425</td><td>59,283,943</td></tr>
+      <tr><td>2026-04</td><td>810,389,060</td><td>81,038,906</td><td>543,280,015</td><td>54,328,002</td></tr>
+    </tbody>
+  </table>
+
+  <h2>매입 VAT 0 전표 상세</h2>
+  <table>
+    <thead><tr><th>일자</th><th>전표</th><th>매입처</th><th>공급가/라인금액</th><th>VAT</th><th>분류</th></tr></thead>
+    <tbody>
+      <tr><td>2026-04-27</td><td>PS-2026-0017</td><td>(합)명성관세사법인</td><td>332,462</td><td>0</td><td class="left">DOC/FEE, 창고료, 통관수수료 전부 <code>is_tax_free=true</code></td></tr>
+      <tr><td>2026-04-27</td><td>PS-2026-0018</td><td>인천세관장</td><td>635,060</td><td>0</td><td class="left">품목명 “부가세”가 공급가 라인으로 입력됨, <code>is_tax_free=true</code></td></tr>
+      <tr><td>2026-04-30</td><td>PS-2026-0019</td><td>(합)명성관세사법인</td><td>2,030,763</td><td>0</td><td class="left">DOC/FEE, 창고료, 통관수수료 전부 <code>is_tax_free=true</code></td></tr>
+      <tr><td>2026-04-30</td><td>PS-2026-0020</td><td>인천세관장</td><td>3,760,350</td><td>0</td><td class="left">품목명 “부가세”가 공급가 라인으로 입력됨, <code>is_tax_free=true</code></td></tr>
+    </tbody>
+  </table>
+
+  <h2>활성 세금계산서가 없는 주요 매출 월/거래처 후보</h2>
+  <table>
+    <thead><tr><th>월</th><th>거래처</th><th>전표수</th><th>공급가</th><th>전표 VAT</th><th>활성 세금계산서</th></tr></thead>
+    <tbody>
+      <tr><td>2026-01</td><td>에스제이하우징</td><td>35</td><td>77,173,560</td><td>0</td><td>0</td></tr>
+      <tr><td>2026-01</td><td>(주)에스에프에이</td><td>1</td><td>76,949,300</td><td>0</td><td>0</td></tr>
+      <tr><td>2026-03</td><td>(주)엘엠케이</td><td>2</td><td>62,937,400</td><td>0</td><td>0</td></tr>
+      <tr><td>2026-03</td><td>주식회사 성진CBK</td><td>95</td><td>34,536,990</td><td>0</td><td>0</td></tr>
+      <tr><td>2026-03</td><td>수광산업(주)</td><td>4</td><td>31,573,100</td><td>0</td><td>0</td></tr>
+    </tbody>
+  </table>
+
+  <h2>활성 매입세금계산서가 없는 4월 매입처 후보</h2>
+  <table>
+    <thead><tr><th>월</th><th>매입처</th><th>전표수</th><th>공급가</th><th>전표 VAT</th><th>활성 매입세금계산서</th></tr></thead>
+    <tbody>
+      <tr><td>2026-04</td><td>쇼부</td><td>1</td><td>37,819,820</td><td>3,781,982</td><td>0</td></tr>
+      <tr><td>2026-04</td><td>인천세관장</td><td>6</td><td>11,719,730</td><td>732,432</td><td>0</td></tr>
+      <tr><td>2026-04</td><td>(합)명성관세사법인</td><td>6</td><td>6,237,872</td><td>387,466</td><td>0</td></tr>
+      <tr><td>2026-04</td><td>청계금속</td><td>1</td><td>8,940</td><td>894</td><td>0</td></tr>
+    </tbody>
+  </table>
+
+  <h2>권장 조치</h2>
+  <ol>
+    <li>4월말 이전 이관 거래에 대해 “미수/미지급 잔액 산정용 VAT 보정”을 일괄 생성해야 합니다.</li>
+    <li>매출 쪽은 취소된 <code>tax_invoices</code> 238건을 재사용하지 말고, 활성 상태로 재생성하거나 별도 잔액용 VAT 테이블/전표 보정 로직을 두는 것이 안전합니다.</li>
+    <li>매입 쪽은 <code>supplier_invoices</code>가 부족합니다. 특히 4월 쇼부/인천세관장/명성관세/청계금속 건은 세금계산서 등록 또는 잔액용 보정이 필요합니다.</li>
+    <li>인천세관장처럼 “부가세” 자체가 라인으로 들어간 건은 VAT 컬럼으로 옮길지, 수입부가세 별도 계정으로 유지할지 회계 기준을 정해야 합니다.</li>
+  </ol>
+</section></main></body></html>
