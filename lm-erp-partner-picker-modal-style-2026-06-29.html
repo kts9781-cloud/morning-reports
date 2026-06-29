@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LM-ERP 거래처원장 검색 모달 UI 통일 보고</title>
+  <style>
+    body { margin: 0; background: #f8fafc; color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    main { max-width: 900px; margin: 40px auto; padding: 0 20px 52px; }
+    .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 30px; box-shadow: 0 10px 28px rgba(15, 23, 42, .06); }
+    .badge { display: inline-block; padding: 5px 10px; border-radius: 999px; background: #dbeafe; color: #1d4ed8; font-size: 13px; font-weight: 700; }
+    h1 { margin: 12px 0 8px; font-size: 28px; }
+    h2 { margin-top: 28px; font-size: 18px; }
+    p, li { line-height: 1.7; }
+    code { background: #f1f5f9; border-radius: 6px; padding: 2px 6px; }
+    ul { padding-left: 22px; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card">
+      <span class="badge">UI 통일 완료</span>
+      <h1>거래처원장 검색 모달을 새 판매전표 거래처 선택 모달 형태로 변경</h1>
+      <p>거래선별 원장과 거래 맞춤 화면의 거래처 선택 모달을 새 판매전표의 거래처 선택 모달과 같은 형태로 맞췄습니다.</p>
+
+      <h2>적용 내용</h2>
+      <ul>
+        <li>제목을 <strong>거래처 선택</strong>으로 통일했습니다.</li>
+        <li>안내문을 <code>이름 일부를 입력해 검색하세요. ↑/↓ 로 이동, Enter 로 선택, Esc 로 닫기.</code>로 통일했습니다.</li>
+        <li>테이블형 목록을 새 판매전표와 같은 리스트형 목록으로 변경했습니다.</li>
+        <li>후보 행에 대표자명, 사업자번호, 전화번호 힌트가 있으면 함께 표시되도록 했습니다.</li>
+        <li>하단에는 새 판매전표처럼 현재 필터 결과 건수를 표시합니다.</li>
+        <li>키보드 이동, Enter 선택, Esc 닫기, 클릭 선택 동작은 유지했습니다.</li>
+      </ul>
+
+      <h2>변경 파일</h2>
+      <ul>
+        <li><code>src/app/reports/legacy-trades/PartnerPickerDialog.tsx</code></li>
+        <li><code>src/app/reports/legacy-trades/page.tsx</code></li>
+        <li><code>src/app/reports/ledger-reconciliation/page.tsx</code></li>
+        <li><code>src/lib/legacyPartnerLedgerWiring.test.ts</code></li>
+      </ul>
+
+      <h2>검증</h2>
+      <ul>
+        <li><code>npx vitest run src/lib/legacyPartnerLedgerWiring.test.ts src/lib/legacyPartnerMatch.test.ts src/lib/partnerHint.test.ts</code> → 3 files, 42 tests passed</li>
+        <li><code>npx tsc --noEmit --pretty false</code> → 통과</li>
+        <li><code>npm run build</code> → Next.js production build 통과</li>
+        <li>로컬 서버 접근 시 인증 리다이렉트가 걸려 브라우저 실화면 클릭 검증은 로그인 세션 없이 제한되었습니다.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
