@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LM-ERP 거래선 선택 모달 수정 보고</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: #f8fafc; color: #0f172a; }
+    main { max-width: 880px; margin: 40px auto; padding: 0 20px 48px; }
+    .card { background: white; border: 1px solid #e2e8f0; border-radius: 18px; padding: 28px; box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06); }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    h2 { margin-top: 28px; font-size: 18px; }
+    p, li { line-height: 1.7; }
+    .badge { display: inline-block; padding: 5px 10px; border-radius: 999px; background: #dcfce7; color: #166534; font-weight: 700; font-size: 13px; }
+    code { background: #f1f5f9; border-radius: 6px; padding: 2px 6px; }
+    ul { padding-left: 22px; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card">
+      <span class="badge">수정 완료</span>
+      <h1>거래선별 원장: “한일” 입력 시 선택 모달 미노출 수정</h1>
+      <p>거래선 입력창에 <strong>“한일”</strong>을 입력하고 Enter를 눌렀을 때, 정확히 이름이 “한일”인 거래처가 있다는 이유로 후보 조회가 생략되어 <strong>“한일 베아링”</strong> 등 부분일치 후보 선택 모달이 뜨지 않던 문제를 수정했습니다.</p>
+
+      <h2>원인</h2>
+      <ul>
+        <li>기존 로직은 입력값과 정확히 일치하는 활성 고객/매입처가 있으면 부분일치 후보 조회를 건너뛰었습니다.</li>
+        <li>DB에 이름이 정확히 <code>한일</code>인 거래처/매입처가 있어 <code>한일 베아링</code> 후보를 보여줄 기회가 없었습니다.</li>
+      </ul>
+
+      <h2>수정 내용</h2>
+      <ul>
+        <li>정확일치 거래처가 있어도 부분일치 후보를 조회하도록 변경했습니다.</li>
+        <li>정규화 기준 후보가 2개 이상이면 선택 모달을 띄우도록 했습니다.</li>
+        <li>정확히 일치하는 후보가 유일한 경우에는 기존처럼 모달 없이 바로 원장으로 이동합니다.</li>
+      </ul>
+
+      <h2>변경 파일</h2>
+      <ul>
+        <li><code>src/app/reports/legacy-trades/page.tsx</code></li>
+        <li><code>src/lib/legacyPartnerMatch.ts</code></li>
+        <li><code>src/lib/legacyPartnerMatch.test.ts</code></li>
+      </ul>
+
+      <h2>검증</h2>
+      <ul>
+        <li><code>npx vitest run src/lib/legacyPartnerMatch.test.ts src/lib/legacyPartnerLedgerWiring.test.ts</code> → 2 files, 33 tests passed</li>
+        <li><code>npx tsc --noEmit --pretty false</code> → 통과</li>
+        <li><code>npm run build</code> → Next.js production build 통과</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
