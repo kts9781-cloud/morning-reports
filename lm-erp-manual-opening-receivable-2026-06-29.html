@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LM-ERP 4월말 이관 미수 누락분 직접 입력 기능 보고</title>
+  <style>
+    body { margin: 0; background: #f8fafc; color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    main { max-width: 900px; margin: 40px auto; padding: 0 20px 52px; }
+    .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 30px; box-shadow: 0 10px 28px rgba(15, 23, 42, .06); }
+    .badge { display: inline-block; padding: 5px 10px; border-radius: 999px; background: #dcfce7; color: #166534; font-size: 13px; font-weight: 700; }
+    h1 { margin: 12px 0 8px; font-size: 28px; }
+    h2 { margin-top: 28px; font-size: 18px; }
+    p, li { line-height: 1.7; }
+    code { background: #f1f5f9; border-radius: 6px; padding: 2px 6px; }
+    ul { padding-left: 22px; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card">
+      <span class="badge">기능 구현 완료</span>
+      <h1>4월말 이관 미수 누락분 직접 입력 기능</h1>
+      <p>성진(양평) 등 현재 선택한 사업장에서 엑셀 이관 시 누락된 4월말 기준 미수 잔액을 거래처별로 직접 입력할 수 있도록 기능을 추가했습니다.</p>
+
+      <h2>사용 위치</h2>
+      <ul>
+        <li><code>/accounts/receivable/import</code> — 기초 채권 이관 화면 상단의 <strong>누락분 직접 입력</strong> 섹션</li>
+      </ul>
+
+      <h2>입력 방식</h2>
+      <ul>
+        <li>기준월을 <code>2026-04</code>로 선택합니다.</li>
+        <li>거래처명/코드 일부를 입력합니다. 예: <code>조이테크</code> 또는 일부 검색어.</li>
+        <li>이관 누락 금액을 입력합니다. 예: <code>307120</code>.</li>
+        <li><strong>ADD</strong>: 기존 기준월 이관 잔액에 더합니다. 기본값입니다.</li>
+        <li><strong>REPLACE</strong>: 기준월 이관 잔액을 입력 금액으로 덮어씁니다.</li>
+      </ul>
+
+      <h2>처리 기준</h2>
+      <ul>
+        <li>현재 선택된 사업장 기준으로만 거래처를 찾고 저장합니다.</li>
+        <li>고객 거래처가 없고 같은 사업장 매입처가 있으면 매출처 역할을 생성한 뒤 저장합니다.</li>
+        <li>부분 검색 결과가 여러 개면 저장하지 않고 후보를 보여줘 오입력을 막습니다.</li>
+        <li>미수금현황 계산 기준에 맞게 <code>month01_amount</code>, <code>receivable_total_amount</code>, <code>balance_amount</code>가 함께 반영됩니다.</li>
+      </ul>
+
+      <h2>변경 파일</h2>
+      <ul>
+        <li><code>src/app/accounts/receivable/import/OpeningReceivableImportClient.tsx</code></li>
+        <li><code>src/server/actions/receivablesImport.ts</code></li>
+        <li><code>src/lib/manualOpeningReceivableMatch.ts</code></li>
+        <li><code>src/lib/manualOpeningReceivableMatch.test.ts</code></li>
+      </ul>
+
+      <h2>검증</h2>
+      <ul>
+        <li><code>npx vitest run src/lib/manualOpeningReceivableMatch.test.ts</code> → 14 tests passed</li>
+        <li><code>npx tsc --noEmit --pretty false</code> → 통과</li>
+        <li><code>npm run build</code> → Next.js production build 통과</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
