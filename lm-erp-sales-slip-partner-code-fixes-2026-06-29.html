@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LM-ERP 판매전표 입력 및 거래처 코드 자동 생성 수정 보고</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: #f8fafc; color: #111827; }
+    main { max-width: 960px; margin: 0 auto; padding: 32px 20px 48px; }
+    h1 { font-size: 28px; margin: 0 0 8px; }
+    h2 { font-size: 20px; margin-top: 28px; border-left: 4px solid #2563eb; padding-left: 10px; }
+    .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px; margin-top: 16px; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04); }
+    ul { line-height: 1.75; }
+    code { background: #f1f5f9; padding: 2px 5px; border-radius: 5px; }
+    .ok { color: #047857; font-weight: 700; }
+    .warn { color: #b45309; font-weight: 700; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>LM-ERP 판매전표 입력 및 거래처 코드 자동 생성 수정 보고</h1>
+  <p>판매전표 엑셀형 입력과 신규 거래처 등록 화면의 사용성/저장 버그를 수정했습니다.</p>
+
+  <section class="card">
+    <h2>수정 요약</h2>
+    <ul>
+      <li>엑셀형 판매전표 입력 상단에 실시간 <strong>전표합계금액</strong>을 표시하도록 수정했습니다.</li>
+      <li><code>NEGO</code>, 할인, DC 행이 품목 조회에서 제외되고 수동 할인 라인으로 저장되도록 보강했습니다.</li>
+      <li><code>NEGO / 수량 -1 / 금액 입력</code> 케이스가 음수 할인으로 반영되도록 수정했습니다.</li>
+      <li>금액칸에 명시적으로 <code>0</code>을 입력한 경우 자동 단가가 들어가지 않도록 수정했습니다.</li>
+      <li>신규 거래처 등록 시 거래처 CODE / 매입처 CODE를 비워두면 서버에서 자동 생성하도록 수정했습니다.</li>
+      <li>코드 입력 필드는 선택 항목으로 표시하고, “자동 생성” 안내를 추가했습니다.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>검증</h2>
+    <ul>
+      <li><span class="ok">통과</span> <code>salesOrderPaste.test.ts</code> 16개 테스트</li>
+      <li><span class="ok">통과</span> <code>partnerCodeGenerate.test.ts</code> 13개 테스트</li>
+      <li><span class="ok">통과</span> salesOrder/partner 관련 확장 테스트 54개</li>
+      <li><span class="ok">통과</span> <code>npx tsc --noEmit --pretty false</code></li>
+      <li><span class="ok">통과</span> <code>vercel build --prod</code></li>
+      <li><span class="ok">완료</span> <code>vercel deploy --prebuilt --prod --yes</code></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>운영 배포</h2>
+    <ul>
+      <li>운영 도메인: <a href="https://s-erp.kr">https://s-erp.kr</a></li>
+      <li>Deployment ID: <code>dpl_Ae3PJqAKr9QMVXz5wFE1RMVywTr9</code></li>
+      <li>상태: <span class="ok">Ready</span></li>
+      <li>운영 alias <code>s-erp.kr</code>, <code>www.s-erp.kr</code> 연결 확인 완료</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>주의</h2>
+    <p class="warn">기존 데이터는 변경하지 않았습니다.</p>
+    <p>이번 작업은 입력/저장 로직과 신규 거래처 등록 UX 개선이며, 기존 전표·거래처 데이터의 직접 수정은 수행하지 않았습니다.</p>
+  </section>
+</main>
+</body>
+</html>
