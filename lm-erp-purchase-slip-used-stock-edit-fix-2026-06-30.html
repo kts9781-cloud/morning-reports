@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LM-ERP 매입전표 수정 차단 버그 수정 보고</title>
+  <style>
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f7f8fb; color: #111827; }
+    main { max-width: 920px; margin: 0 auto; padding: 36px 20px 56px; }
+    .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 18px; padding: 28px; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06); }
+    h1 { margin: 0 0 8px; font-size: 28px; letter-spacing: -0.03em; }
+    h2 { margin: 30px 0 12px; font-size: 19px; }
+    p { line-height: 1.7; margin: 8px 0; }
+    ul { margin: 8px 0 0; padding-left: 22px; line-height: 1.75; }
+    code { background: #f3f4f6; border-radius: 6px; padding: 2px 6px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; }
+    .badge { display: inline-block; border-radius: 999px; padding: 5px 10px; font-size: 13px; font-weight: 700; background: #dcfce7; color: #166534; }
+    .warn { background: #fff7ed; border-left: 4px solid #f97316; padding: 12px 14px; border-radius: 10px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 12px; }
+    .mini { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px; }
+    .mini strong { display: block; margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <span class="badge">운영 반영 완료</span>
+    <h1>LM-ERP 매입전표 수정 차단 버그 수정 보고</h1>
+    <p>6/12 삼익THK(주) 서울 매입전표 <code>PS-2026-0053</code>의 6번째 항목 수정 시 “이미 판매/예약된 입고 재고가 있어 수정할 수 없습니다.” 메시지가 뜨며 저장되지 않던 문제를 수정했습니다.</p>
+
+    <h2>확인한 증상</h2>
+    <ul>
+      <li>대상 전표: <code>PS-2026-0053</code></li>
+      <li>날짜: <code>2026-06-12</code></li>
+      <li>매입처: 삼익THK(주) 서울</li>
+      <li>6번째 라인: 기타 / 수량 5 / 단가 253,700 / 비고 “볼나사 KR 수입 A/S”</li>
+      <li>해당 라인의 LOT는 판매/예약 상태가 아니었으므로 수정 차단은 오동작이었습니다.</li>
+    </ul>
+
+    <h2>원인</h2>
+    <p>매입전표 수정 함수가 판매/예약 여부를 보호하기 위해 기존 라인과 수정 입력값의 품목·수량·규격 등을 비교합니다. 그런데 베어링처럼 길이/G값이 없는 품목은 저장값과 화면 저장값의 치수 기본값이 다르게 해석되어, 실제 변경이 없는데도 “재고 정체성 변경”으로 오판했습니다.</p>
+
+    <h2>수정 내용</h2>
+    <ul>
+      <li>DB 함수 <code>public.update_purchase_slip</code>의 치수 비교 로직을 보정했습니다.</li>
+      <li>저장된 0/NULL 치수와 화면에서 정규화된 1을 같은 의미로 비교하도록 수정했습니다.</li>
+      <li>실제 품목·수량·규격 변경이나 판매/예약된 LOT 보호 로직은 유지했습니다.</li>
+    </ul>
+
+    <div class="grid">
+      <div class="mini">
+        <strong>DB Migration</strong>
+        <code>20260630120000_fix_purchase_slip_used_stock_dimension_guard.sql</code>
+      </div>
+      <div class="mini">
+        <strong>회귀 테스트</strong>
+        <code>purchaseSlipUsedStockGuard.test.ts</code>
+      </div>
+      <div class="mini">
+        <strong>운영 URL</strong>
+        <code>https://s-erp.kr</code>
+      </div>
+    </div>
+
+    <h2>검증 결과</h2>
+    <ul>
+      <li>Supabase migration 적용 완료: <code>20260630120000</code>가 Remote에 반영됨</li>
+      <li>타깃 테스트: <code>9 passed</code></li>
+      <li>TypeScript: <code>npx tsc --noEmit --pretty false</code> 통과</li>
+      <li>Vercel production deployment 상태: Ready</li>
+      <li><code>s-erp.kr</code> alias 연결 확인</li>
+      <li>해당 전표의 6개 LOT 수량/예약 상태 재확인: 수량 일치, 예약 0, available</li>
+    </ul>
+
+    <div class="warn">
+      <p><strong>참고:</strong> 로그인 세션이 필요한 화면이라 외부 curl 검증은 로그인 페이지 리다이렉트까지만 확인했습니다. DB migration 반영, 전표/LOT 상태, 테스트, 타입체크, Vercel Ready 상태로 운영 반영을 검증했습니다.</p>
+    </div>
+  </div>
+</main>
+</body>
+</html>
