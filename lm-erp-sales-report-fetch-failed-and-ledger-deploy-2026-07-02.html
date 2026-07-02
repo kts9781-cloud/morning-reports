@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LM-ERP 매출보고서 fetch failed 수정 및 배포 보고</title>
+  <style>
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65;margin:0;background:#f8fafc;color:#0f172a}
+    main{max-width:980px;margin:0 auto;padding:32px 20px 56px}
+    .card{background:white;border:1px solid #e2e8f0;border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 8px 24px rgba(15,23,42,.04)}
+    h1{font-size:28px;margin:0 0 10px} h2{font-size:20px;margin:0 0 12px;color:#1e293b}
+    .muted{color:#64748b}.ok{color:#047857;font-weight:700}.warn{color:#b45309;font-weight:700}
+    code{background:#f1f5f9;border-radius:6px;padding:2px 6px} ul{margin:8px 0 0 20px;padding:0}
+    table{width:100%;border-collapse:collapse;margin-top:8px}td,th{border-bottom:1px solid #e2e8f0;padding:8px;text-align:left;vertical-align:top}th{background:#f8fafc}
+  </style>
+</head>
+<body><main>
+  <h1>LM-ERP 매출보고서 오류 수정 및 운영 배포 보고</h1>
+  <p class="muted">2026-07-02 · 대상: <code>/Users/taesungkim/lm-erp</code></p>
+
+  <section class="card">
+    <h2>요청</h2>
+    <ul>
+      <li>월별 매출보고서에서 <code>조회 실패: TypeError: fetch failed</code>가 뜨는 원인을 수정</li>
+      <li>Claude Code가 완료한 대명농기계/거래선별 원장 관련 수정까지 함께 운영 배포</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>원인</h2>
+    <p>매출보고서 본 집계 쿼리는 성공했지만, 품목별 표의 MAKER/item ledger fallback을 위해 <code>items.item_name in (...)</code>을 한 번에 조회하면서 품목명이 많은 달에 URL 길이 한계를 넘었습니다.</p>
+    <table><tbody>
+      <tr><th>재현 조건</th><td>2026년 5월 · 성진(안산)</td></tr>
+      <tr><th>성공한 쿼리</th><td>legacy 683건, sales_slips 337건, sales_slip_lines 1,552건</td></tr>
+      <tr><th>실패 지점</th><td>distinct item_name 약 879개를 한 번에 <code>items</code> 조회 → <code>TypeError: fetch failed</code></td></tr>
+      <tr><th>한계 확인</th><td>775개/약 7,598자 성공, 800개/약 8,058자 실패</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="card">
+    <h2>변경</h2>
+    <ul>
+      <li><code>src/app/reports/sales/page.tsx</code>: item master fallback 조회를 200개 단위 chunk로 분할</li>
+      <li>대량 품목명 조회에서도 URL 길이 한계를 넘지 않도록 보완</li>
+      <li>Claude Code의 기존 변경사항(거래선별 원장/대명농기계 관련, 발주서 출력/재출력 관련)을 포함해 배포</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>검증</h2>
+    <ul>
+      <li class="ok">실데이터 재현 검증: 879개 품목명 → 5개 chunk, item rows 2,521건, errors 없음</li>
+      <li class="ok">Vitest: 4 files / 67 tests passed</li>
+      <li class="ok">ESLint: 대상 파일 통과</li>
+      <li class="ok">TypeScript: <code>npx tsc --noEmit --pretty false</code> 통과</li>
+      <li class="ok">Local build: <code>npm run build</code> 통과</li>
+      <li class="ok">Vercel production build: Ready</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>배포</h2>
+    <table><tbody>
+      <tr><th>Production URL</th><td><code>https://lm-m1pjlrffx-kimtaeungs-projects.vercel.app</code></td></tr>
+      <tr><th>운영 도메인</th><td><code>https://s-erp.kr</code>, <code>https://www.s-erp.kr</code></td></tr>
+      <tr><th>Deployment ID</th><td><code>dpl_B3hBCirJD77gmES3AVN2Hq1bLh5C</code></td></tr>
+      <tr><th>Status</th><td class="ok">Ready</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="card">
+    <h2>남은 확인사항</h2>
+    <p>운영 인증이 필요한 보고서 본문은 curl로 직접 조회할 수 없어 로그인 리다이렉트까지만 확인했습니다. 실제 로그인 세션에서 매출보고서 2026년 5월/성진(안산)을 열어 빨간 오류가 사라졌는지 최종 확인하면 됩니다.</p>
+  </section>
+</main></body></html>
