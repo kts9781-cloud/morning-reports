@@ -125,7 +125,7 @@
     .pain .icon, .feature .icon { width:44px; height:44px; border-radius:14px; display:grid; place-items:center; background: var(--green-50); margin-bottom:18px; font-size:22px; }
     h3 { font-size: 23px; margin:0 0 10px; letter-spacing:-0.045em; }
     .pain p, .feature p, .faq-item p { color: var(--muted); line-height:1.7; margin:0; }
-    .detail-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:18px; }
+    .detail-grid { display:grid; grid-template-columns: repeat(2,1fr); gap:18px; }
     .detail-card { background:white; border:1px solid var(--line); border-radius:28px; padding:26px; box-shadow: 0 14px 36px rgba(7,59,52,.06); display:flex; flex-direction:column; gap:18px; }
     .detail-card .badge { display:inline-flex; width:max-content; padding:8px 12px; border-radius:999px; background:var(--green-100); color:var(--green-800); font-weight:900; font-size:13px; }
     .detail-card h3 { font-size:26px; line-height:1.18; word-break:keep-all; }
@@ -224,7 +224,7 @@
       <div>
         <div class="eyebrow">● 골프 동호회 총무 전용 AI 관리 앱</div>
         <h1>총무 일은 줄이고,<br />라운드는 더 즐겁게.</h1>
-        <p>회원 등록, 참석 체크, AI 조편성, 공지 작성, 전체 스코어카드 사진 인식, 골프 룰 AI 답변, 회비 정산까지. 골프총무AI비서는 매월 반복되는 골프 모임 운영 업무를 한 흐름으로 정리해주는 AI 비서입니다.</p>
+        <p>회원 등록, 참석 체크, AI 조편성, 공지 작성, 골프장·일자·시간 기반 날씨 안내, 전체 스코어카드 사진 인식, 골프 룰 AI 답변, 회비 정산까지. 골프총무AI비서는 매월 반복되는 골프 모임 운영 업무를 한 흐름으로 정리해주는 AI 비서입니다.</p>
         <div class="hero-actions">
           <a class="btn-primary" href="#howto">사용설명 보기</a>
           <a class="btn-secondary" href="#screens">스크린샷 보기</a>
@@ -247,7 +247,7 @@
         <div class="section-head">
           <div class="section-kicker">이런 총무님께 필요합니다</div>
           <h2>카톡, 엑셀, 메모장을 오가던 일을 앱 하나로</h2>
-          <p>매월 반복되는 참석 확인, 조 나누기, 라운드 공지 작성, 전체 스코어카드 사진 등록, 수상자 선정, 회비 계산을 더 빠르고 깔끔하게 처리합니다.</p>
+          <p>매월 반복되는 참석 확인, 조 나누기, 라운드 공지 작성, 골프장 날씨 안내, 전체 스코어카드 사진 등록, 수상자 선정, 회비 계산을 더 빠르고 깔끔하게 처리합니다.</p>
         </div>
         <div class="pain-grid">
           <article class="pain"><div class="icon">📋</div><h3>참석자 정리가 번거로울 때</h3><p>단톡방 답변을 보고 참석/불참을 체크하고, 실제 참석자 기준으로 조편성까지 이어갑니다.</p></article>
@@ -270,6 +270,7 @@
           <article class="feature"><div class="icon">📷</div><h3>전체 스코어카드 AI 등록</h3><p>라운드 후 전체 스코어카드 사진을 올리면 선수별 홀 스코어를 읽어 기록 입력을 도와줍니다.</p></article>
           <article class="feature"><div class="icon">🏆</div><h3>수상자 자동 선정</h3><p>수상 이력과 중복 방지 기준을 반영해 공정한 시상을 돕습니다.</p></article>
           <article class="feature"><div class="icon">💰</div><h3>회비·정산 관리</h3><p>연회비, 지출, 이월금, 잔액을 한 화면에서 정리합니다.</p></article>
+          <article class="feature"><div class="icon">🌤️</div><h3>골프장 날씨 자동 안내</h3><p>선택한 골프장, 라운드 날짜, 티오프 시간 기준의 날씨 정보를 공지문에 함께 넣어줍니다.</p></article>
           <article class="feature"><div class="icon">🤖</div><h3>골프 룰 AI 답변</h3><p>벌타, 드롭, OB, 해저드, 로컬룰처럼 헷갈리는 상황을 질문하면 이해하기 쉽게 안내합니다.</p></article>
           <article class="feature"><div class="icon">📝</div><h3>라운드 운영 히스토리</h3><p>참석자, 조편성, 공지, 스코어, 수상, 정산을 월별 기록으로 남겨 다음 모임에 활용합니다.</p></article>
         </div>
@@ -304,6 +305,17 @@
               <div class="flow-item"><b>1</b><span>참석자, 게스트, 핸디캡, 최근 기록 확인</span></div>
               <div class="flow-item"><b>2</b><span>실력 균형과 조별 인원을 고려해 조편성안 생성</span></div>
               <div class="flow-item"><b>3</b><span>날짜·장소·티오프·준비사항을 포함한 공유용 공지 생성</span></div>
+            </div>
+          </article>
+          <article class="detail-card">
+            <span class="badge">WEATHER NOTICE</span>
+            <div class="detail-visual"><img src="golf-ai-manager-promo-assets/shot-20.jpg" alt="설정 및 라운드 정보" /><img src="golf-ai-manager-promo-assets/shot-12.jpg" alt="공지 공유 화면" /></div>
+            <h3>골프장·날짜·시간 기준 날씨를 공지에 자동 반영</h3>
+            <p>공지 생성 시 골프장 위치, 라운드 날짜, 티오프 시간을 기준으로 날씨를 확인해 회원들이 준비할 내용을 함께 안내합니다.</p>
+            <div class="flow-list">
+              <div class="flow-item"><b>1</b><span>공지에 골프장, 라운드 날짜, 티오프 시간 입력</span></div>
+              <div class="flow-item"><b>2</b><span>해당 시간대의 기온, 강수 가능성, 바람 등 날씨 정보 확인</span></div>
+              <div class="flow-item"><b>3</b><span>우산, 바람막이, 여벌 옷, 더위 대비 등 준비사항을 공지문에 포함</span></div>
             </div>
           </article>
           <article class="detail-card rule-card">
@@ -345,8 +357,8 @@
           <div class="show-copy">
             <div class="num">03 / 공지와 AI 글쓰기</div>
             <h3>공지문도 총무답게, AI가 깔끔하게</h3>
-            <p>라운드 안내, 조편성 결과, 티오프 시간, 준비물, 경조사 공지를 입력하면 단톡방에 올리기 좋은 문장으로 정리합니다.</p>
-            <div class="bullets"><div class="bullet"><span class="check">✓</span><span>라운딩/모임/경조사 공지 지원</span></div><div class="bullet"><span class="check">✓</span><span>카카오톡 공유에 어울리는 문장 구성</span></div></div>
+            <p>라운드 안내, 조편성 결과, 골프장, 티오프 시간, 해당 시간대 날씨, 준비물, 경조사 공지를 입력하면 단톡방에 올리기 좋은 문장으로 정리합니다.</p>
+            <div class="bullets"><div class="bullet"><span class="check">✓</span><span>라운딩/모임/경조사 공지와 조편성 결과 지원</span></div><div class="bullet"><span class="check">✓</span><span>골프장·날짜·티오프 시간 기반 날씨와 준비사항 포함</span></div></div>
           </div>
           <div class="screens"><div class="mini-phone tilt-left"><img src="golf-ai-manager-promo-assets/shot-05.jpg" alt="공지 작성 화면" /></div><div class="mini-phone tilt-right"><img src="golf-ai-manager-promo-assets/shot-06.jpg" alt="공지 상세 화면" /></div></div>
         </div>
@@ -374,7 +386,7 @@
           <div class="step-card"><div><strong>멤버 탭에서 회원 등록</strong><span>회원명, 연락처, 핸디캡, 게스트 여부를 등록해 모임 운영의 기본 데이터를 만듭니다.</span></div></div>
           <div class="step-card"><div><strong>참석/불참 체크</strong><span>라운드 전 단톡방 답변을 보고 참석자를 체크하면 조편성 대상이 자동으로 정리됩니다.</span></div></div>
           <div class="step-card"><div><strong>AI 조편성 실행</strong><span>참석자와 핸디캡을 기준으로 조를 만들고, 필요하면 일부 인원을 직접 조정합니다.</span></div></div>
-          <div class="step-card"><div><strong>조편성 공지 작성 및 공유</strong><span>확정된 조편성, 날짜, 장소, 티오프, 준비사항을 AI가 단톡방용 공지문과 공유 이미지로 정리합니다.</span></div></div>
+          <div class="step-card"><div><strong>조편성 공지 작성 및 공유</strong><span>확정된 조편성, 날짜, 골프장, 티오프, 해당 시간대 날씨, 준비사항을 AI가 단톡방용 공지문과 공유 이미지로 정리합니다.</span></div></div>
           <div class="step-card"><div><strong>스코어카드 사진 등록</strong><span>라운드 후 전체 스코어카드 사진을 올려 선수별 스코어를 확인하고 기록실에 반영합니다.</span></div></div>
           <div class="step-card"><div><strong>수상자 확인</strong><span>우승, 메달리스트, 니어리스트, 롱기스트 등 모임 기준에 맞춰 수상자를 선정합니다.</span></div></div>
           <div class="step-card"><div><strong>재무와 정산 관리</strong><span>연회비, 입금, 지출, 이월금, 잔액을 관리해 총무 정산을 깔끔하게 마무리합니다.</span></div></div>
@@ -419,6 +431,7 @@
           <div class="faq-item"><h3>부총무와 같이 관리할 수 있나요?</h3><p>부총무 관리 기능을 통해 운영 업무를 나누고, 총무가 바쁠 때도 모임 관리를 이어갈 수 있습니다.</p></div>
           <div class="faq-item"><h3>스코어카드 사진만으로 기록이 가능한가요?</h3><p>전체 스코어카드 사진을 기반으로 AI가 선수별 스코어 입력을 도와줍니다. 총무님이 확인 후 확정하면 기록실과 수상자 선정에 활용할 수 있습니다.</p></div>
           <div class="faq-item"><h3>골프 룰 질문도 답해주나요?</h3><p>OB, 벌타, 드롭, 언플레이어블, 페널티 구역처럼 헷갈리는 상황을 자연어로 질문하면 참고용 답변을 제공합니다. 실제 경기 규정은 대회/로컬룰 기준을 함께 확인하면 좋습니다.</p></div>
+          <div class="faq-item"><h3>날씨 정보도 공지에 넣을 수 있나요?</h3><p>네. 골프장, 라운드 날짜, 티오프 시간을 기준으로 해당 시간대 날씨를 확인해 기온, 비 예보, 바람, 준비물 안내를 공지문에 함께 넣을 수 있습니다.</p></div>
         </div>
       </div>
     </section>
@@ -427,7 +440,7 @@
       <div class="wrap cta">
         <div>
           <h2>골프 모임 운영, 이제 앱으로 정리하세요</h2>
-          <p>참석자 체크, 조편성 공지 생성, 전체 스코어카드 사진 등록, 골프 룰 AI 답변, 수상·정산까지 더 세밀하게 관리하세요. 복잡한 총무 업무는 골프총무AI비서에 맡기고 라운드에 집중하세요.</p>
+          <p>참석자 체크, 조편성 공지 생성, 골프장·시간대별 날씨 안내, 전체 스코어카드 사진 등록, 골프 룰 AI 답변, 수상·정산까지 더 세밀하게 관리하세요. 복잡한 총무 업무는 골프총무AI비서에 맡기고 라운드에 집중하세요.</p>
           <div class="hero-actions">
             <a class="btn-primary" href="https://apps.apple.com/app/id6772040756" target="_blank" rel="noopener">App Store에서 보기</a>
             <a class="btn-secondary" href="https://play.google.com/store/apps/details?id=com.golfai.app" target="_blank" rel="noopener">Google Play에서 보기</a>
