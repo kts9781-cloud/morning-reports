@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>골프총무AI비서 | 골프 모임 총무를 위한 AI 관리 앱</title>
+  <meta name="description" content="회원 관리, AI 조편성, 공지 작성, 스코어 기록, 회비 정산까지 골프 모임 총무 업무를 한 번에 관리하는 골프총무AI비서 소개 페이지" />
+  <meta property="og:title" content="골프총무AI비서" />
+  <meta property="og:description" content="골프 모임 총무 업무를 AI가 대신 정리합니다." />
+  <meta property="og:image" content="golf-ai-manager-promo-assets/shot-22.jpg" />
+  <style>
+    :root {
+      --green-900: #073b34;
+      --green-800: #0c5147;
+      --green-700: #0e6b59;
+      --green-100: #e9f7ef;
+      --green-50: #f4fbf7;
+      --gold: #f4b740;
+      --ink: #151716;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --bg: #ffffff;
+      --soft: #f7f8f8;
+      --shadow: 0 24px 70px rgba(7, 59, 52, .14);
+      --radius: 28px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", Segoe UI, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      letter-spacing: -0.035em;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,.82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(229,231,235,.7);
+    }
+    .nav { height: 72px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+    .brand-mark {
+      width: 34px; height: 34px; border-radius: 11px;
+      display: grid; place-items: center;
+      color: white; background: linear-gradient(135deg, var(--green-900), var(--green-700));
+      box-shadow: 0 10px 24px rgba(7,59,52,.22);
+    }
+    .nav-links { display: flex; align-items: center; gap: 22px; font-size: 15px; color: #444; }
+    .nav-cta, .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      border-radius: 999px; background: var(--green-900); color: #fff;
+      padding: 13px 18px; font-weight: 800; box-shadow: 0 14px 28px rgba(7,59,52,.18);
+    }
+    .btn-secondary {
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--line); border-radius: 999px; padding: 13px 18px;
+      font-weight: 800; background: white;
+    }
+    .hero {
+      min-height: 790px;
+      display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 54px;
+      padding: 78px 0 92px;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 14px; border-radius: 999px;
+      background: var(--green-100); color: var(--green-800); font-weight: 800; font-size: 14px;
+      margin-bottom: 28px;
+    }
+    h1 { font-size: clamp(48px, 6.6vw, 82px); line-height: .98; margin: 0 0 28px; letter-spacing: -0.07em; }
+    .hero p { font-size: 20px; line-height: 1.8; color: #61676f; margin: 0 0 32px; max-width: 610px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 24px; }
+    .micro { color: #a0a5ad; font-size: 14px; }
+    .phone-stage { position: relative; min-height: 620px; display: grid; place-items: center; }
+    .orb { position: absolute; inset: 70px 0 0 60px; background: radial-gradient(circle, rgba(14,107,89,.18), transparent 60%); filter: blur(10px); }
+    .phone {
+      position: relative; width: min(355px, 78vw); border-radius: 46px; padding: 14px;
+      background: linear-gradient(145deg, #f8faf9, #eef2f0);
+      border: 1px solid #e3e7e5; box-shadow: var(--shadow);
+    }
+    .phone::before { content:""; position:absolute; top:12px; left:50%; transform:translateX(-50%); width:82px; height:22px; border-radius: 99px; background:#111; opacity:.08; z-index:2; }
+    .phone img { width: 100%; border-radius: 34px; display:block; background:#fff; }
+    .floating-card {
+      position:absolute; left: 0; bottom: 70px; width: 240px; background:white; border:1px solid var(--line);
+      border-radius: 22px; padding: 16px; box-shadow: 0 24px 50px rgba(0,0,0,.12);
+    }
+    .floating-card strong { display:block; color: var(--green-900); margin-bottom: 6px; }
+    .floating-card span { color: var(--muted); font-size: 14px; line-height:1.5; }
+    section { padding: 98px 0; }
+    section.alt { background: var(--soft); }
+    .section-head { max-width: 760px; margin: 0 auto 48px; text-align: center; }
+    .section-kicker { color: var(--green-700); font-weight: 900; margin-bottom: 12px; }
+    h2 { font-size: clamp(34px, 4vw, 56px); line-height:1.08; margin:0 0 18px; letter-spacing:-0.06em; }
+    .section-head p { color: var(--muted); font-size: 18px; line-height:1.75; margin:0; }
+    .pain-grid, .feature-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .pain, .feature, .faq-item {
+      background: white; border:1px solid var(--line); border-radius: 24px; padding: 26px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.035);
+    }
+    .pain .icon, .feature .icon { width:44px; height:44px; border-radius:14px; display:grid; place-items:center; background: var(--green-50); margin-bottom:18px; font-size:22px; }
+    h3 { font-size: 23px; margin:0 0 10px; letter-spacing:-0.045em; }
+    .pain p, .feature p, .faq-item p { color: var(--muted); line-height:1.7; margin:0; }
+    .showcase { display:grid; gap:72px; }
+    .show-row { display:grid; grid-template-columns: .95fr 1.05fr; gap:56px; align-items:center; }
+    .show-row:nth-child(even) { grid-template-columns: 1.05fr .95fr; }
+    .show-row:nth-child(even) .show-copy { order: 2; }
+    .show-copy .num { color: var(--green-700); font-weight:900; margin-bottom:14px; }
+    .show-copy h3 { font-size: clamp(31px, 3.5vw, 46px); line-height:1.12; margin-bottom:18px; }
+    .show-copy p { color: var(--muted); font-size:18px; line-height:1.85; }
+    .bullets { display:grid; gap:10px; margin-top:22px; }
+    .bullet { display:flex; gap:10px; align-items:flex-start; color:#374151; line-height:1.55; }
+    .check { flex:0 0 24px; width:24px; height:24px; border-radius:50%; background:var(--green-100); color:var(--green-800); display:grid; place-items:center; font-size:13px; font-weight:900; }
+    .screens { display:flex; gap:16px; align-items:center; justify-content:center; }
+    .mini-phone { width: 210px; border-radius:34px; padding:8px; background:#f2f5f3; border:1px solid #e1e6e3; box-shadow: 0 18px 45px rgba(7,59,52,.13); }
+    .mini-phone.tilt-left { transform: rotate(-3deg); }
+    .mini-phone.tilt-right { transform: rotate(3deg); margin-top:38px; }
+    .mini-phone img { width:100%; border-radius:27px; display:block; }
+    .steps { display:grid; grid-template-columns: repeat(2,1fr); gap:16px; counter-reset: step; }
+    .step-card { counter-increment: step; background:white; border:1px solid var(--line); border-radius:22px; padding:22px; display:flex; gap:16px; align-items:flex-start; }
+    .step-card::before { content: counter(step); flex:0 0 38px; width:38px; height:38px; display:grid; place-items:center; border-radius:14px; background:var(--green-900); color:#fff; font-weight:900; }
+    .step-card strong { display:block; margin-bottom:6px; font-size:18px; }
+    .step-card span { color:var(--muted); line-height:1.6; }
+    .gallery { display:grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+    .gallery a { display:block; background:white; border:1px solid var(--line); border-radius:22px; padding:7px; box-shadow: 0 12px 30px rgba(0,0,0,.04); transition: transform .2s ease; }
+    .gallery a:hover { transform: translateY(-4px); }
+    .gallery img { width:100%; border-radius:16px; display:block; }
+    .faq-grid { display:grid; grid-template-columns: repeat(2,1fr); gap:16px; }
+    .cta { background: linear-gradient(135deg, var(--green-900), #0e6b59); color:white; border-radius:38px; padding:56px; display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:center; overflow:hidden; position:relative; }
+    .cta h2 { color:white; }
+    .cta p { color: rgba(255,255,255,.78); line-height:1.8; font-size:18px; }
+    .cta .btn-primary { background:white; color:var(--green-900); box-shadow:none; }
+    .cta .btn-secondary { background:rgba(255,255,255,.1); color:white; border-color:rgba(255,255,255,.22); }
+    .cta-preview { display:flex; justify-content:center; gap:12px; }
+    .cta-preview img { width:170px; border-radius:28px; padding:7px; background:rgba(255,255,255,.92); }
+    footer { padding:44px 0; border-top:1px solid var(--line); color:#9299a3; font-size:14px; }
+    .footer-inner { display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; }
+    @media (max-width: 920px) {
+      .nav-links a:not(.nav-cta) { display:none; }
+      .hero, .show-row, .show-row:nth-child(even), .cta { grid-template-columns:1fr; }
+      .show-row:nth-child(even) .show-copy { order:0; }
+      .hero { padding-top:46px; min-height: auto; }
+      .phone-stage { min-height: 520px; }
+      .floating-card { left: 10px; bottom: 22px; }
+      .pain-grid, .feature-grid { grid-template-columns:1fr; }
+      .steps, .faq-grid { grid-template-columns:1fr; }
+      .gallery { grid-template-columns: repeat(3,1fr); }
+      .screens { justify-content:flex-start; overflow-x:auto; padding-bottom:12px; }
+      .mini-phone { flex:0 0 190px; }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 26px, 1120px); }
+      .nav { height:64px; }
+      .brand span:last-child { font-size:15px; }
+      .nav-cta { padding:10px 13px; font-size:13px; }
+      .hero p { font-size:17px; }
+      section { padding:72px 0; }
+      .gallery { grid-template-columns: repeat(2,1fr); }
+      .cta { padding:32px 22px; border-radius:28px; }
+      .cta-preview img { width:132px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="골프총무AI비서 홈">
+        <span class="brand-mark">⛳</span>
+        <span>골프총무AI비서</span>
+      </a>
+      <nav class="nav-links" aria-label="주요 메뉴">
+        <a href="#features">기능</a>
+        <a href="#howto">사용설명</a>
+        <a href="#screens">화면</a>
+        <a class="nav-cta" href="https://apps.apple.com/app/id6772040756" target="_blank" rel="noopener">앱 보기</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="wrap hero">
+      <div>
+        <div class="eyebrow">● 골프 동호회 총무 전용 AI 관리 앱</div>
+        <h1>총무 일은 줄이고,<br />라운드는 더 즐겁게.</h1>
+        <p>회원 등록, 참석 체크, AI 조편성, 공지 작성, 스코어 기록, 회비 정산까지. 골프총무AI비서는 매월 반복되는 골프 모임 운영 업무를 한 번에 정리해주는 AI 비서입니다.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#howto">사용설명 보기</a>
+          <a class="btn-secondary" href="#screens">스크린샷 보기</a>
+        </div>
+        <div class="micro">iOS · Android 지원 / App Store Connect 앱 ID 6772040756</div>
+      </div>
+      <div class="phone-stage" aria-hidden="true">
+        <div class="orb"></div>
+        <div class="phone"><img src="golf-ai-manager-promo-assets/shot-22.jpg" alt="골프총무AI비서 조편성 공유 화면" /></div>
+        <div class="floating-card"><strong>AI가 총무 업무를 보조</strong><span>참석자 확인부터 조편성, 공지, 기록, 정산까지 한 흐름으로 관리합니다.</span></div>
+      </div>
+    </section>
+
+    <section class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-kicker">이런 총무님께 필요합니다</div>
+          <h2>카톡, 엑셀, 메모장을 오가던 일을 앱 하나로</h2>
+          <p>매월 반복되는 참석 확인, 조 나누기, 공지 작성, 스코어 정리, 회비 계산을 더 빠르고 깔끔하게 처리합니다.</p>
+        </div>
+        <div class="pain-grid">
+          <article class="pain"><div class="icon">📋</div><h3>참석자 정리가 번거로울 때</h3><p>단톡방 답변을 보고 참석/불참을 체크하고, 실제 참석자 기준으로 조편성까지 이어갑니다.</p></article>
+          <article class="pain"><div class="icon">🧩</div><h3>조편성이 매번 고민일 때</h3><p>핸디캡과 기록을 참고해 조별 균형을 맞추고, 필요한 경우 직접 조정할 수 있습니다.</p></article>
+          <article class="pain"><div class="icon">💬</div><h3>공지문 쓰기가 귀찮을 때</h3><p>라운드 안내, 모임 공지, 경조사 안내를 AI가 단톡방에 올리기 좋은 문장으로 정리합니다.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-kicker">주요 기능</div>
+          <h2>골프 모임 운영에 필요한 기능을 한 곳에</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature"><div class="icon">👥</div><h3>회원 관리</h3><p>회원 정보, 핸디캡, 참석 여부, 게스트 여부를 관리합니다.</p></article>
+          <article class="feature"><div class="icon">⛳</div><h3>AI 조편성</h3><p>참석 인원과 실력 균형을 고려해 조편성을 빠르게 만듭니다.</p></article>
+          <article class="feature"><div class="icon">📢</div><h3>AI 공지 작성</h3><p>라운딩/모임/경조사 공지를 자연스러운 문장으로 생성합니다.</p></article>
+          <article class="feature"><div class="icon">📷</div><h3>스코어카드 AI 인식</h3><p>스코어카드 사진을 기반으로 기록 입력을 더 쉽게 처리합니다.</p></article>
+          <article class="feature"><div class="icon">🏆</div><h3>수상자 자동 선정</h3><p>수상 이력과 중복 방지 기준을 반영해 공정한 시상을 돕습니다.</p></article>
+          <article class="feature"><div class="icon">💰</div><h3>회비·정산 관리</h3><p>연회비, 지출, 이월금, 잔액을 한 화면에서 정리합니다.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt">
+      <div class="wrap showcase">
+        <div class="show-row">
+          <div class="show-copy">
+            <div class="num">01 / 회원과 참석자 관리</div>
+            <h3>이번 라운드 참석자를 빠르게 체크하세요</h3>
+            <p>회원별 참석/불참, 게스트 여부, 연락처, 핸디캡을 관리해 조편성의 기준 데이터를 만듭니다.</p>
+            <div class="bullets"><div class="bullet"><span class="check">✓</span><span>회원 등록 후 매월 참석 여부만 체크</span></div><div class="bullet"><span class="check">✓</span><span>핸디캡과 최근 기록을 조편성에 활용</span></div></div>
+          </div>
+          <div class="screens"><div class="mini-phone tilt-left"><img src="golf-ai-manager-promo-assets/shot-03.jpg" alt="회원 참석 관리 화면" /></div><div class="mini-phone tilt-right"><img src="golf-ai-manager-promo-assets/shot-07.jpg" alt="조편성 참석자 목록 화면" /></div></div>
+        </div>
+        <div class="show-row">
+          <div class="show-copy">
+            <div class="num">02 / AI 조편성</div>
+            <h3>실력 균형을 맞춘 조편성을 자동으로</h3>
+            <p>참석자를 기준으로 조를 구성하고, 결과를 이미지로 만들어 카카오톡에 공유할 수 있습니다.</p>
+            <div class="bullets"><div class="bullet"><span class="check">✓</span><span>조별 인원과 실력 균형 고려</span></div><div class="bullet"><span class="check">✓</span><span>확정 후 공유용 이미지 생성</span></div></div>
+          </div>
+          <div class="screens"><div class="mini-phone tilt-left"><img src="golf-ai-manager-promo-assets/shot-12.jpg" alt="조편성 공유 이미지 화면" /></div><div class="mini-phone tilt-right"><img src="golf-ai-manager-promo-assets/shot-22.jpg" alt="조편성 결과 화면" /></div></div>
+        </div>
+        <div class="show-row">
+          <div class="show-copy">
+            <div class="num">03 / 공지와 AI 글쓰기</div>
+            <h3>공지문도 총무답게, AI가 깔끔하게</h3>
+            <p>라운드 안내, 모임 공지, 경조사 공지를 입력하면 단톡방에 올리기 좋은 문장으로 정리합니다.</p>
+            <div class="bullets"><div class="bullet"><span class="check">✓</span><span>라운딩/모임/경조사 공지 지원</span></div><div class="bullet"><span class="check">✓</span><span>카카오톡 공유에 어울리는 문장 구성</span></div></div>
+          </div>
+          <div class="screens"><div class="mini-phone tilt-left"><img src="golf-ai-manager-promo-assets/shot-05.jpg" alt="공지 작성 화면" /></div><div class="mini-phone tilt-right"><img src="golf-ai-manager-promo-assets/shot-06.jpg" alt="공지 상세 화면" /></div></div>
+        </div>
+        <div class="show-row">
+          <div class="show-copy">
+            <div class="num">04 / 기록실과 재무</div>
+            <h3>스코어, 수상, 회비까지 기록으로 남깁니다</h3>
+            <p>라운드 후 스코어를 입력하고 수상자를 관리하며, 회비와 지출 내역도 함께 정리합니다.</p>
+            <div class="bullets"><div class="bullet"><span class="check">✓</span><span>최근 기록과 평균 관리</span></div><div class="bullet"><span class="check">✓</span><span>이월금, 수입, 지출, 잔액 확인</span></div></div>
+          </div>
+          <div class="screens"><div class="mini-phone tilt-left"><img src="golf-ai-manager-promo-assets/shot-14.jpg" alt="스코어 기록 화면" /></div><div class="mini-phone tilt-right"><img src="golf-ai-manager-promo-assets/shot-15.jpg" alt="재무 요약 화면" /></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="howto">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-kicker">사용설명</div>
+          <h2>처음 사용하는 분은 이 순서대로 시작하세요</h2>
+          <p>동호회 정보를 먼저 넣고, 회원을 등록한 뒤 참석자 체크 → 조편성 → 공지 → 기록 → 정산 순서로 사용하면 가장 편합니다.</p>
+        </div>
+        <div class="steps">
+          <div class="step-card"><div><strong>설정에서 동호회 정보 입력</strong><span>동호회명, 창립연도, 연회비, 회비 계좌, 주 이용 골프장, 공지 하단 문구를 저장합니다.</span></div></div>
+          <div class="step-card"><div><strong>멤버 탭에서 회원 등록</strong><span>회원명, 연락처, 핸디캡, 게스트 여부를 등록해 모임 운영의 기본 데이터를 만듭니다.</span></div></div>
+          <div class="step-card"><div><strong>참석/불참 체크</strong><span>라운드 전 단톡방 답변을 보고 참석자를 체크하면 조편성 대상이 자동으로 정리됩니다.</span></div></div>
+          <div class="step-card"><div><strong>AI 조편성 실행</strong><span>참석자와 핸디캡을 기준으로 조를 만들고, 필요하면 일부 인원을 직접 조정합니다.</span></div></div>
+          <div class="step-card"><div><strong>공지 작성 및 공유</strong><span>공지 탭에서 라운드 안내문을 작성하고 카카오톡에 공유하기 좋은 형태로 정리합니다.</span></div></div>
+          <div class="step-card"><div><strong>스코어 입력</strong><span>라운드 후 기록실에서 스코어를 입력하고 최근 기록, 평균, 수상 이력을 누적합니다.</span></div></div>
+          <div class="step-card"><div><strong>수상자 확인</strong><span>우승, 메달리스트, 니어리스트, 롱기스트 등 모임 기준에 맞춰 수상자를 선정합니다.</span></div></div>
+          <div class="step-card"><div><strong>재무와 정산 관리</strong><span>연회비, 입금, 지출, 이월금, 잔액을 관리해 총무 정산을 깔끔하게 마무리합니다.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="screens" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-kicker">앱 화면 미리보기</div>
+          <h2>실제 화면으로 보는 골프총무AI비서</h2>
+          <p>스크린샷을 눌러 크게 확인할 수 있습니다.</p>
+        </div>
+        <div class="gallery">
+          <a href="golf-ai-manager-promo-assets/shot-01.jpg"><img src="golf-ai-manager-promo-assets/shot-01.jpg" alt="홈 화면" /></a>
+          <a href="golf-ai-manager-promo-assets/shot-03.jpg"><img src="golf-ai-manager-promo-assets/shot-03.jpg" alt="회원 관리" /></a>
+          <a href="golf-ai-manager-promo-assets/shot-07.jpg"><img src="golf-ai-manager-promo-assets/shot-07.jpg" alt="조편성" /></a>
+          <a href="golf-ai-manager-promo-assets/shot-06.jpg"><img src="golf-ai-manager-promo-assets/shot-06.jpg" alt="공지 상세" /></a>
+          <a href="golf-ai-manager-promo-assets/shot-14.jpg"><img src="golf-ai-manager-promo-assets/shot-14.jpg" alt="스코어 기록" /></a>
+          <a href="golf-ai-manager-promo-assets/shot-15.jpg"><img src="golf-ai-manager-promo-assets/shot-15.jpg" alt="재무 관리" /></a>
+          <a href="golf-ai-manager-promo-assets/shot-16.jpg"><img src="golf-ai-manager-promo-assets/shot-16.jpg" alt="정산 목록" /></a>
+          <a href="golf-ai-manager-promo-assets/shot-19.jpg"><img src="golf-ai-manager-promo-assets/shot-19.jpg" alt="시상 설정" /></a>
+          <a href="golf-ai-manager-promo-assets/shot-21.jpg"><img src="golf-ai-manager-promo-assets/shot-21.jpg" alt="설정 메뉴" /></a>
+          <a href="golf-ai-manager-promo-assets/shot-22.jpg"><img src="golf-ai-manager-promo-assets/shot-22.jpg" alt="공유 화면" /></a>
+          <a href="golf-ai-manager-promo-assets/shot-04.jpg"><img src="golf-ai-manager-promo-assets/shot-04.jpg" alt="스코어 입력" /></a>
+          <a href="golf-ai-manager-promo-assets/shot-18.jpg"><img src="golf-ai-manager-promo-assets/shot-18.jpg" alt="구독 및 관리" /></a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-kicker">자주 묻는 질문</div>
+          <h2>총무님들이 궁금해하는 내용</h2>
+        </div>
+        <div class="faq-grid">
+          <div class="faq-item"><h3>골프를 잘 몰라도 사용할 수 있나요?</h3><p>네. 총무 업무 흐름에 맞춰 설정, 회원 등록, 참석 체크, 조편성, 공지 작성 순서로 쓰면 됩니다.</p></div>
+          <div class="faq-item"><h3>조편성은 직접 수정할 수 있나요?</h3><p>AI가 먼저 제안한 뒤, 총무님이 실제 상황에 맞게 일부 인원을 조정할 수 있습니다.</p></div>
+          <div class="faq-item"><h3>카카오톡 공유가 가능한가요?</h3><p>공지와 조편성 결과를 단톡방에 공유하기 좋은 형태로 정리해 사용할 수 있습니다.</p></div>
+          <div class="faq-item"><h3>부총무와 같이 관리할 수 있나요?</h3><p>부총무 관리 기능을 통해 운영 업무를 나누고, 총무가 바쁠 때도 모임 관리를 이어갈 수 있습니다.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap cta">
+        <div>
+          <h2>골프 모임 운영, 이제 앱으로 정리하세요</h2>
+          <p>총무님의 시간을 줄이고, 회원들에게는 더 깔끔한 운영 경험을 제공합니다. 복잡한 총무 업무는 골프총무AI비서에 맡기고 라운드에 집중하세요.</p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="https://apps.apple.com/app/id6772040756" target="_blank" rel="noopener">App Store에서 보기</a>
+            <a class="btn-secondary" href="https://play.google.com/store/apps/details?id=com.golfai.app" target="_blank" rel="noopener">Google Play에서 보기</a>
+          </div>
+        </div>
+        <div class="cta-preview"><img src="golf-ai-manager-promo-assets/shot-01.jpg" alt="홈 화면" /><img src="golf-ai-manager-promo-assets/shot-12.jpg" alt="공유 화면" /></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div><strong>⛳ 골프총무AI비서</strong></div>
+      <div>Made for golf club managers · NodeLabs</div>
+    </div>
+  </footer>
+</body>
+</html>
