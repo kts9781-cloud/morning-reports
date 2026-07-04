@@ -7,7 +7,7 @@
   <meta name="description" content="회원 관리, AI 조편성, 공지 작성, 스코어 기록, 회비 정산까지 골프 모임 총무 업무를 한 번에 관리하는 골프총무AI비서 소개 페이지" />
   <meta property="og:title" content="골프총무AI비서" />
   <meta property="og:description" content="골프 모임 총무 업무를 AI가 대신 정리합니다." />
-  <meta property="og:image" content="golf-ai-manager-promo-assets/shot-22.jpg" />
+  <meta property="og:image" content="golf-ai-manager-promo-assets/hero-icon.png" />
   <style>
     :root {
       --green-900: #073b34;
@@ -75,21 +75,42 @@
     .hero p { font-size: 20px; line-height: 1.8; color: #61676f; margin: 0 0 32px; max-width: 610px; }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 24px; }
     .micro { color: #a0a5ad; font-size: 14px; }
-    .phone-stage { position: relative; min-height: 620px; display: grid; place-items: center; }
-    .orb { position: absolute; inset: 70px 0 0 60px; background: radial-gradient(circle, rgba(14,107,89,.18), transparent 60%); filter: blur(10px); }
-    .phone {
-      position: relative; width: min(355px, 78vw); border-radius: 46px; padding: 14px;
-      background: linear-gradient(145deg, #f8faf9, #eef2f0);
-      border: 1px solid #e3e7e5; box-shadow: var(--shadow);
+    .phone-stage { position: relative; min-height: 620px; display: grid; place-items: center; perspective: 1100px; }
+    .orb { position: absolute; inset: 48px 0 0 35px; background: radial-gradient(circle, rgba(14,107,89,.24), transparent 58%); filter: blur(14px); animation: orbPulse 4.8s ease-in-out infinite; }
+    .hero-logo-card {
+      position: relative; z-index: 3; width: min(360px, 72vw); border-radius: 62px; padding: 18px;
+      background: rgba(255,255,255,.68); border: 1px solid rgba(229,231,235,.86);
+      box-shadow: 0 34px 95px rgba(7,59,52,.22);
+      animation: heroFloat 5.6s ease-in-out infinite;
     }
-    .phone::before { content:""; position:absolute; top:12px; left:50%; transform:translateX(-50%); width:82px; height:22px; border-radius: 99px; background:#111; opacity:.08; z-index:2; }
-    .phone img { width: 100%; border-radius: 34px; display:block; background:#fff; }
+    .hero-logo-card img { width: 100%; display:block; border-radius: 48px; filter: drop-shadow(0 16px 26px rgba(0,0,0,.18)); }
+    .hero-screen {
+      position: absolute; width: 170px; border-radius: 26px; padding: 7px; background: rgba(255,255,255,.9);
+      border:1px solid rgba(229,231,235,.9); box-shadow: 0 22px 55px rgba(7,59,52,.14);
+      animation: screenFloat 6.2s ease-in-out infinite;
+    }
+    .hero-screen img { width:100%; display:block; border-radius:20px; }
+    .hero-screen.one { left: 6px; top: 98px; transform: rotate(-9deg); animation-delay: .25s; }
+    .hero-screen.two { right: -2px; bottom: 58px; transform: rotate(8deg); animation-delay: .85s; }
+    .spark {
+      position:absolute; z-index: 4; width: 44px; height: 44px; border-radius: 16px; display:grid; place-items:center;
+      background:white; border:1px solid var(--line); box-shadow: 0 16px 35px rgba(0,0,0,.12); animation: sparkle 3.8s ease-in-out infinite;
+    }
+    .spark.s1 { right: 52px; top: 74px; }
+    .spark.s2 { left: 86px; bottom: 96px; animation-delay: 1.1s; }
     .floating-card {
-      position:absolute; left: 0; bottom: 70px; width: 240px; background:white; border:1px solid var(--line);
+      position:absolute; z-index:5; left: 0; bottom: 48px; width: 250px; background:white; border:1px solid var(--line);
       border-radius: 22px; padding: 16px; box-shadow: 0 24px 50px rgba(0,0,0,.12);
+      animation: fadeUp 1.1s ease both .35s;
     }
     .floating-card strong { display:block; color: var(--green-900); margin-bottom: 6px; }
     .floating-card span { color: var(--muted); font-size: 14px; line-height:1.5; }
+    @keyframes heroFloat { 0%,100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); } 50% { transform: translateY(-16px) rotateX(2deg) rotateY(-2deg); } }
+    @keyframes screenFloat { 0%,100% { translate: 0 0; } 50% { translate: 0 -14px; } }
+    @keyframes orbPulse { 0%,100% { opacity:.64; transform: scale(.96); } 50% { opacity:1; transform: scale(1.08); } }
+    @keyframes sparkle { 0%,100% { transform: translateY(0) scale(1); opacity:.86; } 50% { transform: translateY(-10px) scale(1.06); opacity:1; } }
+    @keyframes fadeUp { from { opacity:0; transform: translateY(18px); } to { opacity:1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; } }
     section { padding: 98px 0; }
     section.alt { background: var(--soft); }
     .section-head { max-width: 760px; margin: 0 auto 48px; text-align: center; }
@@ -194,7 +215,11 @@
       </div>
       <div class="phone-stage" aria-hidden="true">
         <div class="orb"></div>
-        <div class="phone"><img src="golf-ai-manager-promo-assets/shot-22.jpg" alt="골프총무AI비서 조편성 공유 화면" /></div>
+        <div class="hero-screen one"><img src="golf-ai-manager-promo-assets/shot-03.jpg" alt="회원 참석 관리 화면" /></div>
+        <div class="hero-logo-card"><img src="golf-ai-manager-promo-assets/hero-icon.png" alt="골프총무AI비서 앱 아이콘" /></div>
+        <div class="hero-screen two"><img src="golf-ai-manager-promo-assets/shot-22.jpg" alt="조편성 공유 화면" /></div>
+        <div class="spark s1">AI</div>
+        <div class="spark s2">⛳</div>
         <div class="floating-card"><strong>AI가 총무 업무를 보조</strong><span>참석자 확인부터 조편성, 공지, 기록, 정산까지 한 흐름으로 관리합니다.</span></div>
       </div>
     </section>
