@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="740" viewBox="0 0 860 740">
+      <rect width="860" height="740" rx="28" fill="#fff1f2"/>
+      <text x="28" y="38" font-family="Arial, sans-serif" font-size="26" font-weight="900" fill="#172033">협상장 섹션 요약 8컷 만평</text>
+      
+        <g transform="translate(20,20)">
+          <rect width="380" height="155" rx="22" fill="#fffdf7" stroke="#4f46e5" stroke-width="3"/>
+          <circle cx="76" cy="70" r="34" fill="#fff" stroke="#4f46e5" stroke-width="4"/><text x="54" y="84" font-size="38">📈</text><rect x="154" y="44" width="116" height="66" rx="14" fill="#fff" stroke="#10b981" stroke-width="4"/><path d="M171 88 L193 66 L217 84 L244 56" fill="none" stroke="#10b981" stroke-width="6" stroke-linecap="round"/>
+          <text x="22" y="132" font-size="18" font-weight="800" fill="#172033">1. 금리 인상 우려, 미국은 왜 금리를 못 내릴까?</text>
+        </g>
+        <g transform="translate(430,20)">
+          <rect width="380" height="155" rx="22" fill="#fffdf7" stroke="#b45309" stroke-width="3"/>
+          <path d="M54 102 C100 76,148 126,202 96 S300 74,352 104" fill="none" stroke="#2563eb" stroke-width="8" opacity=".35"/><path d="M78 76 h142 l-28 34 h-90 z" fill="#fff" stroke="#b45309" stroke-width="4"/><rect x="100" y="52" width="34" height="24" rx="5" fill="#2563eb" opacity=".28"/><text x="270" y="85" font-size="36">🚢</text>
+          <text x="22" y="132" font-size="18" font-weight="800" fill="#172033">2. 종전 협상 뒤엎을 한 방 노리는 이스라엘-이란 강경파…&quot;암살이</text>
+        </g>
+        <g transform="translate(20,200)">
+          <rect width="380" height="155" rx="22" fill="#fffdf7" stroke="#059669" stroke-width="3"/>
+          <line x1="190" y1="38" x2="190" y2="112" stroke="#059669" stroke-width="5"/><line x1="110" y1="62" x2="270" y2="62" stroke="#059669" stroke-width="5"/><path d="M96 67 l-32 42 h64 z" fill="#fff" stroke="#f59e0b" stroke-width="4"/><path d="M286 67 l-32 42 h64 z" fill="#fff" stroke="#f59e0b" stroke-width="4"/><text x="77" y="101" font-size="28">⚖️</text><text x="263" y="101" font-size="28">💼</text>
+          <text x="22" y="132" font-size="18" font-weight="800" fill="#172033">3. ‘10% 관세 무효’ 판결 일시 정지…항소로 시간 번 트럼프 </text>
+        </g>
+        <g transform="translate(430,200)">
+          <rect width="380" height="155" rx="22" fill="#fffdf7" stroke="#2563eb" stroke-width="3"/>
+          <circle cx="86" cy="76" r="30" fill="#fff" stroke="#2563eb" stroke-width="4"/><text x="66" y="88" font-size="32">🐂</text><circle cx="292" cy="88" r="30" fill="#fff" stroke="#38bdf8" stroke-width="4"/><text x="272" y="100" font-size="32">🐻</text><path d="M112 94 L270 68" stroke="#111827" stroke-width="7" stroke-linecap="round"/><path d="M188 78 L168 118 H208 Z" fill="#2563eb" opacity=".22"/>
+          <text x="22" y="132" font-size="18" font-weight="800" fill="#172033">4. 중국 로봇 수출 1천만대 돌파세계 자동화 경쟁 흔든다</text>
+        </g>
+        <g transform="translate(20,380)">
+          <rect width="380" height="155" rx="22" fill="#fffdf7" stroke="#4f46e5" stroke-width="3"/>
+          <path d="M54 86 C96 36,150 48,180 70 C220 98,260 32,326 70 C350 84,342 116,300 116 H92 C60 116,38 106,54 86Z" fill="#fff" stroke="#4f46e5" stroke-width="4"/><circle cx="116" cy="78" r="10" fill="#10b981"/><circle cx="236" cy="70" r="10" fill="#10b981"/><path d="M126 78 C162 54,198 96,228 70" fill="none" stroke="#10b981" stroke-width="4" stroke-dasharray="8 7"/><text x="176" y="58" font-size="34">🗺️</text>
+          <text x="22" y="132" font-size="18" font-weight="800" fill="#172033">5. &#x27;전쟁발 에너지 충격&#x27;에 무너진 금리 정석…유럽·일본 &#x27;긴축&#x27;</text>
+        </g>
+        <g transform="translate(430,380)">
+          <rect width="380" height="155" rx="22" fill="#fffdf7" stroke="#be123c" stroke-width="3"/>
+          <rect x="60" y="44" width="122" height="78" rx="14" fill="#fff" stroke="#be123c" stroke-width="4"/><line x1="80" y1="66" x2="160" y2="66" stroke="#f97316" stroke-width="4"/><line x1="80" y1="86" x2="144" y2="86" stroke="#f97316" stroke-width="4" opacity=".6"/><circle cx="266" cy="78" r="30" fill="#fff" stroke="#f97316" stroke-width="5"/><line x1="288" y1="100" x2="324" y2="122" stroke="#f97316" stroke-width="8" stroke-linecap="round"/><text x="104" y="116" font-size="28">🕊️</text>
+          <text x="22" y="132" font-size="18" font-weight="800" fill="#172033">6. 금리 인상 우려, 미국은 왜 금리를 못 내릴까?</text>
+        </g>
+        <g transform="translate(20,560)">
+          <rect width="380" height="155" rx="22" fill="#fffdf7" stroke="#be123c" stroke-width="3"/>
+          <circle cx="76" cy="70" r="34" fill="#fff" stroke="#be123c" stroke-width="4"/><text x="54" y="84" font-size="38">🕊️</text><rect x="154" y="44" width="116" height="66" rx="14" fill="#fff" stroke="#f97316" stroke-width="4"/><path d="M171 88 L193 66 L217 84 L244 56" fill="none" stroke="#f97316" stroke-width="6" stroke-linecap="round"/>
+          <text x="22" y="132" font-size="18" font-weight="800" fill="#172033">7. 종전 협상 뒤엎을 한 방 노리는 이스라엘-이란 강경파…&quot;암살이</text>
+        </g>
+        <g transform="translate(430,560)">
+          <rect width="380" height="155" rx="22" fill="#fffdf7" stroke="#be123c" stroke-width="3"/>
+          <path d="M54 102 C100 76,148 126,202 96 S300 74,352 104" fill="none" stroke="#f97316" stroke-width="8" opacity=".35"/><path d="M78 76 h142 l-28 34 h-90 z" fill="#fff" stroke="#be123c" stroke-width="4"/><rect x="100" y="52" width="34" height="24" rx="5" fill="#f97316" opacity=".28"/><text x="270" y="85" font-size="36">🚢</text>
+          <text x="22" y="132" font-size="18" font-weight="800" fill="#172033">8. ‘10% 관세 무효’ 판결 일시 정지…항소로 시간 번 트럼프 </text>
+        </g>
+    </svg>
