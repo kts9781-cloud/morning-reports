@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>운동레벨업 1.0.9 업데이트 확인 보고서</title>
+  <style>
+    :root {
+      --bg: #f7f4ec;
+      --paper: #fffaf0;
+      --ink: #243126;
+      --muted: #66756a;
+      --green: #2f855a;
+      --green-soft: #e4f4e9;
+      --orange: #d97706;
+      --orange-soft: #fff1d6;
+      --red: #c2410c;
+      --red-soft: #ffe4d6;
+      --line: #e7dcc7;
+      --blue: #2563eb;
+      --blue-soft: #e7efff;
+      --shadow: 0 18px 40px rgba(70, 53, 25, .10);
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(47,133,90,.18), transparent 34rem),
+        radial-gradient(circle at bottom right, rgba(217,119,6,.16), transparent 30rem),
+        var(--bg);
+      color: var(--ink);
+      line-height: 1.62;
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 32px 18px 64px; }
+    header {
+      background: linear-gradient(135deg, #1f6f4a, #47a36b 56%, #f4b84a);
+      color: white;
+      border-radius: 30px;
+      padding: 34px 28px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      width: 240px; height: 240px;
+      right: -60px; top: -70px;
+      background: rgba(255,255,255,.16);
+      border-radius: 50%;
+    }
+    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 999px; background: rgba(255,255,255,.18); font-weight: 800; font-size: 13px; }
+    h1 { margin: 18px 0 10px; font-size: clamp(30px, 5vw, 52px); line-height: 1.08; letter-spacing: -0.05em; }
+    .lead { max-width: 820px; margin: 0; font-size: clamp(16px, 2.2vw, 21px); color: rgba(255,255,255,.92); }
+    .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .meta span { background: rgba(255,255,255,.16); padding: 8px 12px; border-radius: 14px; font-size: 13px; font-weight: 700; }
+    section { margin-top: 22px; background: rgba(255,250,240,.92); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: 0 10px 28px rgba(70,53,25,.06); }
+    h2 { margin: 0 0 14px; font-size: 25px; letter-spacing: -0.035em; }
+    h3 { margin: 18px 0 8px; font-size: 18px; }
+    p { margin: 8px 0; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .card { border: 1px solid var(--line); border-radius: 18px; padding: 17px; background: #fffdf7; }
+    .card strong { display: block; font-size: 17px; margin-bottom: 6px; }
+    .tag { display: inline-block; font-size: 12px; font-weight: 800; padding: 4px 9px; border-radius: 999px; margin-bottom: 8px; }
+    .tag.green { color: var(--green); background: var(--green-soft); }
+    .tag.orange { color: var(--orange); background: var(--orange-soft); }
+    .tag.blue { color: var(--blue); background: var(--blue-soft); }
+    .tag.red { color: var(--red); background: var(--red-soft); }
+    ul { margin: 10px 0 0; padding-left: 20px; }
+    li { margin: 6px 0; }
+    .checklist { display: grid; gap: 10px; padding: 0; list-style: none; }
+    .checklist li { margin: 0; padding: 13px 14px; background: #fffdf7; border: 1px solid var(--line); border-radius: 16px; }
+    .checklist b { color: var(--green); }
+    code { background: rgba(36,49,38,.07); padding: 2px 6px; border-radius: 7px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: .92em; }
+    .note { border-left: 5px solid var(--orange); background: var(--orange-soft); padding: 14px 16px; border-radius: 16px; }
+    .ok { border-left: 5px solid var(--green); background: var(--green-soft); padding: 14px 16px; border-radius: 16px; }
+    .risk { border-left: 5px solid var(--red); background: var(--red-soft); padding: 14px 16px; border-radius: 16px; }
+    table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 16px; background: #fffdf7; }
+    th, td { text-align: left; padding: 12px 11px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--muted); font-size: 13px; background: #fbf3e3; }
+    tr:last-child td { border-bottom: none; }
+    footer { color: var(--muted); text-align: center; padding: 26px 0 0; font-size: 13px; }
+    @media (max-width: 860px) { .grid, .grid.two { grid-template-columns: 1fr; } header, section { padding: 22px; } .wrap { padding: 16px 12px 42px; } }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="badge">운동레벨업 · 1.0.9 확인 보고서</div>
+      <h1>리뷰 반영 업데이트<br/>직접 확인 체크리스트</h1>
+      <p class="lead">이번 업데이트는 “숫자 직접 입력 악용 방지”, “세트·무게 기록”, “팔굽혀펴기 민감도 조절”, “랭킹/삭제/응원 UX 개선”을 중심으로 반영했습니다.</p>
+      <div class="meta">
+        <span>작성: 2026-07-07 08:08 KST</span>
+        <span>설치 버전: Android 1.0.9 / versionCode 10</span>
+        <span>기기 확인: SM-F966N</span>
+        <span>배포/스토어 제출: 안 함</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>한 줄 요약</h2>
+      <div class="ok">앱은 릴리즈 APK로 설치되어 실행 확인까지 완료됐고, 대표님은 아래 체크리스트 순서대로 실제 폰에서 UX와 기록 흐름을 확인하시면 됩니다.</div>
+    </section>
+
+    <section>
+      <h2>이번 업데이트 핵심 8가지</h2>
+      <div class="grid">
+        <div class="card"><span class="tag green">입력 개선</span><strong>직접 숫자 입력 제거</strong><p>무제한 숫자 입력 대신 +1, +5 중심 빠른 기록으로 변경했습니다.</p></div>
+        <div class="card"><span class="tag green">헬스 기록</span><strong>세트·무게 기록 추가</strong><p>세트별 횟수, 무게×횟수, 시간형 세트 기록을 추가했습니다.</p></div>
+        <div class="card"><span class="tag blue">푸쉬업</span><strong>민감도 1~10 조절</strong><p>팔굽혀펴기 카운터가 사용자 환경에 맞게 조절되도록 했습니다.</p></div>
+        <div class="card"><span class="tag orange">공정성</span><strong>랭킹/경험치 cap</strong><p>비정상적으로 큰 기록이 랭킹과 경험치에 반영되지 않도록 방어했습니다.</p></div>
+        <div class="card"><span class="tag blue">운동 타입</span><strong>입력 모드 분리</strong><p>횟수형, 무게형, 시간형, 거리형을 구분하는 구조를 추가했습니다.</p></div>
+        <div class="card"><span class="tag green">감성 UX</span><strong>펫 응원 토스트</strong><p>운동 기록 시 귀여운 응원 문구가 뜨도록 추가했습니다.</p></div>
+        <div class="card"><span class="tag orange">관리 흐름</span><strong>운동 추가 요청</strong><p>아무 운동이나 생성하기보다 메일로 운동 추가 요청하는 흐름을 넣었습니다.</p></div>
+        <div class="card"><span class="tag blue">화면 안정</span><strong>랭킹/삭제 UX 개선</strong><p>랭킹 상세 스크롤, 긴 운동명, 삭제 버튼 영역을 개선했습니다.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>대표님 폰에서 확인할 순서</h2>
+      <ol class="checklist">
+        <li><b>1. 앱 실행/로그인</b><br/>앱이 빨간 에러 없이 진입되는지 확인합니다. 릴리즈 APK라 Metro가 필요 없습니다.</li>
+        <li><b>2. 홈에서 +1 / +5 기록</b><br/>운동 카드의 빠른 기록을 눌러 직접 숫자 입력 화면 없이 기록이 올라가는지 봅니다.</li>
+        <li><b>3. 세트로 기록하기</b><br/>빠른 기록 화면에서 세트 기록으로 들어가 세트 추가, 삭제, 저장을 확인합니다.</li>
+        <li><b>4. 무게형 운동 확인</b><br/>무게 운동에서 kg 입력과 횟수 입력이 자연스러운지 확인합니다.</li>
+        <li><b>5. 팔굽혀펴기 자동 카운터</b><br/>민감도 1~10 조절이 보이는지, 실제 카운팅이 환경에 맞게 달라지는지 확인합니다.</li>
+        <li><b>6. 랭킹 탭</b><br/>랭킹 상세를 펼쳤을 때 긴 운동명/많은 종목에서 화면이 깨지지 않는지 봅니다.</li>
+        <li><b>7. 운동 추가 요청</b><br/>운동 추가 요청 버튼이 메일 작성으로 이어지는지 확인합니다.</li>
+        <li><b>8. 삭제 UX</b><br/>삭제 버튼이 작지 않고, 실수 방지 흐름과 안내 문구가 적절한지 봅니다.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>세부 변경 내용</h2>
+      <div class="grid two">
+        <div class="card">
+          <span class="tag green">빠른 기록</span>
+          <h3>직접 입력 대신 제한된 기록</h3>
+          <ul>
+            <li>직접 숫자 입력 화면 제거/전환</li>
+            <li>횟수형 기본 +1, +5 중심</li>
+            <li>음수 입력 경로 제거</li>
+            <li>비정상 큰 값 방어</li>
+            <li>안내 문구: 공정한 랭킹을 위해 직접 숫자 입력 제한</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag green">세트 기록</span>
+          <h3>헬스장에서 쓸 수 있는 상세 기록</h3>
+          <ul>
+            <li>새 화면: <code>app/set-input-modal.tsx</code></li>
+            <li>세트 추가/삭제</li>
+            <li>맨몸 운동: 세트별 횟수</li>
+            <li>무게 운동: kg × reps</li>
+            <li>시간 운동: 세트별 시간</li>
+            <li>상세 저장 실패가 총 진행값 저장을 망치지 않도록 best-effort 처리</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag blue">팔굽혀펴기</span>
+          <h3>민감도 조절</h3>
+          <ul>
+            <li>민감도 1~10</li>
+            <li>기본값 5</li>
+            <li>AsyncStorage 저장</li>
+            <li>카운트가 잘 안 되면 오른쪽, 너무 쉽게 올라가면 왼쪽 안내</li>
+            <li>수동 보정은 +1만 허용</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag orange">랭킹/경험치</span>
+          <h3>악용 방지</h3>
+          <ul>
+            <li>앱 내부 진행값 저장 단계에서 상한 처리</li>
+            <li>랭킹/경험치 반영 cap 적용</li>
+            <li>주간 랭킹 RPC cap migration 추가</li>
+            <li>경쟁 기록 delta도 과도하게 반영되지 않도록 방어</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>설치/빌드 정보</h2>
+      <table>
+        <tr><th>항목</th><th>내용</th></tr>
+        <tr><td>설치 방식</td><td>USB 연결 Android 기기에 릴리즈 APK 직접 설치</td></tr>
+        <tr><td>기기</td><td>SM-F966N / Android 16</td></tr>
+        <tr><td>앱 버전</td><td>1.0.9 / versionCode 10</td></tr>
+        <tr><td>APK 경로</td><td><code>/Users/taesungkim/workout-todo/android/app/build/outputs/apk/release/app-release.apk</code></td></tr>
+        <tr><td>APK 크기</td><td>약 90MB</td></tr>
+        <tr><td>실행 확인</td><td><code>ReactNativeJS: Running "main"</code>, <code>MainActivity</code> 포커스 확인</td></tr>
+        <tr><td>디버그 빨간 에러</td><td>릴리즈 APK 재설치 및 앱 데이터 초기화 후 <code>Unable to load script</code> 없음</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>Supabase / DB 변경</h2>
+      <p>세트 기록과 입력 모드, 랭킹 cap을 위해 migration을 작성하고 원격 적용까지 확인했습니다.</p>
+      <table>
+        <tr><th>Migration</th><th>상태</th><th>목적</th></tr>
+        <tr><td><code>20260706223000_cap_leaderboard_progress.sql</code></td><td>Local/Remote 일치</td><td>리더보드 진행값 cap</td></tr>
+        <tr><td><code>20260707001800_workout_sessions_and_input_mode.sql</code></td><td>Local/Remote 일치</td><td>세트 세션/입력 모드 구조</td></tr>
+        <tr><td><code>20260707010000_cap_weekly_leaderboard.sql</code></td><td>Local/Remote 일치</td><td>주간 랭킹 cap</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>검증 완료 항목</h2>
+      <div class="grid two">
+        <div class="ok"><strong>TypeScript / 로직</strong><br/>앱 소스 전용 TypeScript 검사 통과, pushupDetection focused test 통과.</div>
+        <div class="ok"><strong>Expo config</strong><br/>앱 이름, slug, iOS bundle, Android package 확인 완료.</div>
+        <div class="ok"><strong>Android 릴리즈 빌드</strong><br/><code>./gradlew :app:assembleRelease</code> 성공, JS bundle 포함 확인.</div>
+        <div class="ok"><strong>기기 실행</strong><br/>설치 후 앱 데이터 초기화, 재실행, 빨간 스크립트 로드 에러 없음.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>주의사항 / 남은 리스크</h2>
+      <div class="risk">
+        <ul>
+          <li>앱 데이터 초기화로 기기 내 기존 로그인 세션은 사라졌습니다. 다시 로그인해야 합니다.</li>
+          <li>스토어 제출/배포는 하지 않았습니다. 현재는 USB로 설치한 릴리즈 APK입니다.</li>
+          <li>전체 저장소는 기존부터 untracked/dirty 파일이 매우 많은 상태입니다. 이번 보고서는 실제 변경/설치/검증 사실만 정리했습니다.</li>
+          <li>실제 UX 평가는 대표님이 폰에서 위 체크리스트대로 확인하면서 문구/흐름 조정 여부를 보는 단계입니다.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>대표님이 특히 판단해주실 포인트</h2>
+      <div class="note">
+        <ul>
+          <li>직접 숫자 입력 제거가 너무 불편하지 않은지</li>
+          <li>+1/+5만으로 일상 기록이 충분한지</li>
+          <li>세트 기록 화면이 헬스장에서 빠르게 쓰기 좋은지</li>
+          <li>무게 입력 단위/키보드/저장 흐름이 자연스러운지</li>
+          <li>팔굽혀펴기 민감도 안내가 직관적인지</li>
+          <li>펫 응원 문구가 귀엽고 방해되지 않는지</li>
+          <li>“공정한 랭킹” 문구가 너무 딱딱하지 않은지</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      Mes report · workout-todo · generated for Kim · GitHub Pages HTML report
+    </footer>
+  </main>
+</body>
+</html>
