@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#103d2b" />
+  <meta name="description" content="2026년 7월 24일 금요일 오전 11시 57분, 마이다스레이크 이천 골프앤리조트 즐거운 라운딩 안내" />
+  <meta property="og:title" content="MIDAS FOUR · 즐거운 라운딩" />
+  <meta property="og:description" content="고영추 · 성기춘 · 김현철 · 김태성 | 7월 24일 금요일 11:57" />
+  <meta property="og:image" content="assets/icheon-midas-round-2026-07-24.webp" />
+  <title>MIDAS FOUR · 2026.07.24</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Montserrat:wght@600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --forest: #103d2b;
+      --green: #1d704a;
+      --lime: #d8f39b;
+      --cream: #f7f2e6;
+      --paper: #fffdf8;
+      --coral: #ef715a;
+      --sky: #ccecf5;
+      --ink: #183126;
+      --muted: #66776e;
+      --line: rgba(16,61,43,.14);
+      --shadow: 0 24px 80px rgba(18,52,38,.18);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(216,243,155,.42), transparent 25rem),
+        radial-gradient(circle at 90% 24%, rgba(204,236,245,.7), transparent 32rem),
+        var(--cream);
+      font-family: "Noto Sans KR", system-ui, sans-serif;
+      line-height: 1.65;
+    }
+
+    .grain {
+      position: fixed; inset: 0; pointer-events: none; opacity: .24; z-index: 20;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.055'/%3E%3C/svg%3E");
+    }
+
+    .hero {
+      position: relative;
+      min-height: min(860px, 92vh);
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      background: #7fcde8;
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(90deg, rgba(8,38,27,.86) 0%, rgba(8,38,27,.57) 34%, rgba(8,38,27,.04) 70%),
+        linear-gradient(0deg, rgba(8,38,27,.85) 0%, transparent 45%),
+        url("assets/icheon-midas-round-2026-07-24.webp") center/cover no-repeat;
+      transform: scale(1.015);
+    }
+    .hero::after {
+      content: ""; position: absolute; inset: auto 0 0; height: 110px;
+      background: linear-gradient(transparent, var(--cream));
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2; width: min(1180px, calc(100% - 40px));
+      margin: 0 auto; padding: 68px 0 102px;
+    }
+    .eyebrow {
+      display: inline-flex; gap: 10px; align-items: center;
+      padding: 8px 14px; border: 1px solid rgba(255,255,255,.38);
+      border-radius: 999px; background: rgba(11,48,34,.42); backdrop-filter: blur(12px);
+      color: #fff; font: 700 12px/1 "Montserrat", sans-serif; letter-spacing: .18em;
+    }
+    .flag { color: var(--lime); }
+    h1 {
+      margin: 22px 0 14px; max-width: 760px;
+      color: white; font-family: "Montserrat", "Noto Sans KR", sans-serif;
+      font-size: clamp(54px, 9vw, 118px); line-height: .88; letter-spacing: -.06em;
+      text-shadow: 0 6px 30px rgba(0,0,0,.24);
+    }
+    h1 span { display: block; color: var(--lime); font-size: .34em; letter-spacing: .08em; margin-top: 20px; }
+    .hero-copy { margin: 20px 0 0; color: rgba(255,255,255,.92); font-size: clamp(17px, 2vw, 23px); font-weight: 600; }
+    .hero-copy b { color: var(--lime); }
+    .member-row { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
+    .member-row span {
+      padding: 9px 15px; border-radius: 999px; background: rgba(255,255,255,.92);
+      color: var(--forest); font-weight: 800; box-shadow: 0 8px 22px rgba(0,0,0,.12);
+    }
+
+    main { width: min(1120px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 90px; }
+    .top-card {
+      margin-top: -56px; position: relative; z-index: 3;
+      display: grid; grid-template-columns: 1.15fr .85fr; gap: 0;
+      border-radius: 28px; overflow: hidden; background: var(--paper); box-shadow: var(--shadow);
+    }
+    .tee { padding: 36px 42px; }
+    .tee small, .weather-head small, .section-kicker {
+      display: block; color: var(--green); font: 800 12px/1.2 "Montserrat", sans-serif; letter-spacing: .16em;
+    }
+    .tee-time { margin: 8px 0 8px; font: 800 clamp(48px, 7vw, 78px)/1 "Montserrat", sans-serif; letter-spacing: -.05em; color: var(--forest); }
+    .tee-meta { font-weight: 700; color: var(--muted); word-break: keep-all; }
+    .venue {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 34px 40px; color: white; background: var(--forest);
+    }
+    .venue-label { color: var(--lime); font: 800 11px/1 "Montserrat"; letter-spacing: .18em; }
+    .venue strong { font-size: 22px; margin-top: 10px; }
+    .venue span { color: rgba(255,255,255,.68); margin-top: 4px; }
+
+    section { margin-top: 76px; }
+    .section-title { margin: 9px 0 10px; font-size: clamp(30px, 5vw, 50px); line-height: 1.13; letter-spacing: -.045em; }
+    .section-lead { max-width: 760px; color: var(--muted); margin: 0; }
+
+    .weather-grid { display: grid; grid-template-columns: 1.12fr .88fr; gap: 18px; margin-top: 26px; }
+    .weather-main, .forecast-card, .prep-card {
+      border: 1px solid var(--line); background: rgba(255,253,248,.85); border-radius: 26px;
+    }
+    .weather-main { padding: 30px; position: relative; overflow: hidden; }
+    .weather-main::after {
+      content: "☔"; position: absolute; right: 25px; top: 18px; font-size: 72px; opacity: .17; transform: rotate(10deg);
+    }
+    .weather-head { display: flex; justify-content: space-between; gap: 16px; }
+    .weather-status { font-size: 28px; font-weight: 800; margin-top: 12px; }
+    .weather-number { display: flex; align-items: end; gap: 10px; margin-top: 25px; }
+    .weather-number strong { font: 800 clamp(60px, 9vw, 100px)/.85 "Montserrat"; letter-spacing: -.07em; color: var(--forest); }
+    .weather-number span { color: var(--coral); font-weight: 800; padding-bottom: 6px; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 30px; }
+    .metric { padding: 16px; border-radius: 18px; background: #edf5ee; }
+    .metric span { display: block; color: var(--muted); font-size: 12px; font-weight: 700; }
+    .metric strong { display: block; margin-top: 3px; font: 800 18px/1.2 "Montserrat", "Noto Sans KR"; }
+
+    .forecast-stack { display: grid; gap: 18px; }
+    .forecast-card { padding: 24px; }
+    .provider { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+    .provider strong { font-size: 17px; }
+    .provider em { font-style: normal; font-size: 12px; font-weight: 800; color: white; background: var(--green); padding: 5px 9px; border-radius: 999px; }
+    .provider em.warn { background: var(--coral); }
+    .forecast-value { margin: 17px 0 6px; font-size: 22px; font-weight: 800; }
+    .forecast-note { color: var(--muted); font-size: 14px; }
+    .forecast-alert {
+      margin-top: 18px; padding: 18px 20px; border-radius: 18px; color: #6a341f;
+      background: #fff0e8; border: 1px solid rgba(239,113,90,.25); font-weight: 700;
+    }
+
+    .prep-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 26px; }
+    .prep-card { padding: 24px 21px; min-height: 190px; transition: transform .2s ease, box-shadow .2s ease; }
+    .prep-card:hover { transform: translateY(-4px); box-shadow: 0 18px 44px rgba(16,61,43,.12); }
+    .prep-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 15px; font-size: 24px; background: var(--lime); }
+    .prep-card h3 { margin: 20px 0 8px; font-size: 17px; }
+    .prep-card p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .cheer {
+      position: relative; overflow: hidden; margin-top: 80px; padding: 52px 50px;
+      border-radius: 32px; color: white; background: var(--forest);
+    }
+    .cheer::before {
+      content: "18"; position: absolute; right: 20px; top: -45px;
+      font: 800 220px/1 "Montserrat"; color: rgba(216,243,155,.08); letter-spacing: -.1em;
+    }
+    .cheer p { position: relative; margin: 0; max-width: 760px; font-family: "Gowun Dodum", serif; font-size: clamp(27px, 5vw, 46px); line-height: 1.4; }
+    .cheer b { color: var(--lime); }
+    .cheer-sign { position: relative; margin-top: 22px; color: rgba(255,255,255,.67); font-weight: 700; }
+
+    .sources { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    .sources a { color: var(--green); text-decoration: none; font-weight: 700; }
+    footer { text-align: center; padding: 18px 20px 50px; color: var(--muted); font-size: 12px; }
+
+    @media (max-width: 820px) {
+      .hero { min-height: 760px; background: var(--forest); }
+      .hero::before {
+        background:
+          linear-gradient(180deg, rgba(8,38,27,0) 0%, rgba(8,38,27,.06) 20%, rgba(8,38,27,.86) 39%, var(--forest) 58%),
+          url("assets/icheon-midas-round-2026-07-24.webp") center top/100% auto no-repeat;
+        transform: none;
+      }
+      .hero::after { background: linear-gradient(transparent, var(--cream)); }
+      .hero-inner { padding: 270px 0 96px; }
+      .top-card, .weather-grid { grid-template-columns: 1fr; }
+      .venue { padding: 28px 30px; }
+      .prep-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 520px) {
+      .hero { min-height: 760px; }
+      .hero-inner { width: min(100% - 28px, 1180px); padding-top: 255px; }
+      h1 { font-size: 60px; }
+      .hero-copy { font-size: 17px; }
+      main { width: min(100% - 22px, 1120px); }
+      .top-card { border-radius: 22px; }
+      .tee { padding: 28px 25px; }
+      .tee-time { font-size: 58px; }
+      section { margin-top: 58px; }
+      .weather-main, .forecast-card { border-radius: 22px; }
+      .weather-main { padding: 23px 20px; }
+      .metrics { grid-template-columns: 1fr; }
+      .metric { display: flex; justify-content: space-between; align-items: center; }
+      .metric strong { margin: 0; }
+      .prep-grid { grid-template-columns: 1fr; }
+      .prep-card { min-height: auto; }
+      .cheer { margin-top: 58px; padding: 38px 26px; border-radius: 24px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow"><span class="flag">●</span> FRIDAY GOLF CLUB · 2026</div>
+      <h1>MIDAS <span>FOUR ON THE FAIRWAY</span></h1>
+      <p class="hero-copy"><b>웃음은 버디처럼, 추억은 홀인원처럼.</b><br />네 분의 멋진 여름 라운딩을 응원합니다!</p>
+      <div class="member-row" aria-label="라운딩 멤버">
+        <span>고영추</span><span>성기춘</span><span>김현철</span><span>김태성</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <article class="top-card" aria-label="티오프 정보">
+      <div class="tee">
+        <small>TEE TIME · FRI 24 JUL</small>
+        <div class="tee-time">11:57</div>
+        <div class="tee-meta">2026년 7월 24일 금요일 · 한낮의 즐거운 티오프</div>
+      </div>
+      <div class="venue">
+        <span class="venue-label">COURSE</span>
+        <strong>마이다스레이크 이천 골프앤리조트</strong>
+        <span>경기도 이천시 설성면 설가로 602</span>
+      </div>
+    </article>
+
+    <section aria-labelledby="weather-title">
+      <span class="section-kicker">TEE-TIME WEATHER</span>
+      <h2 class="section-title" id="weather-title">11시 57분, 날씨는?</h2>
+      <p class="section-lead">7월 15일 확인 기준으로 예보사 간 강수 전망 차이가 큽니다. 아직 9일 전 예보라 변동성이 있으니 우천 준비를 기본으로 하고, 7월 22~23일에 다시 확인하는 것이 안전합니다.</p>
+
+      <div class="weather-grid">
+        <article class="weather-main">
+          <div class="weather-head">
+            <div>
+              <small>OPEN-METEO · 12:00 근사치</small>
+              <div class="weather-status">습하고, 비 가능성 높음</div>
+            </div>
+          </div>
+          <div class="weather-number"><strong>25.6°</strong><span>체감 29.8°</span></div>
+          <div class="metrics">
+            <div class="metric"><span>강수확률</span><strong>78%</strong></div>
+            <div class="metric"><span>풍속</span><strong>13.9 km/h</strong></div>
+            <div class="metric"><span>습도</span><strong>92%</strong></div>
+          </div>
+          <div class="forecast-alert">예상 돌풍은 약 37 km/h. 낙뢰·강한 비가 보이면 클럽 운영 안내와 안전 방송을 우선해 주세요.</div>
+        </article>
+
+        <div class="forecast-stack">
+          <article class="forecast-card">
+            <div class="provider"><strong>기상청 일간 예보</strong><em>공식 전망</em></div>
+            <div class="forecast-value">구름 많음 · 강수 30%</div>
+            <div class="forecast-note">최저 23°C / 최고 31°C</div>
+          </article>
+          <article class="forecast-card">
+            <div class="provider"><strong>Open-Meteo 모델</strong><em class="warn">우천 대비</em></div>
+            <div class="forecast-value">이슬비·비 가능성 · 최대 84%</div>
+            <div class="forecast-note">최저 23.2°C / 최고 26.3°C · 하루 예상 강수량 19.8mm</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="prep-title">
+      <span class="section-kicker">SMART ROUND KIT</span>
+      <h2 class="section-title" id="prep-title">가볍게 챙기면 좋은 것</h2>
+      <div class="prep-grid">
+        <article class="prep-card"><div class="prep-icon">🌧️</div><h3>우천 장비</h3><p>우산, 레인웨어, 여분 장갑과 수건까지 준비하면 든든합니다.</p></article>
+        <article class="prep-card"><div class="prep-icon">💧</div><h3>수분·전해질</h3><p>높은 습도로 체감온도가 올라갑니다. 홀마다 조금씩 자주 보충하세요.</p></article>
+        <article class="prep-card"><div class="prep-icon">🧴</div><h3>자외선 차단</h3><p>흐린 날에도 자외선은 있습니다. 모자와 선크림을 잊지 마세요.</p></article>
+        <article class="prep-card"><div class="prep-icon">🔄</div><h3>전날 재확인</h3><p>7월 23일 저녁 레이더와 골프장 운영 공지를 최종 확인해 주세요.</p></article>
+      </div>
+    </section>
+
+    <section class="cheer" aria-label="라운딩 응원 메시지">
+      <p>스코어보다 즐겁게,<br />날씨보다 뜨겁게 —<br /><b>네 분 모두 굿샷!</b></p>
+      <div class="cheer-sign">고영추 · 성기춘 · 김현철 · 김태성의 즐거운 라운딩</div>
+    </section>
+
+    <div class="sources">
+      날씨 확인: 2026.07.15 14:10 KST · 위치: 마이다스레이크 이천 골프앤리조트(37.1772, 127.5248)<br />
+      출처: <a href="https://search.naver.com/search.naver?query=%EC%84%A4%EC%84%B1%EB%A9%B4+7%EC%9B%9424%EC%9D%BC+%EB%82%A0%EC%94%A8" target="_blank" rel="noopener">기상청 예보(네이버 날씨)</a> · <a href="https://api.open-meteo.com/v1/forecast?latitude=37.1771762&longitude=127.5248117&timezone=Asia%2FSeoul" target="_blank" rel="noopener">Open-Meteo</a><br />
+      장기·중기 예보는 변동될 수 있으며, 안전 판단은 당일 기상특보와 골프장 안내를 우선합니다. 일러스트: Higgsfield AI.
+    </div>
+  </main>
+
+  <footer>MIDAS FOUR · A GOOD DAY FOR A GREAT ROUND</footer>
+</body>
+</html>
