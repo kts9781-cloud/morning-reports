@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="마찌 관계별 궁합 분석 기능 구현계획서">
+<title>마찌 관계별 궁합 분석 구현계획서</title>
+<style>
+:root{--bg:#08090d;--panel:#12141b;--panel2:#181b24;--line:#2b2f3a;--text:#f3f4f6;--muted:#a6adbb;--gold:#e6c675;--gold2:#ad8740;--violet:#9d7aea;--green:#4ade80;--red:#fb7185;--blue:#60a5fa;--radius:20px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 75% 0,rgba(157,122,234,.16),transparent 28rem),linear-gradient(180deg,#08090d,#0c0e14 55%,#08090d);color:var(--text);font:15px/1.7 -apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR",sans-serif}a{color:inherit}.wrap{width:min(1120px,calc(100% - 32px));margin:auto}.hero{padding:72px 0 40px}.eyebrow{display:inline-flex;gap:8px;align-items:center;padding:7px 12px;border:1px solid rgba(230,198,117,.35);border-radius:99px;color:var(--gold);background:rgba(230,198,117,.08);font-size:12px;font-weight:800;letter-spacing:.08em}.hero h1{font-size:clamp(34px,6vw,68px);line-height:1.05;letter-spacing:-.05em;margin:20px 0 18px;max-width:850px}.hero h1 em{font-style:normal;color:var(--gold)}.lead{font-size:clamp(17px,2vw,22px);color:#c9ced8;max-width:790px;margin:0}.meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}.meta span{padding:8px 11px;border-radius:10px;background:#11141b;border:1px solid #252a35;color:var(--muted);font-size:13px}.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 42px}.metric{background:linear-gradient(145deg,rgba(230,198,117,.13),rgba(18,20,27,.9));border:1px solid rgba(230,198,117,.2);border-radius:16px;padding:20px}.metric b{display:block;color:var(--gold);font-size:30px;line-height:1}.metric span{display:block;color:var(--muted);margin-top:8px;font-size:13px}.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:28px;align-items:start}.toc{position:sticky;top:18px;padding:16px;border:1px solid var(--line);border-radius:16px;background:rgba(18,20,27,.9);backdrop-filter:blur(16px)}.toc b{display:block;font-size:12px;color:var(--gold);margin:0 8px 8px}.toc a{display:block;text-decoration:none;color:var(--muted);padding:7px 8px;border-radius:8px;font-size:13px}.toc a:hover{color:var(--text);background:#1c202a}.content{min-width:0}.section{margin:0 0 26px;padding:clamp(20px,4vw,34px);border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(145deg,rgba(24,27,36,.94),rgba(15,17,23,.94));box-shadow:0 18px 55px rgba(0,0,0,.2)}h2{font-size:clamp(24px,3vw,34px);line-height:1.2;letter-spacing:-.035em;margin:0 0 10px}h3{font-size:19px;margin:28px 0 10px;color:#fff}.section>p:first-of-type{color:var(--muted)}.decision{border-left:4px solid var(--gold);padding:14px 16px;background:rgba(230,198,117,.07);border-radius:0 12px 12px 0;margin:18px 0}.decision strong{color:var(--gold)}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.card{padding:17px;border:1px solid var(--line);border-radius:14px;background:#11141b}.card .icon{font-size:24px}.card b{display:block;margin:8px 0 3px}.card small{color:var(--muted)}.tag{display:inline-block;padding:3px 8px;border-radius:99px;background:rgba(157,122,234,.15);color:#c8b6f5;font:700 11px/1.6 ui-monospace,SFMono-Regular,monospace;margin-top:8px}.direction{border-color:rgba(96,165,250,.35)}.direction .tag{background:rgba(96,165,250,.14);color:#9fc7ff}.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:14px}table{width:100%;border-collapse:collapse;min-width:650px;background:#101219}th,td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid #272b35}th{color:var(--gold);font-size:12px;letter-spacing:.03em;background:#161922}td{color:#d9dde5}tr:last-child td{border-bottom:0}code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}code{color:#e9d79e;background:#202027;padding:2px 5px;border-radius:5px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#090b10;border:1px solid #272b35;border-radius:14px;padding:16px;color:#cbd5e1;font-size:12px;line-height:1.6}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:18px 0}.step{position:relative;padding:14px 10px;text-align:center;border:1px solid var(--line);border-radius:12px;background:#10131a;font-size:12px}.step b{display:block;color:var(--gold);font-size:11px}.task{margin:15px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}.task summary{cursor:pointer;padding:16px 18px;background:#151821;font-weight:800;list-style:none}.task summary::-webkit-details-marker{display:none}.task summary:after{content:"＋";float:right;color:var(--gold)}.task[open] summary:after{content:"−"}.task-body{padding:4px 18px 18px}.task-body ul,.checklist{padding-left:20px}.task-body li,.checklist li{margin:6px 0;color:#d5d9e2}.path{font:600 12px ui-monospace,SFMono-Regular,monospace;color:#b9a3f4;overflow-wrap:anywhere}.risk{display:grid;grid-template-columns:1fr 1fr;gap:10px}.risk>div{padding:15px;border:1px solid rgba(251,113,133,.22);border-radius:13px;background:rgba(251,113,133,.05)}.risk b{color:#fda4af}.ok{color:var(--green)}.footer{padding:30px 0 70px;color:var(--muted);text-align:center;font-size:13px}.cta{display:flex;justify-content:space-between;gap:18px;align-items:center;background:linear-gradient(110deg,rgba(230,198,117,.14),rgba(157,122,234,.12));border-color:rgba(230,198,117,.3)}.cta strong{font-size:21px}.pill{flex:none;padding:10px 14px;border-radius:10px;color:#17130a;background:var(--gold);font-weight:900}
+@media(max-width:860px){.summary-grid{grid-template-columns:repeat(2,1fr)}.layout{display:block}.toc{position:relative;top:auto;margin-bottom:20px;display:grid;grid-template-columns:repeat(2,1fr)}.toc b{grid-column:1/-1}.cards{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:1fr}.risk{grid-template-columns:1fr}.cta{display:block}.pill{display:inline-block;margin-top:14px}}
+@media(max-width:520px){.wrap{width:min(100% - 20px,1120px)}.hero{padding-top:42px}.summary-grid,.cards{grid-template-columns:1fr}.section{padding:19px;border-radius:16px}.toc{grid-template-columns:1fr}.hero h1{font-size:38px}.meta span{font-size:11px}.metric b{font-size:26px}}
+@media print{body{background:#fff;color:#111}.toc{display:none}.layout{display:block}.section,.metric{box-shadow:none;background:#fff;border-color:#ccc}.lead,.section>p:first-of-type,.meta span,td,.task-body li{color:#333}}
+</style>
+</head>
+<body>
+<header class="hero wrap">
+  <div class="eyebrow">MYSTIC PRODUCT SPEC · V2</div>
+  <h1>궁합에서 <em>관계 분석</em>으로</h1>
+  <p class="lead">부부·연인·가족·친구·직장·사업 관계를 같은 사람 정보로 분석하되, 관계와 역할에 따라 질문·점수판·AI 해석이 정확히 달라지는 실행 가능한 구현계획서입니다.</p>
+  <div class="meta"><span>작성 2026-07-26 KST</span><span>Expo + Supabase + Gemini</span><span>DB migration 없음</span><span>앱 구현 전 디자인 승인</span></div>
+</header>
+<main class="wrap">
+<section class="summary-grid" aria-label="요약 지표">
+  <div class="metric"><b>9</b><span>고정 관계 유형</span></div><div class="metric"><b>3</b><span>방향성 관계</span></div><div class="metric"><b>7</b><span>중립 AI 결과 섹션</span></div><div class="metric"><b>v2</b><span>관계 인식 캐시 계약</span></div>
+</section>
+<div class="layout">
+<nav class="toc" aria-label="목차"><b>CONTENTS</b><a href="#decision">핵심 결정</a><a href="#relationships">관계 체계</a><a href="#current">현재 구조</a><a href="#contract">데이터 계약</a><a href="#ux">화면 흐름</a><a href="#ai">AI 계약</a><a href="#tasks">구현 작업</a><a href="#tests">검증</a><a href="#release">배포</a><a href="#risks">리스크</a><a href="#done">완료 기준</a></nav>
+<div class="content">
+<section class="section" id="decision"><h2>핵심 결정</h2><p>관계 선택을 단순한 UI 필터가 아니라 과금·캐시·AI·저장의 공통 입력으로 취급합니다.</p>
+<div class="decision"><strong>추천 방향:</strong> 관계 메타데이터를 request key v2에 포함하고, DB 컬럼 추가 없이 기존 <code>person1_info</code> JSONB에 저장합니다. 서버는 관계 없는 구버전 요청을 <code>romantic</code>으로 처리합니다.</div>
+<ul class="checklist"><li>기본값은 연인, 분석 비용 10포인트 유지</li><li>기존 저장 결과는 삭제·재해석하지 않고 계속 열람</li><li>새 결과는 중립 태그, 파서는 구·신 태그 동시 지원</li><li>Edge Function을 먼저 하위 호환 배포한 후 앱 출시</li><li>앱 코딩 전에 관계 선택 화면 디자인 승인</li></ul></section>
+
+<section class="section" id="relationships"><h2>9개 관계 체계</h2><p>사용자에게는 친숙한 이름을, 코드에는 변경되지 않는 고정 ID를 사용합니다.</p><div class="cards">
+<div class="card"><div class="icon">❤️</div><b>연인</b><small>애정·표현·신뢰·장기 발전</small><span class="tag">romantic</span></div>
+<div class="card"><div class="icon">💍</div><b>부부</b><small>생활·가정·재정·장기 협력</small><span class="tag">spouse</span></div>
+<div class="card"><div class="icon">🫶</div><b>친구</b><small>신뢰·소통·의리·경계</small><span class="tag">friend</span></div>
+<div class="card direction"><div class="icon">👨‍👩‍👧</div><b>부모·자녀</b><small>양육·독립·세대 차이·정서 안전</small><span class="tag">parent_child · 방향</span></div>
+<div class="card"><div class="icon">🧑‍🤝‍🧑</div><b>형제·자매</b><small>유대·경쟁·가족 역할·지원</small><span class="tag">siblings</span></div>
+<div class="card"><div class="icon">💼</div><b>직장 동료</b><small>협업·정보 공유·역할 분담·경쟁</small><span class="tag">coworker</span></div>
+<div class="card direction"><div class="icon">👔</div><b>상사·부하</b><small>지시·보고·피드백·권한</small><span class="tag">manager_report · 방향</span></div>
+<div class="card direction"><div class="icon">🏢</div><b>사장·직원</b><small>비전·신뢰·책임·보상·근속</small><span class="tag">owner_employee · 방향</span></div>
+<div class="card"><div class="icon">🤝</div><b>사업 파트너</b><small>의사결정·재무·위험·책임 분담</small><span class="tag">business_partner</span></div></div>
+<h3>방향성 규칙</h3><div class="table-wrap"><table><thead><tr><th>관계</th><th>첫 번째 사람 역할</th><th>두 번째 역할</th></tr></thead><tbody><tr><td>부모·자녀</td><td><code>parent</code> 또는 <code>child</code></td><td>자동 반대 역할</td></tr><tr><td>상사·부하</td><td><code>manager</code> 또는 <code>report</code></td><td>자동 반대 역할</td></tr><tr><td>사장·직원</td><td><code>owner</code> 또는 <code>employee</code></td><td>자동 반대 역할</td></tr></tbody></table></div></section>
+
+<section class="section" id="current"><h2>현재 코드 진단</h2><p>조사한 실제 경로를 기준으로 변경 지점을 고정했습니다.</p><div class="table-wrap"><table><thead><tr><th>경로</th><th>현재 상태</th><th>필요 변경</th></tr></thead><tbody>
+<tr><td class="path">components/GunghapReading.tsx</td><td>두 사람 입력만 존재</td><td>관계·역할 상태, 칩 UI, 결과 배지</td></tr>
+<tr><td class="path">api/gunghapAnalysis.ts</td><td>연애/결혼 섹션 고정</td><td>관계별 표현 + v1/v2 파서</td></tr>
+<tr><td class="path">lib/readingRequestKey.ts</td><td>사람·언어만 해시</td><td>schemaVersion 2 + 관계·역할</td></tr>
+<tr><td class="path">supabase/functions/ai-reading/prompts/gunghap.ts</td><td>연애 조언 강제</td><td>중립 태그 + 관계별 초점</td></tr>
+<tr><td class="path">supabase/functions/ai-reading/index.ts</td><td>JSONB 저장·과금 안정화됨</td><td>관계 검증, 기존 거래 순서 유지</td></tr>
+<tr><td class="path">locales/{ko,en,zh}.json</td><td>관계 문구 없음</td><td>동일 key tree 추가</td></tr>
+</tbody></table></div></section>
+
+<section class="section" id="contract"><h2>데이터·캐시 계약</h2><p>관계가 다르면 같은 두 사람이어도 다른 분석입니다.</p>
+<pre>type GunghapRelationship = {
+  type: 'spouse' | 'romantic' | 'friend' | 'parent_child'
+      | 'siblings' | 'coworker' | 'manager_report'
+      | 'owner_employee' | 'business_partner';
+  person1Role?: 'parent' | 'child' | 'manager'
+              | 'report' | 'owner' | 'employee';
+};</pre>
+<h3>정규화 request key v2 입력</h3><pre>{
+  "schemaVersion": 2,
+  "relationship": { "type": "manager_report", "person1Role": "manager" },
+  "person1": { "...": "normalized" },
+  "person2": { "...": "normalized" },
+  "language": "ko",
+  "calendarType": "solar"
+}</pre>
+<ul class="checklist"><li>관계 타입 또는 방향 역할이 바뀌면 다른 키</li><li>대칭 관계의 불필요 역할은 정규화 시 제거</li><li>새 키는 기존 연애 캐시와 분리</li><li>관계 없는 과거 행은 연인으로 표시</li><li>DB migration·DELETE·과거 행 일괄 업데이트 없음</li></ul></section>
+
+<section class="section" id="ux"><h2>입력부터 결과까지</h2><p>관계 선택을 먼저 인지시키되 두 사람 입력 흐름은 그대로 유지합니다.</p><div class="flow"><div class="step"><b>01</b>관계 선택</div><div class="step"><b>02</b>방향 역할 선택</div><div class="step"><b>03</b>두 사람 정보</div><div class="step"><b>04</b>10P 분석·캐시</div><div class="step"><b>05</b>관계별 결과·공유</div></div>
+<h3>입력 화면</h3><ul class="checklist"><li>가격/설명 카드 아래, 첫 번째 사람 카드 위에 관계 섹션</li><li>개인·가족 5종과 업무 4종으로 시각 그룹</li><li>방향 관계만 역할 토글 표시</li><li>역할 전환은 사람 데이터를 교환하지 않음</li><li>320px, 390px, Z Fold7 펼침에서 칩 잘림 금지</li></ul>
+<h3>결과 화면</h3><ul class="checklist"><li><code>형제·자매 관계 분석</code>, <code>직장 동료 협업 분석</code>처럼 제목 분기</li><li>관계 배지와 방향 역할을 이름 옆에 표시</li><li>공유 이미지에도 동일 관계·역할 포함</li><li>내부 점수 필드는 유지하되 사용자 라벨은 관계별 매핑</li></ul></section>
+
+<section class="section" id="ai"><h2>AI 출력 계약 v2</h2><p>모든 관계에서 동일한 파싱 구조를 쓰면서 내용은 관계 맥락에 맞춥니다.</p>
+<pre>[관계총평] ... [/관계총평]
+[정서유대] ... [/정서유대]
+[역할협력] ... [/역할협력]
+[경제실무] ... [/경제실무]
+[성격소통] ... [/성격소통]
+[갈등포인트] ... [/갈등포인트]
+[관계발전] ... [/관계발전]</pre>
+<div class="decision"><strong>하위 호환:</strong> 파서는 v2 태그를 우선하고 기존 <code>종합궁합·감정연애·결혼가정...</code> v1 태그도 계속 읽습니다.</div>
+<ul class="checklist"><li>연애 관계가 아니면 사랑·결혼을 기본 전제로 삼지 않음</li><li>부모·자녀 관계에서 아동 성격과 양육 결과를 운명으로 단정하지 않음</li><li>직장 관계에서 채용·해고·차별·권력 남용을 정당화하지 않음</li><li>사업 관계에서 투자 성공을 보장하지 않음</li><li>섹션당 2~3문단으로 줄여 지연·잘림 위험 통제</li></ul></section>
+
+<section class="section" id="tasks"><h2>9단계 구현 작업</h2><p>각 작업은 테스트와 체크포인트를 포함하며, 순서를 바꾸지 않습니다.</p>
+<details class="task" open><summary>Task 1 · 관계 도메인 계약</summary><div class="task-body"><p class="path">Create lib/gunghapRelationship.ts · Test lib/__tests__/gunghapRelationship.test.cjs</p><ul><li>9개 ID, 그룹, 아이콘, 방향 역할을 단일 상수로 정의</li><li>normalize 및 person2 역할 파생 함수 구현</li><li>잘못된 타입·역할·대칭 관계 정규화 테스트</li></ul></div></details>
+<details class="task"><summary>Task 2 · request key v2</summary><div class="task-body"><p class="path">Modify lib/readingRequestKey.ts · lib/__tests__/readingRequestKey.test.cjs</p><ul><li>schemaVersion 2, relationship 포함</li><li>관계 변경·역할 반전은 다른 키</li><li>대칭 관계의 불필요 role은 같은 키</li></ul></div></details>
+<details class="task"><summary>Task 3 · 관계 선택 UI</summary><div class="task-body"><p class="path">Modify components/GunghapReading.tsx · locales/ko.json · en.json · zh.json</p><ul><li>두 그룹 9개 칩, romantic 기본값</li><li>방향성 3종 역할 토글</li><li>접근성 label/state와 반응형 검증</li></ul></div></details>
+<details class="task"><summary>Task 4 · 요청·저장 연결</summary><div class="task-body"><p class="path">Modify components/GunghapReading.tsx · api/gunghapAnalysis.ts</p><ul><li>캐시 입력·AI payload·person1_info에 동일 관계 전달</li><li>과거 관계 누락은 romantic</li><li>결과 선저장 → 포인트 차감 순서 유지</li></ul></div></details>
+<details class="task"><summary>Task 5 · 관계별 리포트 표현</summary><div class="task-body"><p class="path">Modify api/gunghapAnalysis.ts · components/GunghapReading.tsx · locales/*</p><ul><li>관계별 제목·아이콘·점수 라벨</li><li>결과 배지·역할·공유 캡처</li><li>비연애 관계 금지 문맥 스모크 테스트</li></ul></div></details>
+<details class="task"><summary>Task 6 · Edge Function 프롬프트</summary><div class="task-body"><p class="path">Modify supabase/functions/ai-reading/types.ts · index.ts · prompts/gunghap.ts</p><ul><li>관계 optional 입력과 서버 기본 romantic</li><li>유효하지 않은 조합은 Gemini 전 400</li><li>ko/en/zh, 역할 반전, 구버전 payload 테스트</li></ul></div></details>
+<details class="task"><summary>Task 7 · v1/v2 파서</summary><div class="task-body"><p class="path">Modify api/gunghapAnalysis.ts · Create api/__tests__/gunghapAnalysis.test.cjs</p><ul><li>v2 우선, v1 fallback</li><li>닫는 태그 누락·부분 응답·무태그 fallback</li><li>점수 0/100/clamp와 중국어 본문 테스트</li></ul></div></details>
+<details class="task"><summary>Task 8 · 다국어·접근성</summary><div class="task-body"><p class="path">Modify locales/ko.json · en.json · zh.json</p><ul><li>관계·역할·결과 제목·점수 라벨 동일 key tree</li><li>locale parity 검사</li><li>VoiceOver/TalkBack 선택·방향 읽기 확인</li></ul></div></details>
+<details class="task"><summary>Task 9 · 통합·배포</summary><div class="task-body"><ul><li>Edge Function 하위 호환 배포 및 smoke test</li><li>iPhone 17 Simulator와 Z Fold7 E2E</li><li>양 플랫폼 Release 빌드</li><li>별도 승인 후 스토어 제출</li></ul></div></details></section>
+
+<section class="section" id="tests"><h2>필수 검증 매트릭스</h2><p>코드 통과와 운영 준비를 구분하고, 실제 과금·복구까지 확인합니다.</p>
+<div class="table-wrap"><table><thead><tr><th>영역</th><th>필수 케이스</th></tr></thead><tbody>
+<tr><td>관계 상태</td><td>9종 선택, 방향 3종 양방향, 대칭 전환 시 role 제거, 사람 입력 유지</td></tr>
+<tr><td>캐시·과금</td><td>동일 입력 재시도 무료, 관계/역할 변경 1회 차감, 응답 유실 후 무료 복구</td></tr>
+<tr><td>AI 결과</td><td>v2 태그 7개, 직장/가족에 연애 전제 없음, 역할 방향 일치, 투자 성공 미보장</td></tr>
+<tr><td>파서</td><td>v1 과거 결과, v2 신규, 닫는 태그 누락, 부분 응답, 점수 clamp</td></tr>
+<tr><td>UI</td><td>320px·390px·Fold7, ko/en/zh, 키보드, 포인트 부족, 동의 거절, 공유 이미지</td></tr>
+</tbody></table></div>
+<pre>node --test lib/__tests__/gunghapRelationship.test.cjs
+node --test lib/__tests__/readingRequestKey.test.cjs
+node --test api/__tests__/gunghapAnalysis.test.cjs
+npx tsc --noEmit --pretty false
+npm run test:security
+npx expo-doctor
+cd android && ./gradlew :app:bundleRelease
+xcodebuild archive -workspace ios/ChessMate.xcworkspace \
+  -scheme ChessMate -configuration Release \
+  -destination 'generic/platform=iOS'</pre></section>
+
+<section class="section" id="release"><h2>안전한 배포 순서</h2><p>구버전 앱이 새 서버에서도 계속 작동하도록 서버를 먼저 배포합니다.</p><div class="flow"><div class="step"><b>01</b>Edge 하위 호환 배포</div><div class="step"><b>02</b>서버 smoke test</div><div class="step"><b>03</b>앱 Release 빌드</div><div class="step"><b>04</b>실기기 E2E</div><div class="step"><b>05</b>별도 승인 후 스토어</div></div>
+<div class="decision"><strong>중요:</strong> 구현 승인과 배포 승인은 별개입니다. 커밋·푸시·Edge 배포·스토어 제출은 각각 승인된 범위에서만 실행합니다.</div></section>
+
+<section class="section" id="risks"><h2>핵심 리스크와 통제</h2><div class="risk">
+<div><b>잘못된 캐시 재사용</b><br>v2 키에 관계·방향을 포함하고 테스트로 고정</div><div><b>구버전 앱 호출 실패</b><br>서버 relationship optional, 기본 romantic</div><div><b>과거 결과 파싱 실패</b><br>v2 우선 + v1 fallback 이중 파서</div><div><b>직장 결과에 연애 문구</b><br>관계별 prompt fixture와 금지 문맥 검사</div><div><b>역할 반전 오류</b><br>person1Role 단일 진실 소스와 반전 테스트</div><div><b>재과금 오해</b><br>관계 변경은 별도 분석임을 버튼 근처 안내</div><div><b>긴 응답 잘림</b><br>섹션 2~3문단, token 실측 후 상한 결정</div><div><b>인사·투자 오용</b><br>비결정론 고지와 행동 조언 중심</div></div></section>
+
+<section class="section" id="done"><h2>완료 기준</h2><ul class="checklist"><li class="ok">9개 관계와 3개 방향 역할이 계약대로 작동</li><li>관계·역할이 request key v2와 저장 JSON에 포함</li><li>동일 관계만 무료 캐시, 관계 변경은 새 분석</li><li>신규 v2와 과거 v1 결과 모두 표시</li><li>비연애 결과에 연애·결혼 전제 없음</li><li>포인트 차감과 응답 유실 복구 유지</li><li>ko/en/zh parity, 타입체크, 테스트, 보안 검사, Expo Doctor 통과</li><li>iPhone 17 Simulator·Z Fold7 입력→공유 E2E</li><li>Edge Function 우선 배포 후 앱 출시</li></ul></section>
+
+<section class="section cta"><div><strong>다음 결정: 입력 화면 디자인 방향 승인</strong><p>관계 칩 그룹·아이콘, 방향 역할 패널, 결과 상단 배지, 관계별 점수판 라벨을 한 화면 시안으로 먼저 검토합니다.</p></div><div class="pill">PLAN READY</div></section>
+</div></div>
+</main>
+<footer class="footer wrap">마찌 관계별 궁합 분석 구현계획서 · 정본 Markdown은 ChessMate 저장소의 .hermes/plans에 보관</footer>
+<script>
+document.querySelectorAll('.toc a').forEach(a=>a.addEventListener('click',()=>{history.replaceState(null,'',a.hash)}));
+</script>
+</body></html>
