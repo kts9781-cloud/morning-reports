@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "updated_at_kst": "2026-07-28T06:42:00+09:00",
+  "field_definitions": {
+    "report_date": "보고일",
+    "stock_code": "종목코드",
+    "stock_name": "종목명",
+    "recommended_at_kst": "추천시각",
+    "forecast_horizon": "예측기간",
+    "forecast_probability": "추천확률",
+    "total_score": "종합점수",
+    "subscores": "세부점수",
+    "rationale_at_publication": "당시 근거",
+    "entry_open": "당일 시가",
+    "return_1d": "1일 수익률",
+    "return_3d": "3거래일 수익률",
+    "return_5d": "5거래일 수익률",
+    "excess_return": "시장 대비 초과수익",
+    "mae": "최대 불리 변동",
+    "hit": "적중 여부",
+    "failure_reason": "실패 원인",
+    "sources": "데이터 출처"
+  },
+  "recommendations": [],
+  "daily_runs": [
+    {
+      "report_date": "2026-07-28",
+      "published_prediction_count": 0,
+      "decision": "오늘은 추천 없음 — 현금 관망",
+      "reason": "전일까지의 외국인·기관 수급, 컨센서스 변화, 과거 유사 조건 30건 이상의 보정 표본을 동시에 확보하지 못해 점수·확률·손익비 문턱을 검증할 수 없음",
+      "prior_formal_recommendation_count": 0,
+      "prior_watchlist_observations": [
+        {"stock_code":"000660","stock_name":"SK하이닉스","open":"1803000","close":"1816000","open_to_close_return_pct":"0.72","included_in_recommendation_metrics":false},
+        {"stock_code":"267260","stock_name":"HD현대일렉트릭","open":"859000","close":"797000","open_to_close_return_pct":"-7.22","included_in_recommendation_metrics":false},
+        {"stock_code":"012450","stock_name":"한화에어로스페이스","open":"979000","close":"899000","open_to_close_return_pct":"-8.17","included_in_recommendation_metrics":false}
+      ],
+      "sources": ["네이버페이 증권 국내 일별 OHLC", "daily-briefing-20260727.html"]
+    }
+  ]
+}
