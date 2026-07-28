@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at_kst": "2026-07-28T06:42:00+09:00",
+  "updated_at_kst": "2026-07-29T06:39:08+09:00",
   "field_definitions": {
     "report_date": "보고일",
     "stock_code": "종목코드",
@@ -30,11 +30,72 @@
       "reason": "전일까지의 외국인·기관 수급, 컨센서스 변화, 과거 유사 조건 30건 이상의 보정 표본을 동시에 확보하지 못해 점수·확률·손익비 문턱을 검증할 수 없음",
       "prior_formal_recommendation_count": 0,
       "prior_watchlist_observations": [
-        {"stock_code":"000660","stock_name":"SK하이닉스","open":"1803000","close":"1816000","open_to_close_return_pct":"0.72","included_in_recommendation_metrics":false},
-        {"stock_code":"267260","stock_name":"HD현대일렉트릭","open":"859000","close":"797000","open_to_close_return_pct":"-7.22","included_in_recommendation_metrics":false},
-        {"stock_code":"012450","stock_name":"한화에어로스페이스","open":"979000","close":"899000","open_to_close_return_pct":"-8.17","included_in_recommendation_metrics":false}
+        {
+          "stock_code": "000660",
+          "stock_name": "SK하이닉스",
+          "open": "1803000",
+          "close": "1816000",
+          "open_to_close_return_pct": "0.72",
+          "included_in_recommendation_metrics": false
+        },
+        {
+          "stock_code": "267260",
+          "stock_name": "HD현대일렉트릭",
+          "open": "859000",
+          "close": "797000",
+          "open_to_close_return_pct": "-7.22",
+          "included_in_recommendation_metrics": false
+        },
+        {
+          "stock_code": "012450",
+          "stock_name": "한화에어로스페이스",
+          "open": "979000",
+          "close": "899000",
+          "open_to_close_return_pct": "-8.17",
+          "included_in_recommendation_metrics": false
+        }
       ],
-      "sources": ["네이버페이 증권 국내 일별 OHLC", "daily-briefing-20260727.html"]
+      "sources": [
+        "네이버페이 증권 국내 일별 OHLC",
+        "daily-briefing-20260727.html"
+      ]
+    },
+    {
+      "report_date": "2026-07-29",
+      "published_prediction_count": 0,
+      "decision": "오늘은 추천 없음 — 현금 관망",
+      "reason": "시장 급변과 실적 이벤트 앞에서 전일까지의 수급·컨센서스·확률 보정 표본·손익비 문턱을 동시 검증할 수 없음",
+      "prior_formal_recommendation_count": 0,
+      "prior_watchlist_observations": [
+        {
+          "stock_code": "000660",
+          "stock_name": "SK하이닉스",
+          "open": "1272000",
+          "close": "1550000",
+          "open_to_close_return_pct": "21.86",
+          "included_in_recommendation_metrics": false
+        },
+        {
+          "stock_code": "018260",
+          "stock_name": "삼성SDS",
+          "open": "210000",
+          "close": "200500",
+          "open_to_close_return_pct": "-4.52",
+          "included_in_recommendation_metrics": false
+        },
+        {
+          "stock_code": "036460",
+          "stock_name": "한국가스공사",
+          "open": "35000",
+          "close": "34050",
+          "open_to_close_return_pct": "-2.71",
+          "included_in_recommendation_metrics": false
+        }
+      ],
+      "sources": [
+        "네이버페이 증권 국내 일별 OHLC",
+        "daily-briefing-20260728.html"
+      ]
     }
   ]
 }
