@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at_kst": "2026-07-30T06:40:31+09:00",
+  "updated_at_kst": "2026-07-31T06:39:39+09:00",
   "field_definitions": {
     "report_date": "보고일",
     "stock_code": "종목코드",
@@ -132,6 +132,43 @@
       "sources": [
         "네이버페이 증권 국내 일별 OHLC",
         "daily-briefing-20260729.html"
+      ]
+    },
+    {
+      "report_date": "2026-07-31",
+      "published_prediction_count": 0,
+      "decision": "오늘은 추천 없음 — 현금 관망",
+      "reason": "미국 기술주 반등에도 전일까지의 수급·컨센서스·확률 보정 표본·손익비 문턱을 동시 검증할 수 없음",
+      "prior_formal_recommendation_count": 0,
+      "prior_watchlist_observations": [
+        {
+          "stock_code": "010950",
+          "stock_name": "S-Oil",
+          "open": "129900",
+          "close": "130100",
+          "open_to_close_return_pct": "0.15",
+          "included_in_recommendation_metrics": false
+        },
+        {
+          "stock_code": "000660",
+          "stock_name": "SK하이닉스",
+          "open": "1371000",
+          "close": "1322000",
+          "open_to_close_return_pct": "-3.57",
+          "included_in_recommendation_metrics": false
+        },
+        {
+          "stock_code": "034020",
+          "stock_name": "두산에너빌리티",
+          "open": "59500",
+          "close": "60200",
+          "open_to_close_return_pct": "1.18",
+          "included_in_recommendation_metrics": false
+        }
+      ],
+      "sources": [
+        "네이버페이 증권 국내 일별 OHLC",
+        "daily-briefing-20260730.html"
       ]
     }
   ]
