@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at_kst": "2026-07-31T06:39:39+09:00",
+  "updated_at_kst": "2026-08-01T06:39:32+09:00",
   "field_definitions": {
     "report_date": "보고일",
     "stock_code": "종목코드",
@@ -169,6 +169,43 @@
       "sources": [
         "네이버페이 증권 국내 일별 OHLC",
         "daily-briefing-20260730.html"
+      ]
+    },
+    {
+      "report_date": "2026-08-01",
+      "published_prediction_count": 0,
+      "decision": "오늘은 추천 없음 — 현금 관망",
+      "reason": "한국 증시 휴장 및 전일 시장·반도체 대형주 비정상 급등으로 과열 제외, 수급·컨센서스·보정 표본·손익비 문턱 동시 검증 불가",
+      "prior_formal_recommendation_count": 0,
+      "prior_watchlist_observations": [
+        {
+          "stock_code": "000660",
+          "stock_name": "SK하이닉스",
+          "open": "1500000",
+          "close": "1718000",
+          "open_to_close_return_pct": "14.53",
+          "included_in_recommendation_metrics": false
+        },
+        {
+          "stock_code": "005930",
+          "stock_name": "삼성전자",
+          "open": "225500",
+          "close": "262500",
+          "open_to_close_return_pct": "16.41",
+          "included_in_recommendation_metrics": false
+        },
+        {
+          "stock_code": "034020",
+          "stock_name": "두산에너빌리티",
+          "open": "64500",
+          "close": "67100",
+          "open_to_close_return_pct": "4.03",
+          "included_in_recommendation_metrics": false
+        }
+      ],
+      "sources": [
+        "네이버페이 증권 국내 일별 OHLC",
+        "daily-briefing-20260731.html"
       ]
     }
   ]
