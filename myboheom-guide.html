@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0e6278">
+  <meta name="description" content="보험증권 등록부터 AI 보장 분석, 상담, 보험금 청구 준비까지 마이보험 앱을 한눈에 알아보는 소개 및 사용설명서입니다.">
+  <meta property="og:title" content="마이보험 앱 소개 · 사용설명서">
+  <meta property="og:description" content="흩어진 보험을 한곳에서 읽고, 필요한 보장과 청구 절차를 쉽게 확인하세요.">
+  <meta property="og:image" content="myboheom-guide-assets/og.jpg">
+  <meta property="og:type" content="website">
+  <title>마이보험 앱 소개 · 사용설명서</title>
+  <style>
+    :root {
+      --ink: #102b36;
+      --muted: #5f747c;
+      --teal: #0e6278;
+      --teal-2: #217f94;
+      --mist: #e7f3f5;
+      --paper: #fffefd;
+      --line: #cfe0e4;
+      --warm: #f4b860;
+      --green: #12a667;
+      --red: #d84b4b;
+      --shadow: 0 24px 70px rgba(16, 43, 54, .12);
+      --radius: 28px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(14,98,120,.025) 1px, transparent 1px) 0 0 / 24px 24px,
+        #f4f8f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid var(--warm); outline-offset: 4px; }
+    .skip { position: absolute; left: -9999px; }
+    .skip:focus { left: 16px; top: 16px; z-index: 100; background: #fff; padding: 12px 16px; border-radius: 12px; }
+    .wrap { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(244,248,249,.88); backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(14,98,120,.12);
+    }
+    .topbar-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 900; }
+    .brand img { width: 42px; height: 42px; border-radius: 13px; }
+    .nav { display: flex; gap: 8px; align-items: center; }
+    .nav a { text-decoration: none; color: var(--muted); font-weight: 700; padding: 9px 12px; border-radius: 12px; }
+    .nav a:hover { color: var(--teal); background: var(--mist); }
+
+    .hero { padding: 72px 0 92px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.04fr .96fr; gap: 52px; align-items: center; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; color: var(--teal); font-size: 14px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 34px; height: 2px; background: var(--teal); }
+    h1 { margin: 18px 0 24px; font-size: clamp(46px, 6vw, 82px); line-height: 1.05; letter-spacing: -.055em; }
+    h1 .marker { position: relative; z-index: 0; color: var(--teal); }
+    h1 .marker::after { content: ""; position: absolute; z-index: -1; left: -4px; right: -4px; bottom: 5px; height: 15px; background: rgba(244,184,96,.55); transform: rotate(-1.2deg); border-radius: 2px; }
+    .hero-copy { font-size: clamp(18px, 2vw, 22px); color: var(--muted); max-width: 640px; margin: 0 0 30px; }
+    .hero-actions, .store-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn { min-height: 52px; display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 0 20px; border: 1px solid var(--teal); border-radius: 16px; text-decoration: none; font-weight: 900; transition: transform .2s, box-shadow .2s, background .2s; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(14,98,120,.16); }
+    .btn.primary { color: #fff; background: var(--teal); }
+    .btn.soft { color: var(--teal); background: #fff; }
+    .hero-note { margin-top: 20px; color: var(--muted); font-size: 14px; }
+
+    .file-stage { position: relative; min-height: 590px; }
+    .folder-tab { position: absolute; width: 73%; height: 62px; top: 10px; left: 4%; border-radius: 28px 28px 0 0; background: #cde5e9; transform: rotate(-3deg); }
+    .file-card { position: absolute; overflow: hidden; background: var(--paper); border: 1px solid var(--line); box-shadow: var(--shadow); }
+    .file-card.back { width: 62%; right: 1%; top: 42px; border-radius: 26px; transform: rotate(5deg); }
+    .file-card.front { width: 70%; left: 2%; top: 80px; border-radius: 30px; transform: rotate(-2deg); }
+    .file-card img { width: 100%; height: auto; }
+    .file-label { position: absolute; right: 2%; bottom: 40px; width: 49%; background: var(--teal); color: #fff; border-radius: 18px; padding: 18px 22px; box-shadow: 0 16px 32px rgba(14,98,120,.25); transform: rotate(2deg); }
+    .file-label strong { display: block; font-size: 22px; }
+    .file-label span { opacity: .8; font-size: 14px; }
+
+    .proof { margin-top: -38px; position: relative; z-index: 2; }
+    .proof-grid { background: var(--ink); color: #fff; display: grid; grid-template-columns: repeat(4, 1fr); border-radius: 24px; overflow: hidden; box-shadow: var(--shadow); }
+    .proof-item { padding: 25px 26px; border-right: 1px solid rgba(255,255,255,.14); }
+    .proof-item:last-child { border-right: 0; }
+    .proof-item b { display: block; font-size: 17px; }
+    .proof-item span { color: #bcd0d6; font-size: 13px; }
+
+    section { padding: 104px 0; }
+    .section-head { display: grid; grid-template-columns: .9fr 1.1fr; gap: 42px; align-items: end; margin-bottom: 46px; }
+    .section-kicker { color: var(--teal); font-size: 14px; font-weight: 900; letter-spacing: .1em; }
+    h2 { margin: 8px 0 0; font-size: clamp(34px, 4.5vw, 58px); line-height: 1.12; letter-spacing: -.04em; }
+    .section-lead { margin: 0; color: var(--muted); font-size: 19px; }
+
+    .journey { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .journey-grid { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .journey-grid::before { content: ""; position: absolute; left: 15%; right: 15%; top: 44px; border-top: 2px dashed #aacbd2; }
+    .step { position: relative; z-index: 1; background: #fff; border: 1px solid var(--line); border-radius: 24px; padding: 25px; }
+    .step-no { width: 42px; height: 42px; display: grid; place-items: center; background: var(--teal); color: #fff; border-radius: 50%; font-weight: 900; box-shadow: 0 0 0 10px #fff; }
+    .step h3 { margin: 28px 0 8px; font-size: 24px; }
+    .step p { margin: 0; color: var(--muted); }
+
+    .feature { display: grid; grid-template-columns: .92fr 1.08fr; gap: 74px; align-items: center; margin-top: 90px; }
+    .feature.reverse { grid-template-columns: 1.08fr .92fr; }
+    .feature.reverse .visual { order: 2; }
+    .feature.reverse .copy { order: 1; }
+    .visual { position: relative; }
+    .screen { overflow: hidden; background: #fff; border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow); cursor: zoom-in; }
+    .screen img { width: 100%; }
+    .screen::after { content: "확대 보기"; position: absolute; right: 16px; bottom: 16px; background: rgba(16,43,54,.88); color: #fff; padding: 7px 12px; border-radius: 999px; font-size: 12px; font-weight: 800; }
+    .stamp { position: absolute; z-index: 2; right: -24px; top: -24px; width: 106px; height: 106px; display: grid; place-items: center; text-align: center; border-radius: 50%; color: var(--teal); background: #fff; border: 3px double var(--teal); font-weight: 900; transform: rotate(8deg); box-shadow: 0 8px 24px rgba(14,98,120,.13); }
+    .copy h3 { font-size: clamp(30px, 4vw, 46px); line-height: 1.18; letter-spacing: -.035em; margin: 0 0 16px; }
+    .copy > p { color: var(--muted); font-size: 18px; margin: 0 0 26px; }
+    .checklist { padding: 0; margin: 0; list-style: none; display: grid; gap: 12px; }
+    .checklist li { display: flex; gap: 12px; align-items: flex-start; }
+    .checklist li::before { content: "✓"; flex: 0 0 25px; width: 25px; height: 25px; display: grid; place-items: center; color: #fff; background: var(--green); border-radius: 8px; font-weight: 900; margin-top: 2px; }
+
+    .claims { color: #fff; background: var(--ink); }
+    .claims .section-kicker { color: #84d3df; }
+    .claims .section-lead { color: #b7cbd1; }
+    .claim-layout { display: grid; grid-template-columns: .88fr 1.12fr; gap: 52px; align-items: start; }
+    .rail { position: sticky; top: 106px; display: grid; gap: 0; }
+    .rail-item { position: relative; display: grid; grid-template-columns: 50px 1fr; gap: 16px; padding-bottom: 28px; }
+    .rail-item:not(:last-child)::before { content: ""; position: absolute; left: 24px; top: 50px; bottom: 0; border-left: 2px dashed rgba(132,211,223,.42); }
+    .rail-dot { width: 50px; height: 50px; display: grid; place-items: center; border: 1px solid #76bdc9; border-radius: 50%; color: #8ddce6; font-weight: 900; }
+    .rail-item h3 { margin: 1px 0 4px; font-size: 21px; }
+    .rail-item p { color: #a9c0c6; margin: 0; font-size: 15px; }
+    .claim-stack { display: grid; gap: 24px; }
+    .claim-shot { position: relative; overflow: hidden; width: 100%; padding: 0; text-align: left; background: #fff; border: 0; border-radius: 24px; box-shadow: 0 22px 50px rgba(0,0,0,.25); cursor: zoom-in; }
+    .claim-shot img { width: 100%; }
+    .claim-caption { padding: 15px 18px; color: var(--ink); font-weight: 800; border-top: 1px solid var(--line); }
+
+    .manual-grid { display: grid; grid-template-columns: 280px 1fr; gap: 52px; align-items: start; }
+    .manual-nav { position: sticky; top: 105px; background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 18px; }
+    .manual-nav strong { display: block; padding: 8px 10px 14px; }
+    .manual-nav a { display: block; text-decoration: none; color: var(--muted); font-weight: 700; padding: 10px; border-radius: 10px; }
+    .manual-nav a:hover { color: var(--teal); background: var(--mist); }
+    .manual-content { display: grid; gap: 28px; }
+    .manual-card { scroll-margin-top: 110px; background: #fff; border: 1px solid var(--line); border-radius: 25px; padding: 30px; }
+    .manual-card h3 { margin: 0 0 12px; font-size: 27px; }
+    .manual-card p { color: var(--muted); margin: 0 0 16px; }
+    .manual-card ol { margin: 0; padding-left: 22px; }
+    .manual-card li + li { margin-top: 9px; }
+    .tip { margin-top: 18px; padding: 15px 17px; color: #46616b; background: var(--mist); border-left: 4px solid var(--teal); border-radius: 10px; }
+    .status-row { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 18px; }
+    .status { padding: 7px 11px; border-radius: 999px; font-size: 13px; font-weight: 900; }
+    .status.ready { background: #e1f2fb; color: #1581b5; }
+    .status.docs { background: #fff0cf; color: #9a6900; }
+    .status.done { background: #ddf5e8; color: #087847; }
+    .manual-inline-shot { width: 100%; margin-top: 22px; padding: 0; overflow: hidden; background: #fff; border: 1px solid var(--line); border-radius: 18px; cursor: zoom-in; }
+
+    .safety { background: #edf5f6; }
+    .safety-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .note-card { background: #fff; border: 1px solid var(--line); border-radius: 24px; padding: 30px; }
+    .note-card h3 { margin: 0 0 12px; font-size: 24px; }
+    .note-card p { color: var(--muted); margin: 0; }
+    details { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 0 22px; }
+    details + details { margin-top: 12px; }
+    summary { cursor: pointer; padding: 20px 0; font-weight: 900; list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; float: right; color: var(--teal); font-size: 24px; line-height: 1; }
+    details[open] summary::after { content: "–"; }
+    details p { color: var(--muted); margin: 0 0 20px; }
+
+    .cta { padding: 96px 0; background: var(--teal); color: #fff; text-align: center; }
+    .cta img { width: 86px; height: 86px; margin: 0 auto 24px; border-radius: 24px; box-shadow: 0 12px 30px rgba(0,0,0,.18); }
+    .cta h2 { max-width: 720px; margin: 0 auto 16px; }
+    .cta p { max-width: 680px; margin: 0 auto 28px; color: #c9e2e7; font-size: 18px; }
+    .cta .btn { border-color: #fff; background: #fff; color: var(--teal); }
+    footer { padding: 34px 0 44px; color: var(--muted); font-size: 13px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 24px; }
+
+    .lightbox { position: fixed; z-index: 100; inset: 0; display: none; place-items: center; padding: 28px; background: rgba(5,24,31,.9); }
+    .lightbox.open { display: grid; }
+    .lightbox img { max-width: min(1200px, 94vw); max-height: 88vh; border-radius: 18px; box-shadow: 0 25px 80px #000; }
+    .lightbox button { position: absolute; right: 24px; top: 20px; width: 48px; height: 48px; color: #fff; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.35); border-radius: 50%; font-size: 28px; cursor: pointer; }
+
+    .reveal { opacity: 1; transform: none; }
+
+    @media (max-width: 900px) {
+      .nav { display: none; }
+      .hero-grid, .section-head, .feature, .feature.reverse, .claim-layout, .manual-grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 48px; }
+      .file-stage { min-height: 540px; max-width: 650px; width: 100%; margin: 0 auto; }
+      .proof-grid { grid-template-columns: 1fr 1fr; }
+      .proof-item:nth-child(2) { border-right: 0; }
+      .proof-item:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.14); }
+      .journey-grid { grid-template-columns: 1fr; }
+      .journey-grid::before { display: none; }
+      .feature { gap: 34px; margin-top: 68px; }
+      .feature.reverse .visual, .feature.reverse .copy { order: initial; }
+      .rail, .manual-nav { position: static; }
+      .manual-nav { display: flex; overflow-x: auto; white-space: nowrap; }
+      .manual-nav strong { display: none; }
+    }
+    @media (max-width: 600px) {
+      .wrap { width: min(calc(100% - 26px), var(--max)); }
+      .topbar-inner { min-height: 64px; }
+      .brand img { width: 36px; height: 36px; }
+      .hero { padding: 42px 0 72px; }
+      h1 { font-size: 46px; }
+      .hero-copy { font-size: 18px; }
+      .hero-actions .btn { width: 100%; }
+      .file-stage { min-height: 390px; margin-top: 14px; }
+      .file-card.back { width: 64%; }
+      .file-card.front { width: 72%; }
+      .file-label { width: 62%; bottom: 18px; padding: 13px 15px; }
+      .file-label strong { font-size: 17px; }
+      .file-label span { font-size: 12px; }
+      .proof { margin-top: -28px; }
+      .proof-grid { grid-template-columns: 1fr; }
+      .proof-item { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.14); padding: 19px 22px; }
+      .proof-item:last-child { border-bottom: 0; }
+      section { padding: 76px 0; }
+      .section-head { gap: 18px; margin-bottom: 34px; }
+      h2 { font-size: 37px; }
+      .section-lead { font-size: 17px; }
+      .journey-grid { gap: 14px; }
+      .step { padding: 21px; }
+      .copy h3 { font-size: 32px; }
+      .stamp { right: -7px; top: -20px; width: 84px; height: 84px; font-size: 13px; }
+      .claim-layout { gap: 34px; }
+      .manual-card, .note-card { padding: 23px; }
+      .safety-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; }
+      .lightbox { padding: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">본문 바로가기</a>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="#top"><img src="myboheom-guide-assets/app-icon.jpg" alt="마이보험 앱 아이콘"><span>마이보험</span></a>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="#overview">앱 소개</a><a href="#features">핵심 기능</a><a href="#claims">청구 안내</a><a href="#manual">사용설명서</a><a href="#faq">자주 묻는 질문</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">My insurance, made clear</div>
+          <h1>내 보험을 읽고,<br><span class="marker">청구까지</span> 잇다</h1>
+          <p class="hero-copy">보험증권을 등록하면 AI가 복잡한 보장을 보기 쉽게 정리합니다. 궁금한 보장을 묻고, 필요한 청구 서류와 예상 항목까지 한 흐름에서 확인하세요.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#manual">5분 사용법 보기 <span aria-hidden="true">→</span></a>
+            <a class="btn soft" href="#download">앱 다운로드</a>
+          </div>
+          <p class="hero-note">※ AI 분석은 참고용이며 실제 보장 여부와 지급액은 보험사 심사 결과에 따라 달라질 수 있습니다.</p>
+        </div>
+        <div class="file-stage" aria-label="마이보험 주요 화면 미리보기">
+          <div class="folder-tab" aria-hidden="true"></div>
+          <button class="file-card back zoomable" type="button" data-image="myboheom-guide-assets/ai-consultation.jpg" aria-label="AI 상담 화면 확대 보기"><img src="myboheom-guide-assets/ai-consultation.jpg" alt="보유 보험을 바탕으로 청구 가능 항목을 안내하는 AI 상담 화면"></button>
+          <button class="file-card front zoomable" type="button" data-image="myboheom-guide-assets/coverage-dashboard.jpg" aria-label="보장 현황 화면 확대 보기"><img src="myboheom-guide-assets/coverage-dashboard.jpg" alt="암, 뇌·심장, 수술, 입원 등 분야별 보장 현황 화면"></button>
+          <div class="file-label"><strong>보험 9건 연동 예시</strong><span>보장 현황부터 청구 안내까지</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap proof" aria-label="핵심 기능 요약">
+      <div class="proof-grid">
+        <div class="proof-item"><b>사진·PDF 등록</b><span>보험증권을 편한 방식으로</span></div>
+        <div class="proof-item"><b>AI 보장 분석</b><span>복잡한 약관을 분야별로</span></div>
+        <div class="proof-item"><b>보험 질문 상담</b><span>내 보장 기준으로 확인</span></div>
+        <div class="proof-item"><b>청구 준비 관리</b><span>서류부터 진행 상태까지</span></div>
+      </div>
+    </div>
+
+    <section class="journey" id="overview">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">START HERE</div><h2>처음이라면<br>이 순서대로</h2></div>
+          <p class="section-lead">마이보험은 보험을 새로 설계하는 앱이 아니라, 이미 가입한 보험을 이해하고 필요할 때 활용하도록 돕는 AI 보험 도우미입니다.</p>
+        </div>
+        <div class="journey-grid">
+          <article class="step reveal"><div class="step-no">1</div><h3>보험증권 등록</h3><p>카메라, 사진 또는 PDF로 보험증권을 추가합니다.</p></article>
+          <article class="step reveal"><div class="step-no">2</div><h3>AI 분석 확인</h3><p>보험 목록과 보장 분야별 현황을 확인합니다.</p></article>
+          <article class="step reveal"><div class="step-no">3</div><h3>상담·청구 활용</h3><p>증상을 질문하고 필요한 서류와 절차를 준비합니다.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">CORE FEATURES</div><h2>보험이 보이기<br>시작합니다</h2></div>
+          <p class="section-lead">긴 상품명과 약관을 그대로 늘어놓는 대신, 사용자가 실제로 궁금해하는 보장과 행동을 중심으로 정리합니다.</p>
+        </div>
+
+        <article class="feature reveal">
+          <div class="visual"><div class="stamp">사진·PDF<br>모두 가능</div><button class="screen zoomable" type="button" data-image="myboheom-guide-assets/policy-upload.jpg" aria-label="보험증권 등록 화면 확대 보기"><img src="myboheom-guide-assets/policy-upload.jpg" alt="카메라, 사진, PDF로 보험증권을 등록하는 화면"></button></div>
+          <div class="copy"><h3>증권은 편한 방식으로 등록</h3><p>종이 보험증권은 카메라로 촬영하고, 휴대폰에 저장된 이미지는 사진에서 선택합니다. 보험사 앱이나 이메일로 받은 증권은 PDF 그대로 첨부할 수 있습니다.</p><ul class="checklist"><li>사진은 보험증권 전면이 모두 보이게 촬영</li><li>암호가 설정된 PDF도 비밀번호와 함께 분석</li><li>사진과 PDF를 함께 선택해 보완 가능</li></ul></div>
+        </article>
+
+        <article class="feature reverse reveal">
+          <div class="visual"><button class="screen zoomable" type="button" data-image="myboheom-guide-assets/policy-list.jpg" aria-label="보험 목록 화면 확대 보기"><img src="myboheom-guide-assets/policy-list.jpg" alt="등록된 보험과 월 보험료, 만기일을 보여주는 화면"></button></div>
+          <div class="copy"><h3>흩어진 보험을 한 목록으로</h3><p>보험사와 상품명, 월 보험료, 만기일을 카드로 정리합니다. 검색을 이용하면 보험이 많아도 원하는 계약을 빠르게 찾을 수 있습니다.</p><ul class="checklist"><li>등록 완료 상태를 카드에서 바로 확인</li><li>월 총 보험료로 납입 규모 파악</li><li>개별 보험을 열어 상세 보장 확인</li></ul></div>
+        </article>
+
+        <article class="feature reveal">
+          <div class="visual"><button class="screen zoomable" type="button" data-image="myboheom-guide-assets/coverage-dashboard.jpg" aria-label="보장 분야별 현황 확대 보기"><img src="myboheom-guide-assets/coverage-dashboard.jpg" alt="보장 분야별 가입 건수와 금액을 막대로 비교하는 화면"></button></div>
+          <div class="copy"><h3>보장 분야를 한눈에 비교</h3><p>암·종양, 뇌·심장, 수술, 입원, 진단, 사망 등 주요 분야를 시각적으로 정리합니다. 금액과 건수는 촬영 당시 등록된 보험을 기준으로 한 예시입니다.</p><ul class="checklist"><li>분야별 가입 건수와 보장 규모 확인</li><li>보험 상세 화면으로 자연스럽게 이동</li><li>AI 상담 전에 내 보장 구조 파악</li></ul></div>
+        </article>
+
+        <article class="feature reverse reveal">
+          <div class="visual"><button class="screen zoomable" type="button" data-image="myboheom-guide-assets/ai-consultation.jpg" aria-label="AI 상담 화면 확대 보기"><img src="myboheom-guide-assets/ai-consultation.jpg" alt="독감 증상에 대해 보험금 청구 가능 항목과 서류를 안내하는 AI 상담 화면"></button></div>
+          <div class="copy"><h3>내 보험을 바탕으로 질문</h3><p>“독감 걸렸어”처럼 일상적인 말로 질문해도 보유 보험에서 관련 보장 항목을 찾아 정리합니다. 예상 보험금, 필요 서류, 청구 절차를 한 번에 확인할 수 있습니다.</p><ul class="checklist"><li>관련 특약과 예상 항목을 보험별로 표시</li><li>진단서·처방전·영수증 등 서류 안내</li><li>청구 관리 화면으로 바로 이어지는 동선</li></ul></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="claims" id="claims">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">CLAIM FILE</div><h2>보험금 청구,<br>순서대로 준비</h2></div>
+          <p class="section-lead">증상을 기록하고, 매칭된 보장을 확인하고, 필요한 서류를 모은 뒤 진행 상태를 관리합니다.</p>
+        </div>
+        <div class="claim-layout">
+          <div class="rail" aria-label="보험금 청구 절차">
+            <div class="rail-item"><div class="rail-dot">1</div><div><h3>증상 기록</h3><p>언제, 어디서, 어떻게 다쳤거나 아팠는지 입력합니다.</p></div></div>
+            <div class="rail-item"><div class="rail-dot">2</div><div><h3>보장 매칭</h3><p>등록한 보험에서 관련 가능 항목과 예상 금액을 확인합니다.</p></div></div>
+            <div class="rail-item"><div class="rail-dot">3</div><div><h3>서류 준비</h3><p>안내된 서류를 촬영해 항목별로 체크합니다.</p></div></div>
+            <div class="rail-item"><div class="rail-dot">4</div><div><h3>진행 관리</h3><p>준비중부터 입금완료까지 상태와 수령액을 기록합니다.</p></div></div>
+          </div>
+          <div class="claim-stack">
+            <button class="claim-shot zoomable reveal" type="button" data-image="myboheom-guide-assets/claim-coverage-cold.jpg" aria-label="독감 보장 매칭 화면 확대 보기"><img src="myboheom-guide-assets/claim-coverage-cold.jpg" alt="독감에 대한 매칭 보장과 예상 보험금 화면"><span class="claim-caption">증상에 맞는 보장과 예상 보험금 확인</span></button>
+            <button class="claim-shot zoomable reveal" type="button" data-image="myboheom-guide-assets/claim-documents-full.jpg" aria-label="필요 서류 목록 확대 보기"><img src="myboheom-guide-assets/claim-documents-full.jpg" alt="신분증, 통장사본, 진단서 등 필요 서류 체크 화면"><span class="claim-caption">필요 서류를 항목별로 촬영·체크</span></button>
+            <button class="claim-shot zoomable reveal" type="button" data-image="myboheom-guide-assets/claim-list.jpg" aria-label="청구 관리 목록 확대 보기"><img src="myboheom-guide-assets/claim-list.jpg" alt="준비중과 입금완료 상태를 보여주는 청구 관리 목록"><span class="claim-caption">청구 상태와 실제 수령액을 한곳에서 관리</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="manual">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">QUICK MANUAL</div><h2>5분 사용설명서</h2></div>
+          <p class="section-lead">앱 하단의 ‘마이보험 → AI 상담 → 청구 관리 → 설정’ 순서로 익히면 빠릅니다.</p>
+        </div>
+        <div class="manual-grid">
+          <nav class="manual-nav" aria-label="사용설명서 목차"><strong>바로가기</strong><a href="#m1">1. 보험 등록</a><a href="#m2">2. 분석 확인</a><a href="#m3">3. AI 상담</a><a href="#m4">4. 청구 준비</a><a href="#m5">5. 상태 관리</a></nav>
+          <div class="manual-content">
+            <article class="manual-card" id="m1"><h3>1. 보험증권 등록하기</h3><p>‘마이보험’ 탭 오른쪽 아래의 + 버튼을 누르고 등록 방식을 선택합니다.</p><ol><li><b>카메라</b>: 보험증권 전체가 잘리지 않게 촬영합니다.</li><li><b>사진</b>: 갤러리에 저장한 보험증권 이미지를 선택합니다.</li><li><b>PDF</b>: 보험사 앱이나 이메일에서 받은 증권 파일을 선택합니다.</li><li>선택한 파일을 확인하고 <b>AI로 분석하기</b>를 누릅니다.</li></ol><div class="tip"><b>암호 PDF</b>는 비밀번호 표시가 나타납니다. 정확한 비밀번호를 입력해야 분석할 수 있습니다.</div><button class="manual-inline-shot zoomable" type="button" data-image="myboheom-guide-assets/policy-analysis-progress.jpg" aria-label="AI 분석 진행 화면 확대 보기"><img src="myboheom-guide-assets/policy-analysis-progress.jpg" alt="보험증권 PDF를 AI가 분석하는 진행 화면"></button></article>
+            <article class="manual-card" id="m2"><h3>2. 분석 결과 확인하기</h3><p>분석이 끝나면 보험 목록에서 상품명, 보험사, 월 보험료, 만기일을 확인합니다. 상단의 보장 분야별 현황은 현재 등록된 모든 보험을 합쳐 보여줍니다.</p><ol><li>보험 카드를 눌러 상세 화면을 엽니다.</li><li>보장 항목과 금액을 확인합니다.</li><li>원본 증권과 다른 값이 있다면 보험사 또는 담당 설계사에게 확인합니다.</li></ol><div class="tip">화면의 건수와 금액은 등록 시점의 분석 결과입니다. 계약 변경이나 갱신 후에는 최신 증권으로 다시 확인하세요.</div></article>
+            <article class="manual-card" id="m3"><h3>3. AI 상담에 질문하기</h3><p>‘AI 상담’ 탭에서 증상이나 사고 상황을 평소 말하듯 입력합니다.</p><ol><li>예: “독감 걸렸어”, “화장실에서 넘어져 허리를 다쳤어”</li><li>AI가 보유 보험 중 관련 가능 항목을 정리합니다.</li><li>예상 금액과 필요 서류를 확인합니다.</li><li>필요하면 ‘청구 접수하기’ 또는 ‘설계사에게 보내기’로 이어갑니다.</li></ol><div class="tip">AI 답변은 참고용입니다. 보장 확정과 지급 결정은 보험사의 약관 검토와 심사를 따릅니다.</div></article>
+            <article class="manual-card" id="m4"><h3>4. 청구 서류 준비하기</h3><p>청구 상세 화면의 ‘필요 서류’에서 각 항목 오른쪽 카메라 버튼을 누릅니다.</p><ol><li>진단서·진료확인서, 처방전, 영수증 등 안내된 서류를 발급받습니다.</li><li>문서의 네 모서리와 글자가 선명하게 보이도록 촬영합니다.</li><li>촬영이 끝난 항목은 완료 표시와 진행률로 확인합니다.</li><li>보험사 또는 담당 설계사에게 제출하기 전 내용을 다시 확인합니다.</li></ol></article>
+            <article class="manual-card" id="m5"><h3>5. 청구 진행 상태 관리하기</h3><p>‘청구 관리’ 탭에서 각 청구 건의 상태와 실제 수령액을 기록합니다.</p><div class="status-row"><span class="status ready">준비중</span><span class="status docs">서류발급중</span><span class="status done">청구완료</span><span class="status done">입금완료</span></div><ol><li>청구 카드를 열어 현재 단계를 선택합니다.</li><li>보험금이 입금되면 ‘입금완료’로 변경합니다.</li><li>실제 수령액을 입력하면 누적 수령 금액에 반영됩니다.</li></ol><div class="tip">목록의 날짜·금액·건수는 앱 기능을 보여주는 촬영 예시이며, 모든 사용자에게 동일하게 표시되는 값이 아닙니다.</div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="safety" id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">SAFE USE</div><h2>안심하고<br>사용하려면</h2></div>
+          <p class="section-lead">보험과 의료 문서는 민감한 정보를 포함합니다. 등록 전 파일을 확인하고, 결과는 최종 판단이 아닌 준비 도구로 활용하세요.</p>
+        </div>
+        <div class="safety-grid">
+          <article class="note-card"><h3>분석 결과는 참고용</h3><p>마이보험은 보장 내용을 이해하고 청구 준비를 돕습니다. 실제 보장 여부, 면책 조건, 지급 금액은 담당 설계사 또는 보험사에 직접 확인하세요.</p></article>
+          <article class="note-card"><h3>문서는 필요한 경우에만 공유</h3><p>신분증, 통장 사본, 진단서 등에는 개인정보가 포함됩니다. 수신인을 확인한 뒤 보험사나 담당 설계사에게 전달하세요.</p></article>
+        </div>
+        <div style="margin-top:32px">
+          <details><summary>보험증권 분석이 오래 걸려요.</summary><p>파일 크기와 페이지 수, 네트워크 상태에 따라 시간이 달라질 수 있습니다. 앱을 종료하지 말고 진행률을 확인하세요. 오래 멈춘 경우 네트워크를 확인한 뒤 파일을 다시 선택해 주세요.</p></details>
+          <details><summary>PDF 옆에 ‘비밀번호’가 표시돼요.</summary><p>암호화된 보험증권입니다. 보험사 앱이나 이메일에서 안내받은 문서 비밀번호를 입력해야 내용을 분석할 수 있습니다.</p></details>
+          <details><summary>AI 예상금액과 실제 지급액이 달라요.</summary><p>AI 예상금액은 등록된 증권의 분석 결과를 바탕으로 한 참고치입니다. 사고 경위, 치료 내용, 면책·감액 조건과 보험사 심사에 따라 실제 지급액이 달라질 수 있습니다.</p></details>
+          <details><summary>보험이 갱신되거나 변경됐어요.</summary><p>최신 보험증권을 다시 등록해 현재 계약 내용을 확인하세요. 오래된 분석 결과만으로 보장 여부를 판단하지 않는 것이 안전합니다.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="download">
+      <div class="wrap"><img src="myboheom-guide-assets/app-icon.jpg" alt="마이보험 앱 아이콘"><h2>보험을 이해하는 순간,<br>청구는 더 쉬워집니다</h2><p>보험증권을 등록하고 내 보장을 확인해 보세요. 마이보험이 상담과 청구 준비까지 차근차근 안내합니다.</p><div class="store-row" style="justify-content:center"><a class="btn" href="https://apps.apple.com/kr/app/id6771769228" target="_blank" rel="noopener">App Store에서 받기</a><a class="btn" href="https://play.google.com/store/apps/details?id=com.kimtaesung1.myboheom" target="_blank" rel="noopener">Google Play에서 받기</a></div></div>
+    </section>
+  </main>
+
+  <footer><div class="wrap footer-inner"><span>© 2026 마이보험. 앱 소개 및 사용 안내.</span><span>화면의 보험 건수·금액은 촬영 당시의 예시입니다.</span></div></footer>
+
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="화면 이미지 확대 보기" aria-hidden="true"><button type="button" aria-label="닫기">×</button><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="확대 화면"></div>
+  <script>
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImage = lightbox.querySelector('img');
+    let lastTrigger = null;
+    document.querySelectorAll('.zoomable').forEach((item) => {
+      item.addEventListener('click', () => {
+        lastTrigger = item;
+        lightboxImage.src = item.dataset.image;
+        lightboxImage.alt = item.getAttribute('aria-label') || '확대 화면';
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        lightbox.querySelector('button').focus();
+      });
+    });
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImage.src = '';
+      document.body.style.overflow = '';
+      if (lastTrigger) lastTrigger.focus();
+    }
+    lightbox.querySelector('button').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (event) => { if (event.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox(); });
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion || !('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
+    } else {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+      }, { threshold: .12 });
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    }
+  </script>
+</body>
+</html>
