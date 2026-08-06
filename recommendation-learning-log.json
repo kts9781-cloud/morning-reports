@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at_kst": "2026-08-06T06:37:59+09:00",
+  "updated_at_kst": "2026-08-07T06:37:36+09:00",
   "field_definitions": {
     "report_date": "보고일",
     "stock_code": "종목코드",
@@ -266,6 +266,18 @@
       "sources": [
         "네이버페이 증권 국내 일별 OHLC",
         "daily-briefing-20260805.html"
+      ]
+    },
+    {
+      "report_date": "2026-08-07",
+      "published_prediction_count": 0,
+      "decision": "오늘은 추천 없음 — 현금 관망",
+      "reason": "전일 KOSPI 급락·대형 반도체 고변동성 및 수급·컨센서스·30건 보정 표본·손익비 문턱 동시 검증 불가",
+      "prior_formal_recommendation_count": 0,
+      "prior_watchlist_observations": [],
+      "sources": [
+        "네이버페이 증권 국내 일별 OHLC",
+        "daily-briefing-20260806.html"
       ]
     }
   ]
