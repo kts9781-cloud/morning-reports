@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at_kst": "2026-09-28T06:39:10+09:00",
+  "updated_at_kst": "2026-09-29T06:39:24+09:00",
   "field_definitions": {
     "report_date": "보고일",
     "stock_code": "종목코드",
@@ -890,6 +890,18 @@
       "sources": [
         "네이버페이 증권 국내 일별 OHLC",
         "daily-briefing-20260927.html"
+      ]
+    },
+    {
+      "report_date": "2026-09-29",
+      "published_prediction_count": 0,
+      "decision": "오늘은 추천 없음 — 현금 관망",
+      "reason": "전일 KOSPI 급락과 미국 기술주 약세, 고유가·금리 상승 속 06:30 장전 시점에 당일 시가·호가·수급 및 75점/60%/손익비 1.5 문턱 동시 검증 불가",
+      "prior_formal_recommendation_count": 0,
+      "prior_watchlist_observations": [],
+      "sources": [
+        "네이버페이 증권 국내 일별 OHLC",
+        "daily-briefing-20260928.html"
       ]
     }
   ]
