@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at_kst": "2026-10-08T06:37:14+09:00",
+  "updated_at_kst": "2026-10-09T06:37:13+09:00",
   "field_definitions": {
     "report_date": "보고일",
     "stock_code": "종목코드",
@@ -1010,6 +1010,18 @@
       "sources": [
         "네이버페이 증권 국내 일별 OHLC",
         "daily-briefing-20261007.html"
+      ]
+    },
+    {
+      "report_date": "2026-10-09",
+      "published_prediction_count": 0,
+      "decision": "오늘은 추천 없음 — 현금 관망",
+      "reason": "한글날 국내 증시 휴장으로 당일 시가 진입·호가 유동성·장중 수급 및 75점/60%/손익비 1.5 문턱 검증 불가",
+      "prior_formal_recommendation_count": 0,
+      "prior_watchlist_observations": [],
+      "sources": [
+        "네이버페이 증권 국내 일별 OHLC",
+        "daily-briefing-20261008.html"
       ]
     }
   ]
