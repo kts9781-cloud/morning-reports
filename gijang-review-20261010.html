@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="기장비서AI 1차 개선 현황 공개용 요약. 담당 AI 자체 검사 완료, 메스 독립 검수 대기, 서비스 미배포 상태입니다.">
+  <title>기장비서AI 1차 개선 현황</title>
+  <style>
+    :root{color-scheme:light;--ink:#19334a;--muted:#52677a;--paper:#f3f6fa;--line:#d5dfe8;--blue:#194f87;--teal:#11685e;--amber:#82501a;--red:#9e3640}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-size:17px;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
+    a{color:var(--blue)}
+    a:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:5px}
+    .skip{position:absolute;left:16px;top:-100px;background:white;padding:8px 16px;z-index:5}.skip:focus{top:8px}
+    .page{max-width:1120px;margin:auto;padding:32px 32px 48px}
+    .masthead{display:flex;justify-content:space-between;align-items:center;gap:14px;padding-bottom:20px;font-size:14px;color:var(--muted)}
+    .brand{font-weight:800;letter-spacing:.03em;color:var(--blue)}
+    .status-strip{display:flex;flex-wrap:wrap;gap:10px;padding:16px 20px;background:#e7eef7;border:1px solid #c1d1e3;border-radius:12px;font-size:15px;font-weight:800}
+    .pill{display:inline-flex;align-items:center;gap:8px;border-radius:6px;padding:3px 9px;font-size:13px;font-weight:800;line-height:1.6}
+    .pill:before{content:"";width:7px;height:7px;flex-shrink:0;border-radius:50%;background:currentColor}
+    .done{background:#e3f1ec;color:var(--teal)}.wait{background:#fff0d9;color:var(--amber)}.decision{background:#ebeafb;color:#584477}.off{background:#e9edf1;color:#465b6d}.issue{background:#fae7e9;color:var(--red)}
+    .hero{padding:34px 0 28px;display:grid;grid-template-columns:1.55fr 1fr;gap:36px;align-items:end}
+    .eyebrow{font-size:14px;font-weight:800;color:var(--blue);margin:0 0 10px}
+    h1{font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-size:clamp(32px,4.1vw,48px);line-height:1.23;letter-spacing:-.045em;margin:0 0 18px;font-weight:850}
+    .conclusion{font-size:21px;line-height:1.6;margin:0;font-weight:700;letter-spacing:-.025em}
+    .hero-note{border-left:3px solid var(--blue);padding-left:20px;margin:0;color:var(--muted);font-size:16px}
+    .hero-note strong{color:var(--ink)}
+    .status-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+    .status-card{background:white;border:1px solid var(--line);border-radius:12px;padding:20px}
+    .status-card h2{font-size:19px;line-height:1.5;margin:12px 0 6px}
+    .status-card p{font-size:15px;color:var(--muted);margin:0}
+    .notice{border:1px solid #e4c298;border-radius:10px;background:#fff6e9;padding:16px 20px;font-size:16px;margin:0}
+    section{margin-top:46px}
+    .section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+    .section-head h2{font-size:26px;line-height:1.4;margin:0;letter-spacing:-.03em}
+    .section-head p{margin:0;font-size:14px;color:var(--muted)}
+    .source{color:var(--muted);font-size:15px;margin:10px 0 20px}
+    .cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .case{background:white;border:1px solid var(--line);border-radius:12px;padding:24px}
+    .case h3{font-size:22px;line-height:1.4;letter-spacing:-.025em;margin:0 0 18px}
+    dl{margin:0} .case dl>div{display:grid;grid-template-columns:78px 1fr;gap:12px;margin-top:11px}
+    dt{font-weight:800;font-size:14px;color:var(--muted);padding-top:2px}dd{margin:0;font-size:16px}
+    .case .verification{border-top:1px solid var(--line);margin-top:18px;padding-top:14px;display:block}
+    .verification dt{margin-bottom:6px}.verification dd{font-size:14px;color:var(--muted)}
+    .case:last-child{grid-column:1 / -1}
+    .test-panel{background:white;border:1px solid var(--line);border-radius:12px;padding:24px}
+    .test-panel p{margin:0 0 16px}
+    .test-summary{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .test-item{background:var(--paper);padding:18px;border-radius:8px}.test-item strong{display:block;font-size:20px;margin-bottom:6px}.test-item p{font-size:15px;color:var(--muted);margin:0}
+    details{margin-top:22px;border-top:1px solid var(--line);padding-top:16px}
+    summary{cursor:pointer;font-weight:800;color:var(--blue);padding:4px 0;min-height:44px}
+    .details-body{padding:12px 0 0;font-size:15px}.details-body ul{padding-left:22px;margin:0}.details-body li{margin-bottom:12px}
+    .next-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .next-card{border-top:4px solid var(--blue);background:white;border-radius:3px 3px 12px 12px;padding:22px;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .next-card:nth-child(2){border-top-color:#786094}.next-card:nth-child(3){border-top-color:#607788}
+    .next-card h3{font-size:20px;line-height:1.4;margin:0 0 12px}.next-card ul{margin:0;padding-left:20px;color:var(--muted);font-size:16px}.next-card li+li{margin-top:8px}
+    .boundary{margin-top:24px;padding:18px 22px;border:1px solid var(--line);border-radius:10px;color:var(--muted);font-size:15px}.boundary strong{color:var(--ink)}
+    footer{border-top:1px solid var(--line);margin-top:40px;padding-top:18px;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:12px}
+    @media(max-width:800px){.hero{grid-template-columns:1fr;gap:20px}.status-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.next-grid{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:6px}}
+    @media(max-width:560px){body{font-size:16px}.page{padding:20px 20px 32px}.masthead{align-items:flex-start;font-size:12px}.status-strip{padding:12px;gap:8px}.status-strip>.pill{font-size:12px}.hero{padding-top:26px;gap:18px}h1{font-size:34px;max-width:320px}.conclusion{font-size:19px}.hero-note{font-size:15px;padding-left:14px}.status-grid{gap:10px}.status-card{padding:16px 14px}.status-card h2{font-size:17px}.status-card p{font-size:14px}.notice{padding:15px;font-size:15px}.cases{grid-template-columns:1fr}.case:last-child{grid-column:auto}.case{padding:22px 18px}.case h3{font-size:21px}.case dl>div{grid-template-columns:68px 1fr;gap:10px}.test-panel{padding:20px 18px}.test-summary{grid-template-columns:1fr}.section-head h2{font-size:24px}section{margin-top:36px}footer{display:block}footer span{display:block;margin-top:4px}}
+    @media print{body{background:white}.page{max-width:none;padding:0}.skip{display:none}.case,.status-card,.next-card{break-inside:avoid}summary{color:var(--ink)}}
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip">본문으로 이동</a>
+  <div class="page">
+    <header class="masthead"><span class="brand">기장비서AI · 개선 현황</span><time datetime="2026-10-10">작성일 2026.10.10</time></header>
+    <main id="main">
+      <div class="status-strip" aria-label="현재 상태">
+        <span class="pill done">담당 AI 자체 검사 완료</span>
+        <span class="pill wait">메스 독립 검수 대기</span>
+        <span class="pill off">서비스 미배포 상태</span>
+      </div>
+      <div class="hero">
+        <div><p class="eyebrow">공개용 요약 · 1차 수정 보고</p><h1>기장비서AI<br>1차 개선 현황</h1><p class="conclusion">로컬 수정은 보고됐으며,<br>독립 검수와 실제 서비스 반영은 남아 있습니다.</p></div>
+        <p class="hero-note"><strong>담당 Claude 보고 기준</strong><br>감사 항목 <strong>22건</strong>과 부수 <strong>2건</strong>의 로컬 수정을 보고했습니다. 아래 내용은 담당 AI의 보고를 정리한 것으로, 최종 검수 완료를 뜻하지 않습니다.</p>
+      </div>
+      <div class="status-grid" aria-label="상태별 요약">
+        <article class="status-card"><span class="pill done">완료 · 담당 보고</span><h2>자체 검사 실행</h2><p>담당 AI가 검사 완료를 보고했습니다. 실패 2건은 남아 있습니다.</p></article>
+        <article class="status-card"><span class="pill wait">검수 대기</span><h2>메스 확인 전</h2><p>메스 코드 검토와 검사 재실행, 실기기 확인이 필요합니다.</p></article>
+        <article class="status-card"><span class="pill decision">결정 필요</span><h2>회계·정책 판단</h2><p>대표님 판단이 필요한 사항이 남아 있습니다.</p></article>
+        <article class="status-card"><span class="pill off">미배포</span><h2>서비스 반영 전</h2><p>현재는 로컬 코드 수정 단계입니다. 실제 앱·서비스에는 반영되지 않았습니다.</p></article>
+      </div>
+      <p class="notice"><strong>확인이 더 필요합니다.</strong> 기존 검사 23개 중 2개 실패가 남았습니다. 메스는 담당 AI의 검사 결과를 아직 재실행하지 않았습니다.</p>
+
+      <section aria-labelledby="cases-heading">
+        <div class="section-head"><h2 id="cases-heading">사용자가 체감할 주요 변화</h2><p>아래 개선 사례 모두 담당 Claude 보고 기준</p></div>
+        <p class="source">아래 이점은 수정이 검증되고 서비스에 반영된 뒤 기대되는 변화입니다.</p>
+        <div class="cases">
+          <article class="case"><h3>거래가 많아도 빠짐없이 살펴보기</h3><dl>
+            <div><dt>이전 불편</dt><dd>거래가 많을 때 조회 결과에서 일부가 빠지는 문제가 있었습니다.</dd></div>
+            <div><dt>이번 변화</dt><dd>많은 거래를 불러오는 조회 처리를 개선했다고 보고했습니다.</dd></div>
+            <div><dt>사용자 이점</dt><dd>거래 내역을 더 빠짐없이 확인하는 데 도움이 됩니다.</dd></div>
+            <div class="verification"><dt><span class="pill wait">검증 수준 · 담당 보고</span></dt><dd>로컬 수정 보고. 메스 독립 검수와 실제 사용 환경 확인은 대기 중입니다.</dd></div>
+          </dl></article>
+          <article class="case"><h3>“3만5000원”도 금액으로 이해하기</h3><dl>
+            <div><dt>이전 불편</dt><dd>한글과 숫자가 섞인 금액 표현을 알아듣는 데 보완이 필요했습니다.</dd></div>
+            <div><dt>이번 변화</dt><dd>“3만5000원” 같은 복합 금액의 인식 처리를 개선했다고 보고했습니다.</dd></div>
+            <div><dt>사용자 이점</dt><dd>평소 쓰는 금액 표현으로 입력하기가 더 편해집니다.</dd></div>
+            <div class="verification"><dt><span class="pill wait">검증 수준 · 담당 보고</span></dt><dd>로컬 수정 보고. 메스 독립 검수와 실제 사용 환경 확인은 대기 중입니다.</dd></div>
+          </dl></article>
+          <article class="case"><h3>같은 카드대금의 중복 반영 줄이기</h3><dl>
+            <div><dt>이전 불편</dt><dd>같은 카드대금이 중복 반영되지 않도록 추가 방어가 필요했습니다.</dd></div>
+            <div><dt>이번 변화</dt><dd>중복 반영을 막는 방어 처리를 보강했다고 보고했습니다.</dd></div>
+            <div><dt>사용자 이점</dt><dd>같은 대금이 여러 번 잡히는 실수를 줄이는 데 도움이 됩니다.</dd></div>
+            <div class="verification"><dt><span class="pill wait">검증 수준 · 추가 확인 필요</span></dt><dd>로컬 수정 보고. 여러 기기에서 동시에 사용할 때까지 완전히 해결됐다는 뜻은 아닙니다. 메스 독립 검수 대기입니다.</dd></div>
+          </dl></article>
+          <article class="case"><h3>납부 마감일의 주말 처리 보완</h3><dl>
+            <div><dt>이전 불편</dt><dd>납부 마감일이 주말과 겹칠 때의 처리를 보완할 필요가 있었습니다.</dd></div>
+            <div><dt>이번 변화</dt><dd>납부 마감일의 주말 처리를 보완했다고 보고했습니다.</dd></div>
+            <div><dt>사용자 이점</dt><dd>납부 일정을 확인할 때 혼란을 줄이는 데 도움이 됩니다.</dd></div>
+            <div class="verification"><dt><span class="pill wait">검증 수준 · 담당 보고</span></dt><dd>로컬 수정 보고. 회계·정책 판단과 메스 검토가 남아 있습니다.</dd></div>
+          </dl></article>
+          <article class="case"><h3>접는 휴대전화에서 화면 설정 유지하기</h3><dl>
+            <div><dt>이전 불편</dt><dd>접는 휴대전화(폴더블)에서 화면 설정을 유지하는 처리를 보완할 필요가 있었습니다.</dd></div>
+            <div><dt>이번 변화</dt><dd>폴더블 화면의 설정 유지 처리를 보완했다고 보고했습니다.</dd></div>
+            <div><dt>사용자 이점</dt><dd>설정한 화면 상태를 이어서 사용하는 데 도움이 됩니다.</dd></div>
+            <div class="verification"><dt><span class="pill wait">검증 수준 · 실기기 확인 대기</span></dt><dd>로컬 수정 보고. 실제 접는 휴대전화 확인과 메스 독립 검수가 남아 있습니다.</dd></div>
+          </dl></article>
+        </div>
+      </section>
+
+      <section aria-labelledby="checks-heading">
+        <div class="section-head"><h2 id="checks-heading">자체 검사에서 보고된 결과</h2><p>담당 Claude 보고 · 메스 재실행 전</p></div>
+        <div class="test-panel">
+          <p><strong>검사 실행 완료와 모든 검사 통과는 다릅니다.</strong><br>아래 결과는 담당 AI의 자체 검사 보고이며, 메스가 검증 완료한 결과가 아닙니다.</p>
+          <div class="test-summary">
+            <div class="test-item"><strong>통과를 보고한 검사</strong><p>코드 형식 검사와 일부 자동 검사, 새로 추가한 재발 방지 검사 파일의 통과를 보고했습니다.</p></div>
+            <div class="test-item"><span class="pill issue">실패 2건 잔여</span><strong>기존 검사 일부 실패</strong><p>기존 자동 검사 23개 중 21개 통과, 2개 실패를 보고했습니다. 실패 원인 설명도 메스 확인이 필요합니다.</p></div>
+          </div>
+          <details id="technical-checks">
+            <summary>검사 이름과 수치 자세히 보기</summary>
+            <div class="details-body"><ul>
+              <li><strong>코드 형식 검사(TypeScript):</strong> 통과 보고.</li>
+              <li><strong>자동 검사(Deno 테스트):</strong> 10/10 통과 보고.</li>
+              <li><strong>기존 자동 검사(Node 테스트):</strong> 21/23 통과 보고. 2개 실패 잔여.</li>
+              <li><strong>실패 원인에 대한 담당 AI 설명:</strong> 기존 테스트 실행 경로 문제라는 설명입니다. 메스가 재실행하거나 확인한 내용은 아닙니다.</li>
+              <li><strong>새 재발 방지 검사(신규 회귀 검사):</strong> 검사 파일 5개 통과 보고. 개별 검사 개수로 환산하지 않았습니다.</li>
+            </ul></div>
+          </details>
+        </div>
+      </section>
+
+      <section aria-labelledby="next-heading">
+        <div class="section-head"><h2 id="next-heading">다음에 해야 할 일</h2><p>최종 검수와 배포 판단은 남아 있습니다</p></div>
+        <div class="next-grid">
+          <article class="next-card"><h3>메스가 할 일</h3><ul><li>변경된 코드 독립 검토</li><li>담당 AI 검사 재실행 및 실패 2건 확인</li><li>실기기 확인과 남은 개선 항목 점검</li></ul></article>
+          <article class="next-card"><h3>대표님 결정 필요</h3><ul><li>회계 처리 관련 판단</li><li>서비스 정책 관련 판단</li><li>아직 시작하지 않은 개선 항목의 우선순위</li></ul></article>
+          <article class="next-card"><h3>향후 배포</h3><ul><li>검수·결정 사항을 확인한 뒤 배포 여부 판단</li><li>승인된 내용을 실제 앱·서비스에 반영</li><li>반영 후 실제 동작 확인</li></ul></article>
+        </div>
+        <div class="boundary"><strong>민감한 내용 없는 공유용 요약입니다.</strong><br>이 페이지는 공개용으로 제공된 담당 Claude의 보고 요약만 정리했습니다. 모든 문제가 해결됐거나 출시 가능한 상태라는 의미가 아닙니다.</div>
+      </section>
+    </main>
+    <footer><span>기장비서AI 1차 개선 현황 · 공개용 요약</span><span>담당 보고 정리 / 독립 검수 대기 / 서비스 미배포</span></footer>
+  </div>
+</body>
+</html>
