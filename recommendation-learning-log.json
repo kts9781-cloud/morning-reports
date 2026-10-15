@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at_kst": "2026-10-15T06:33:41+09:00",
+  "updated_at_kst": "2026-10-16T06:34:41+09:00",
   "field_definitions": {
     "report_date": "보고일",
     "stock_code": "종목코드",
@@ -1094,6 +1094,18 @@
       "sources": [
         "네이버페이 증권 국내 일별 OHLC",
         "daily-briefing-20261014.html"
+      ]
+    },
+    {
+      "report_date": "2026-10-16",
+      "published_prediction_count": 0,
+      "decision": "오늘은 추천 없음 — 현금 관망",
+      "reason": "전일 KOSPI·KOSDAQ 7%대 급락으로 정상 변동성·손익비 추정 곤란, 06:30 장전 시가·호가 미형성 및 수급·컨센서스·30건 보정 표본과 75점/60%/손익비 1.5 문턱 동시 검증 불가",
+      "prior_formal_recommendation_count": 0,
+      "prior_watchlist_observations": [],
+      "sources": [
+        "네이버페이 증권 국내 일별 OHLC",
+        "daily-briefing-20261015.html"
       ]
     }
   ]
