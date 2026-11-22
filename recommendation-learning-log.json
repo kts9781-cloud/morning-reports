@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at_kst": "2026-11-22T06:33:37+09:00",
+  "updated_at_kst": "2026-11-23T06:35:42+09:00",
   "field_definitions": {
     "report_date": "보고일",
     "stock_code": "종목코드",
@@ -1490,6 +1490,18 @@
       "sources": [
         "네이버페이 증권 국내 일별 OHLC",
         "daily-briefing-20261121.html"
+      ]
+    },
+    {
+      "report_date": "2026-11-23",
+      "published_prediction_count": 0,
+      "decision": "오늘은 추천 없음 — 현금 관망",
+      "reason": "장전 시점 나스닥 5.28%·KOSPI 5.21% 급락과 AI 반도체 두 자릿수 하락으로 당일 시가·실시간 수급 및 30건 보정 표본과 75점/60%/손익비 1.5 문턱 동시 검증 불가",
+      "prior_formal_recommendation_count": 0,
+      "prior_watchlist_observations": [],
+      "sources": [
+        "네이버페이 증권 국내 일별 OHLC",
+        "daily-briefing-20261122.html"
       ]
     }
   ]
