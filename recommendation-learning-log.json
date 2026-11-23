@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at_kst": "2026-11-23T06:35:42+09:00",
+  "updated_at_kst": "2026-11-24T06:35:30+09:00",
   "field_definitions": {
     "report_date": "보고일",
     "stock_code": "종목코드",
@@ -1502,6 +1502,18 @@
       "sources": [
         "네이버페이 증권 국내 일별 OHLC",
         "daily-briefing-20261122.html"
+      ]
+    },
+    {
+      "report_date": "2026-11-24",
+      "published_prediction_count": 0,
+      "decision": "오늘은 추천 없음 — 현금 관망",
+      "reason": "미국 AI 반도체 급반등에 따른 장전 급등 예상과 전일 국내 급락으로 가격 왜곡이 커 당일 시가·실시간 수급, 30건 보정 표본 및 75점/60%/손익비 1.5 문턱 동시 검증 불가",
+      "prior_formal_recommendation_count": 0,
+      "prior_watchlist_observations": [],
+      "sources": [
+        "네이버페이 증권 국내 일별 OHLC",
+        "daily-briefing-20261123.html"
       ]
     }
   ]
