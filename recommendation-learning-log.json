@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at_kst": "2026-11-26T06:36:06+09:00",
+  "updated_at_kst": "2026-11-27T06:35:59+09:00",
   "field_definitions": {
     "report_date": "보고일",
     "stock_code": "종목코드",
@@ -1538,6 +1538,18 @@
       "sources": [
         "네이버페이 증권 국내 일별 OHLC",
         "daily-briefing-20261125.html"
+      ]
+    },
+    {
+      "report_date": "2026-11-27",
+      "published_prediction_count": 0,
+      "decision": "오늘은 추천 없음 — 현금 관망",
+      "reason": "미국 추수감사절 휴장으로 새 종가 신호가 없고 전일 KOSPI가 시가 대비 약세여서 30건 보정 표본 및 75점/60%/손익비 1.5 문턱 동시 검증 불가",
+      "prior_formal_recommendation_count": 0,
+      "prior_watchlist_observations": [],
+      "sources": [
+        "네이버페이 증권 국내 일별 OHLC",
+        "daily-briefing-20261126.html"
       ]
     }
   ]
